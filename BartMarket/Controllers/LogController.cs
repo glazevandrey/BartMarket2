@@ -7,7 +7,6 @@ namespace BartMarket.Controllers
 {
     [ApiController]
     [Route("api/log")]
-    [Authorize]
     public class LogController : Controller
     {
         public string Index()
