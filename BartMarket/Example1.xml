@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="2022-09-26 05:20">
+	<shop>
+		<name>Don Plafon</name>
+		<company>Don Plafon</company>
+		<url>https://donplafon.ru</url>
+		<platform>1C-Bitrix</platform>
+		<currencies>
+			<currency id="RUB" rate="1"/>
+		</currencies>
+		<categories>
+			<category ordering="6" url="https://donplafon.ru/catalog/torshery/" id="21">Торшеры</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/predmety_interera/" id="175">Предметы интерьера</category>
+			<category ordering="3" url="https://donplafon.ru/catalog/bra/" id="33">Бра и подсветки</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/rasprodazha_utsenennykh_tovarov/" id="211">Витринные образцы</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/" id="158">Электротовары</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/laytboksy/" id="159">Лайтбоксы</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/trekovye_sistemy/" id="283">Трековые системы</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/lampochki/" id="162">Лампочки</category>
+			<category ordering="1" url="https://donplafon.ru/catalog/lyustry/" id="26">Люстры</category>
+			<category ordering="5" url="https://donplafon.ru/catalog/nastolnye/" id="50">Настольные лампы</category>
+			<category ordering="6" url="https://donplafon.ru/catalog/ulichnoe-osveshenie/" id="37">Уличное освещение</category>
+			<category ordering="4" url="https://donplafon.ru/catalog/spoty/" id="47">Споты</category>
+			<category ordering="2" url="https://donplafon.ru/catalog/svetilniki/" id="43">Светильники</category>
+			<category ordering="495" url="https://donplafon.ru/catalog/lyustry/bolshie_lyustry/" id="183" parentId="26">Большие люстры</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/datchiki_dvizheniya/" id="198" parentId="158">Датчики движения</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/lampochki/retro_lampy/" id="182" parentId="162">Ретро-лампы</category>
+			<category ordering="493" url="https://donplafon.ru/catalog/lyustry/khrustalnye_lyustry/" id="187" parentId="26">Хрустальные люстры</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/komplektuyushchie/" id="212" parentId="158">Комплектующие</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/laytboksy/chasy/" id="178" parentId="159">Часы</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/predmety_interera/postery/" id="188" parentId="175">Постеры</category>
+			<category ordering="494" url="https://donplafon.ru/catalog/svetilniki/gipsovye_svetilniki/" id="189" parentId="43">Гипсовые светильники</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/ulichnoe-osveshenie/fonariki/" id="191" parentId="37">Фонарики</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/zvonki/" id="192" parentId="158">Звонки</category>
+			<category ordering="493" url="https://donplafon.ru/catalog/svetilniki/nastenno_potolochnye/" id="193" parentId="43">Настенно-потолочные светильники</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/predmety_interera/vazy/" id="177" parentId="175">Вазы</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/bra/gibkie_bra/" id="195" parentId="33">Гибкие бра</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/lyustry/lyustry_na_shtange/" id="196" parentId="26">Люстры на штанге</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/torshery/na_trenoge/" id="197" parentId="21">На треноге</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/shnury_udliniteli/" id="203" parentId="158">Шнуры, удлинители</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/lampochki/filamentnye/" id="199" parentId="162">Филаментные</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/ulichnoe-osveshenie/girlyandy_ulichnye/" id="221" parentId="37">Гирлянды уличные</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/trekovye_sistemy/shinoprovody/" id="287" parentId="283">Шинопроводы</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/trekovye_sistemy/strunnye_svetilniki/" id="286" parentId="283">Струнные светильники</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/trekovye_sistemy/trekovye_svetilniki/" id="285" parentId="283">Трековые светильники</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/trekovye_sistemy/sistemy_v_sbore/" id="284" parentId="283">Системы в сборе</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/ulichnoe-osveshenie/ulichnye_potolochnye/" id="224" parentId="37">Уличные потолочные светильники</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/ulichnoe-osveshenie/ulichnye_podvesnye/" id="223" parentId="37">Уличные подвесные светильники</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/ulichnoe-osveshenie/ulichnye_nastennye/" id="222" parentId="37">Уличные настенные светильники</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/predmety_interera/zerkala/" id="219" parentId="175">Зеркала</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/spoty/vstraivaemye_spoty/" id="200" parentId="47">Встраиваемые споты</category>
+			<category ordering="503" url="https://donplafon.ru/catalog/bra/podsvetka_dlya_lestnits_i_stupeney/" id="218" parentId="33">Подсветка для лестниц и ступеней</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/girlyandy/" id="210" parentId="158">Гирлянды</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/svetilniki/dlya_rasteniy/" id="209" parentId="43">Для растений</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/stabilizatory/" id="206" parentId="158">Стабилизаторы</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/torshery/so_stolikom/" id="205" parentId="21">Со столиком</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/spoty/nakladnye_spoty/" id="204" parentId="47">Накладные споты</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/torshery/izognutye/" id="202" parentId="21">Изогнутые</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/torshery/dlya_chteniya/" id="201" parentId="21">Для чтения</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/svetodiodnye_lenty/" id="174" parentId="158">Светодиодные ленты</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/lampochki/tekhnicheskie/" id="173" parentId="162">Технические</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/ramki_dlya_rozetok/" id="172" parentId="158">Рамки для розеток</category>
+			<category ordering="501" url="https://donplafon.ru/catalog/bra/podsvetka_zerkal/" id="96" parentId="33">Подсветка для зеркал</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/torshery/s_2_i_bolee_plafonami/" id="125" parentId="21">С 2 и более плафонами</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/torshery/tor_s_1_plafonom/" id="124" parentId="21">С 1 плафоном</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/ulichnoe-osveshenie/na_solnechnykh_batareyakh/" id="119" parentId="37">На солнечных батареях</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/ulichnoe-osveshenie/parkovye/" id="109" parentId="37">Парковые светильники</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/ulichnoe-osveshenie/arkhitekturnye/" id="108" parentId="37">Архитектурные светильники</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/ulichnoe-osveshenie/landshaftnye/" id="107" parentId="37">Ландшафтные светильники</category>
+			<category ordering="496" url="https://donplafon.ru/catalog/svetilniki/vstraivaemye-svetilniki/" id="104" parentId="43">Встраиваемые светильники</category>
+			<category ordering="492" url="https://donplafon.ru/catalog/svetilniki/nastennye-svetilniki/" id="98" parentId="43">Настенные светильники</category>
+			<category ordering="502" url="https://donplafon.ru/catalog/bra/podsvetka_kartin/" id="97" parentId="33">Подсветка для картин</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/ulichnoe-osveshenie/prozhektory/" id="93" parentId="37">Прожекторы</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/spoty/spot_s_2_plafonami/" id="127" parentId="47">С 2 плафонами</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/bra/s_3_plafonami/" id="88" parentId="33">С 3 плафонами</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/bra/s_2_plafonami/" id="87" parentId="33">С 2 плафонами</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/bra/s_1_plafonom/" id="86" parentId="33">С 1 плафоном</category>
+			<category ordering="492" url="https://donplafon.ru/catalog/lyustry/kaskady/" id="85" parentId="26">Каскадные люстры</category>
+			<category ordering="495" url="https://donplafon.ru/catalog/svetilniki/nakladnye/" id="83" parentId="43">Накладные светильники</category>
+			<category ordering="491" url="https://donplafon.ru/catalog/svetilniki/potolochnye-svetilniki/" id="81" parentId="43">Потолочные светильники</category>
+			<category ordering="490" url="https://donplafon.ru/catalog/svetilniki/podvesnye-svetilniki/" id="80" parentId="43">Подвесные светильники</category>
+			<category ordering="491" url="https://donplafon.ru/catalog/lyustry/podvesnye/" id="79" parentId="26">Подвесные люстры</category>
+			<category ordering="490" url="https://donplafon.ru/catalog/lyustry/potolochnye/" id="78" parentId="26">Потолочные люстры</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/dimmery/" id="171" parentId="158">Диммеры</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/spoty/spot_s_1_plafonom/" id="126" parentId="47">С 1 плафоном</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/spoty/s_3_i_bolee_plafonami/" id="128" parentId="47">С 3 и более плафонами</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/nastolnye/ofisnye/" id="129" parentId="50">Офисные</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/vyklyuchateli/" id="170" parentId="158">Выключатели</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/rozetki/" id="169" parentId="158">Розетки</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/lampochki/dimmiruemye/" id="168" parentId="162">Диммируемые</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/lampochki/galogennye/" id="166" parentId="162">Галогенные</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/lampochki/energosberegayushchie/" id="165" parentId="162">Энергосберегающие</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/lampochki/nakalivaniya/" id="164" parentId="162">Накаливания</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/lampochki/svetodiodnye/" id="163" parentId="162">Светодиодные</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/trekovye_sistemy/komplektuyushchie_k_trekam/" id="288" parentId="283">Комплектующие к трекам</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/svetilniki/mebelnye/" id="135" parentId="43">Мебельные светильники</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/nastolnye/na_strubtsine/" id="130" parentId="50">На струбцине</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/nastolnye/na_prishchepke/" id="131" parentId="50">На прищепке</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/laytboksy/kvadratnye/" id="160" parentId="159">Квадратные</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/nastolnye/detskie/" id="132" parentId="50">Детские</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/nastolnye/dekorativnye-lampy/" id="133" parentId="50">Декоративные</category>
+			<category ordering="497" url="https://donplafon.ru/catalog/svetilniki/tochechnye/" id="136" parentId="43">Точечные светильники</category>
+			<category ordering="494" url="https://donplafon.ru/catalog/lyustry/lyustry_ventilyatory/" id="134" parentId="26">Люстры-вентиляторы</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/komplektuyushchie/patrony/" id="180" parentId="212">Патроны</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/komplektuyushchie/bloki_pitaniya/" id="179" parentId="212">Блоки питания</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/komplektuyushchie/upravlenie_svetom/" id="186" parentId="212">Управление светом</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/komplektuyushchie/profil_dlya_lenty/" id="181" parentId="212">Профиль для ленты</category>
+			<category ordering="497" url="https://donplafon.ru/catalog/electro/komplektuyushchie/plafony_i_abazhury/" id="185" parentId="212">Плафоны и абажуры</category>
+			<category ordering="496" url="https://donplafon.ru/catalog/electro/komplektuyushchie/lifty_dlya_lyustr/" id="184" parentId="212">Лифты для люстр</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/komplektuyushchie/podvesnye_komplekty/" id="217" parentId="212">Подвесные комплекты</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/komplektuyushchie/otrazhateli_i_rasseivateli/" id="216" parentId="212">Отражатели и рассеиватели</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/komplektuyushchie/krepleniya/" id="214" parentId="212">Крепления</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/komplektuyushchie/koltsa_i_ramki/" id="213" parentId="212">Кольца и рамки</category>
+			<category ordering="500" url="https://donplafon.ru/catalog/electro/komplektuyushchie/osnovaniya_dlya_svetilnikov/" id="215" parentId="212">Основания для светильников</category>
+		</categories>
+		<offers>
+			<offer id="52566" available="false">
+				<name>Подсветка для зеркал Eglo Kio 83732</name>
+				<vendor>Eglo</vendor>
+				<vendorCode>83732</vendorCode>
+				<snippet>83732</snippet>
+				<url>https://donplafon.ru/products/Podsvetka_dlya_zerkal_Eglo_Kio_83732/</url>
+				<price>4590</price>
+				<categoryId>96</categoryId>
+				<picture>https://donplafon.ru/upload/iblock/a87/a878e2ab7716edfa522ccb27e3db14be.jpeg</picture>
+				<currencyId>RUB</currencyId>
+				<presence>Уточняйте у менеджера</presence>
+				<ordering>60</ordering>
+				<param filter="true" name="Высота, мм">50</param>
+				<param filter="true" name="Глубина, мм">75</param>
+				<param filter="true" name="Ширина, мм">300</param>
+				<param filter="true" name="Вид ламп">Галогеновая</param>
+				<param filter="true" name="Цоколь">G9</param>
+				<param filter="true" name="Количество ламп">2</param>
+				<param filter="true" name="Мощность лампы, W">33</param>
+				<param filter="true" name="Общая мощность, W">66</param>
+				<param filter="true" name="Напряжение">230</param>
+				<param filter="true" name="Материал плафона/абажура">Стекло</param>
+				<param filter="true" name="Цвет плафона/абажура">Белый</param>
+				<param filter="true" name="Материал арматуры">Металл</param>
+				<param filter="true" name="Цвет арматуры">Хром</param>
+				<param filter="true" name="Стиль">Современный</param>
+				<param filter="true" name="Место в интерьере">Для спальни</param>
+				<param filter="true" name="Степень защиты (IP)">20</param>
+				<param filter="true" name="Возможность подключения диммера">Да</param>
+				<param filter="true" name="Артикул">83732</param>
+				<param filter="true" name="Коллекция">Kio</param>
+				<param filter="true" name="Комплектация">светильник</param>
+				<param filter="true" name="Коробка вес кг">0.578</param>
+				<param filter="true" name="Лампы в комплекте">Да</param>
+				<param filter="true" name="Поставщик (элемент инфоблока)">249362</param>
+				<param filter="true" name="Расположение">На стену</param>
+				<param filter="true" name="Страна">Австрия</param>
+				<param filter="true" name="ТНВЭД">9405109109</param>
+				<param filter="true" name="Форма плафона">Цилиндр</param>
+				<param filter="true" name="Штрих-код (служебное)">9002759837327</param>
+				<param filter="true" name="Коробка вес гр">578</param>
+				<param filter="true" name="Коробка высота">78</param>
+				<param filter="true" name="Коробка длина">177</param>
+				<param filter="true" name="Коробка ширина">148</param>
+				<param filter="true" name="Производитель">Eglo</param>
+			</offer>
+			<offer id="52569" available="false">
+				<name>Подсветка для зеркал Eglo Granada 85816</name>
+				<vendor>Eglo</vendor>
+				<vendorCode>85816</vendorCode>
+				<snippet>85816</snippet>
+				<url>https://donplafon.ru/products/Podsvetka_dlya_zerkal_Eglo_Granada_85816/</url>
+				<price>2390</price>
+				<oldprice>3890</oldprice>
+				<categoryId>96</categoryId>
+				<picture>https://donplafon.ru/upload/iblock/3b9/3b9747683765f23c9f913a69052d99ba.jpeg</picture>
+				<picture>https://donplafon.ru/upload/iblock/c07/c074c9e8b1e0dca5547953254ec1893d.jpeg</picture>
+				<currencyId>RUB</currencyId>
+				<presence>Уточняйте у менеджера</presence>
+				<ordering>60</ordering>
+				<param filter="true" name="Высота, мм">145</param>
+				<param filter="true" name="Глубина, мм">122</param>
+				<param filter="true" name="Ширина, мм">295</param>
+				<param filter="true" name="Вид ламп">Галогеновая</param>
+				<param filter="true" name="Цоколь">G9</param>
+				<param filter="true" name="Количество ламп">2</param>
+				<param filter="true" name="Мощность лампы, W">33</param>
+				<param filter="true" name="Общая мощность, W">66</param>
+				<param filter="true" name="Напряжение">230</param>
+				<param filter="true" name="Материал плафона/абажура">Стекло</param>
+				<param filter="true" name="Цвет плафона/абажура">Белый</param>
+				<param filter="true" name="Материал арматуры">Металл</param>
+				<param filter="true" name="Цвет арматуры">Хром</param>
+				<param filter="true" name="Стиль">Современный</param>
+				<param filter="true" name="Направление абажуров/плафонов">В стороны</param>
+				<param filter="true" name="Место в интерьере">Для спальни</param>
+				<param filter="true" name="Степень защиты (IP)">20</param>
+				<param filter="true" name="Возможность подключения диммера">Да</param>
+				<param filter="true" name="Артикул">85816</param>
+				<param filter="true" name="Выгода">1500</param>
+				<param filter="true" name="Коллекция">Granada</param>
+				<param filter="true" name="Коробка вес кг">0.526</param>
+				<param filter="true" name="Лампы в комплекте">Да</param>
+				<param filter="true" name="Поставщик (элемент инфоблока)">249362</param>
+				<param filter="true" name="Расположение">На стену</param>
+				<param filter="true" name="Старая цена">3890</param>
+				<param filter="true" name="Страна">Австрия</param>
+				<param filter="true" name="ТНВЭД">9405109109</param>
+				<param filter="true" name="Форма плафона">Цилиндр</param>
+				<param filter="true" name="Штрих-код (служебное)">9002759858162</param>
+				<param filter="true" name="Коробка вес гр">526</param>
+				<param filter="true" name="Коробка высота">127</param>
+				<param filter="true" name="Коробка длина">142</param>
+				<param filter="true" name="Коробка ширина">137</param>
+				<param filter="true" name="Производитель">Eglo</param>
+			</offer>
+		</offers>
+	</shop>
+</yml_catalog>

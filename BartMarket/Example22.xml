@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="2022-10-11 21:15">
+	<shop>
+		<name>Don Plafon</name>
+		<company>Don Plafon</company>
+		<url>https://donplafon.ru</url>
+		<platform>1C-Bitrix</platform>
+		<currencies>
+			<currency id="RUB" rate="1"/>
+		</currencies>
+		<offers>
+			<offer id="52571" available="false">
+				<snippet>85832</snippet>
+				<price>2190</price>
+				<oldprice>2490</oldprice>
+				<quantity>0</quantity>
+				<currencyId>RUB</currencyId>
+			</offer>
+			<offer id="52581" available="true">
+				<snippet>82751</snippet>
+				<price>3290</price>
+				<oldprice>4090</oldprice>
+				<quantity>311</quantity>
+				<currencyId>RUB</currencyId>
+			</offer>
+			<offer id="52584" available="true">
+				<snippet>85859</snippet>
+				<price>3790</price>
+				<oldprice>4290</oldprice>
+				<quantity>63</quantity>
+				<currencyId>RUB</currencyId>
+			</offer>
+			<offer id="52602" available="true">
+				<snippet>49458</snippet>
+				<price>5590</price>
+				<oldprice>6590</oldprice>
+				<quantity>38</quantity>
+				<currencyId>RUB</currencyId>
+			</offer>
+			<offer id="52607" available="true">
+				<snippet>82752</snippet>
+				<price>5990</price>
+				<oldprice>6490</oldprice>
+				<quantity>1090</quantity>
+				<currencyId>RUB</currencyId>
+			</offer>
+			<offer id="52625" available="true">
+				<snippet>82748</snippet>
+				<price>18990</price>
+				<oldprice>22090</oldprice>
+				<quantity>165</quantity>
+				<currencyId>RUB</currencyId>
+			</offer>
+	</offers>
+	</shop>
+</yml_catalog>
