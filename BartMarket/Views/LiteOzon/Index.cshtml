@@ -9,44 +9,48 @@
         padding: 0;
     }
 </style>
-<label>Ссылка для копирования (и для озона) лайт фида:</label>
-<br />
-<input width="1500" value="@ViewData["URL1"]"/>
+<div align="center">
+    <label style="font-size:medium"><b>Ссылка для копирования (и для озона) лайт фида:</b></label>
+    <br />
+    <br />
 
-<br />
-<br />
+    <input size="52" value="@ViewData["URL1"]" />
 
-<label>Ссылка для скачивания лайт фида:</label>
-<br />
-<a href="~/content/liteozon.xml" download="liteozon.xml">Скачать</a>
+    <br />
+    <br />
 
-<hr/>
-<br />
-<br />
-<label>Ссылка для копирования полного фида:</label>
-<br />
-<input width="1500" value="@ViewData["URL2"]" />
+    <label style="font-size:medium"><b>Ссылка для скачивания лайт фида:</b></label>
+    <br />
+    <a href="~/content/liteozon.xml" download="liteozon.xml">Скачать</a>
 
-<br />
-<br />
+    <hr />
+    <br />
+    <br />
+    <label style="font-size:medium"><b>Ссылка для копирования полного фида:</b></label>
+    <br />
+    <input size="52" value="@ViewData["URL2"]" />
 
-<label>Ссылка для скачивания полного фида:</label>
-<br />
-<a href="~/content/fullozon.xml" download="fullozon.xml">Скачать</a>
+    <br />
+    <br />
 
-<hr />
-<br />
-<br />
+    <label style="font-size:medium"><b>Ссылка для скачивания полного фида:</b></label>
+    <br />
+    <a href="~/content/fullozon.xml" download="fullozon.xml">Скачать</a>
 
-@if (ViewData["SUCCESS"] != null)
-{
-    <script> alert("Формулы успешно сохранены");</script>
-}
-<form method="post" action="ozon">
-   
-    <input type="text" id="formula" name="formula" value="@ViewData["FORMULA"]"/>
-  
-    <button type="submit">Сохранить формулы</button>
+    <hr />
+    <br />
+    <br />
+
+    @if (ViewData["SUCCESS"] != null)
+    {
+        <script>alert("Формулы успешно сохранены");</script>
+    }
+    <form method="post" action="ozon">
+
+        <input type="text" size="42" id="formula" name="formula" value="@ViewData["FORMULA"]" />
+
+        <button type="submit">Сохранить формулы</button>
 
 
-</form>
+    </form>
+</div>

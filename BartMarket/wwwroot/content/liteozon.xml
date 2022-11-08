@@ -9,9 +9,9 @@
         <min_price>7004</min_price>
         <formula>(4590 + 1500) * 1.2;(4590 + 1500) * 1.5;(4590 + 1500) * 1.15;</formula>
         <outlets>
-          <outlet instock="DPN" />
-          <outlet instock="DPN2" />
-          <outlet instock="DPN3" />
+          <outlet instock="0" warehouse_name="DPN" />
+          <outlet instock="0" warehouse_name="DPN2" />
+          <outlet instock="0" warehouse_name="DPN3" />
         </outlets>
       </offer>
       <offer id="52569_DPN">
@@ -22,8 +22,8 @@
         <min_price>6198</min_price>
         <formula>(3890 + 1500) * 1.2;(3890 + 1500) * 1.5;(3890 + 1500) * 1.15;</formula>
         <outlets>
-          <outlet instock="DPN" />
-          <outlet instock="DPN3" />
+          <outlet instock="0" warehouse_name="DPN" />
+          <outlet instock="0" warehouse_name="DPN3" />
         </outlets>
       </offer>
     </offers>
