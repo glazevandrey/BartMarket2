@@ -1,0 +1,52 @@
+﻿
+<style>
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+</style>
+<label>Ссылка для копирования (и для озона) лайт фида:</label>
+<br />
+<input width="1500" value="@ViewData["URL1"]"/>
+
+<br />
+<br />
+
+<label>Ссылка для скачивания лайт фида:</label>
+<br />
+<a href="~/content/liteozon.xml" download="liteozon.xml">Скачать</a>
+
+<hr/>
+<br />
+<br />
+<label>Ссылка для копирования полного фида:</label>
+<br />
+<input width="1500" value="@ViewData["URL2"]" />
+
+<br />
+<br />
+
+<label>Ссылка для скачивания полного фида:</label>
+<br />
+<a href="~/content/fullozon.xml" download="fullozon.xml">Скачать</a>
+
+<hr />
+<br />
+<br />
+
+@if (ViewData["SUCCESS"] != null)
+{
+    <script> alert("Формулы успешно сохранены");</script>
+}
+<form method="post" action="ozon">
+   
+    <input type="text" id="formula" name="formula" value="@ViewData["FORMULA"]"/>
+  
+    <button type="submit">Сохранить формулы</button>
+
+
+</form>
