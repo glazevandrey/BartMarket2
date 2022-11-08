@@ -11,11 +11,10 @@
     "BartMarket": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:443"
+      "applicationUrl": "http://0.0.0.0:443"
     },
     "Docker": {
       "commandName": "Docker",
