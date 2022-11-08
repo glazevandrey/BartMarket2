@@ -206,7 +206,7 @@ namespace BartMarket
         }
         private static XmlAttribute CreateAndSetAttr(XmlDocument docNew, string name, string text)
         {
-            var inst = docNew.CreateAttribute("instock");
+            var inst = docNew.CreateAttribute(name);
             var insnode = docNew.CreateTextNode(text);
             inst.AppendChild(insnode);
 
