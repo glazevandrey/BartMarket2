@@ -326,12 +326,11 @@ namespace BartMarket
                 var instock3 = CreateAndSetAttr(docNew, "instock", instInt);
                 outlet3.Attributes.Append(instock3);
 
-                if (weight > 0.0)
-                {
-                    var warehouse_name3 = CreateAndSetAttr(docNew, "warehouse_name", "DPN3");
-                    outlet3.Attributes.Append(warehouse_name3);
-                    outlets.AppendChild(outlet3);
-                }
+             
+                var warehouse_name3 = CreateAndSetAttr(docNew, "warehouse_name", "DPN3");
+                outlet3.Attributes.Append(warehouse_name3);
+                outlets.AppendChild(outlet3);
+                
 
                 offer.AppendChild(outlets);
                 offers.AppendChild(offer);
