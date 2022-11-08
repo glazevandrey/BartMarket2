@@ -51,7 +51,7 @@ namespace BartMarket
             app.UseRouting();
 
             app.UseAuthorization();
-            app.UseStaticFiles();   // добавляем поддержку статических файлов
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
