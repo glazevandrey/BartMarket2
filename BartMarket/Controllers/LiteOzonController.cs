@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NLog;
 using System.Linq;
 
 namespace BartMarket.Controllers
@@ -7,6 +8,8 @@ namespace BartMarket.Controllers
     [Route("ozon")]
     public class LiteOzonController : Controller
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         [HttpGet]
         public IActionResult Index(bool success)
         {
@@ -24,7 +27,10 @@ namespace BartMarket.Controllers
         [HttpPost]
         public IActionResult UpdateFormula([FromForm] string formula)
         {
-            if(formula == null)
+            logger.Info(Request.HttpContext.Connection.RemoteIpAddress);
+            logger.Info(Request.HttpContext.Connection.LocalIpAddress);
+
+            if (formula == null)
             {
                return Redirect("ozon");
             }
