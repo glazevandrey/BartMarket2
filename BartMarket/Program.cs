@@ -265,13 +265,13 @@ namespace BartMarket
                 logger.Info("-1COMPARE!!!!!!!!!!! ");
 
             }
-            logger.Info("CULT - " + CultureInfo.CurrentCulture.Name);
             double weight = 0.0;
             try
             {
 
                 foreach (var item2 in item.Param)
                 {
+                    logger.Info($"{item2.Name} - {item2.Text}");
                     if(string.Compare(item2.Name, "Коробка вес гр", true) == 0){
                         logger.Info("1COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
                         return 0.0;
