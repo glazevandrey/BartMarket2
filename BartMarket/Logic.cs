@@ -182,6 +182,7 @@ namespace BartMarket
         }
         public static void StartParse(YmlCatalog catalog, YmlCatalog catalog2, XmlDocument docNew, XmlElement offers, string type)
         {
+            int x = 1;
             foreach (var item in catalog.Shop.Offers.Offer)
             {
                 if(CheckBrand(item) == false)
@@ -266,7 +267,7 @@ namespace BartMarket
 
                 offer.AppendChild(outlets);
                 offers.AppendChild(offer);
-                logger.Info("end offer: " + item.Name);
+                logger.Info("end offer: " + item.Name + $"({x}/{catalog.Shop.Offers.Offer.Count})");
             }
 
             if(type == "full")

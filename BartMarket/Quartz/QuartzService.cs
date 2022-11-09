@@ -125,36 +125,36 @@ namespace BartMarket.Quartz
             var offers = docNew.CreateElement("offers");
             newRoot.AppendChild(shop);
             shop.AppendChild(offers);
-    //        var startTime = System.Diagnostics.Stopwatch.StartNew();
-
-
-    //        Logic.StartParse(catalog, catalog2, docNew, offers, "light");
-
-
-    //        startTime.Stop();
-    //        var resultTime = startTime.Elapsed;
-    //        string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-    //resultTime.Hours,
-    //resultTime.Minutes,
-    //resultTime.Seconds,
-    //resultTime.Milliseconds);
-
-
-    //        logger.Info("-----SUCCESS ENDED LITE FORMATING FEED-----");
-    //        logger.Info($"-----ELLAPSED: {elapsedTime}-----");
-    //        docNew = new XmlDocument();
-            //newRoot = docNew.CreateElement("yml_catalog");
-            //docNew.AppendChild(newRoot);
-            //shop = docNew.CreateElement("shop");
-            //offers = docNew.CreateElement("offers");
-            //newRoot.AppendChild(shop);
-            //shop.AppendChild(offers);
-
             var startTime = System.Diagnostics.Stopwatch.StartNew();
-            Logic.StartParse(catalog, catalog2, docNew, offers, "full");
+
+
+            Logic.StartParse(catalog, catalog2, docNew, offers, "lite");
+
+
             startTime.Stop();
             var resultTime = startTime.Elapsed;
-            var elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+    resultTime.Hours,
+    resultTime.Minutes,
+    resultTime.Seconds,
+    resultTime.Milliseconds);
+
+
+            logger.Info("-----SUCCESS ENDED LITE FORMATING FEED-----");
+            logger.Info($"-----ELLAPSED: {elapsedTime}-----");
+            docNew = new XmlDocument();
+            newRoot = docNew.CreateElement("yml_catalog");
+            docNew.AppendChild(newRoot);
+            shop = docNew.CreateElement("shop");
+            offers = docNew.CreateElement("offers");
+            newRoot.AppendChild(shop);
+            shop.AppendChild(offers);
+
+             startTime = System.Diagnostics.Stopwatch.StartNew();
+            Logic.StartParse(catalog, catalog2, docNew, offers, "full");
+            startTime.Stop();
+             resultTime = startTime.Elapsed;
+             elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
     resultTime.Hours,
     resultTime.Minutes,
     resultTime.Seconds,
