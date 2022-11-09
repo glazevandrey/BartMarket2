@@ -262,7 +262,37 @@ namespace BartMarket
                 foreach (var item2 in item.Param)
                 {
                     if(string.Compare(item2.Name, "Коробка вес гр", true) == 0){
-                        logger.Info("COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
+                        logger.Info("1COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
+                        return 0.0;
+                    }
+                    if (string.Compare(item2.Name, "Коробка вес гр", StringComparison.OrdinalIgnoreCase) == 0)
+                    {
+                        logger.Info("2COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
+                        return 0.0;
+                    }
+                    if (string.Compare(item2.Name, "Коробка вес гр", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    {
+                        logger.Info("3COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
+                        return 0.0;
+                    }
+                    if (string.Compare(item2.Name, "Коробка вес гр") == 0)
+                    {
+                        logger.Info("4COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
+                        return 0.0;
+                    }
+                    if (item2.Name ==  "Коробка вес гр")
+                    {
+                        logger.Info("5COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
+                        return 0.0;
+                    }
+                    if (item2.Name.ToLower().Trim() == "коробка вес гр")
+                    {
+                        logger.Info("6COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
+                        return 0.0;
+                    }
+                    if (item2.Name.Contains("гр"))
+                    {
+                        logger.Info("7COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
                         return 0.0;
                     }
                 }
