@@ -339,6 +339,7 @@ namespace BartMarket
                     outlet3.Attributes.Append(warehouse_name3);
                     outlets.AppendChild(outlet3);
                 }
+                logger.Info(weight);
 
                 offer.AppendChild(outlets);
                 offers.AppendChild(offer);
