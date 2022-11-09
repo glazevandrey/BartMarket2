@@ -254,46 +254,28 @@ namespace BartMarket
         private static double CheckWeight(Offer item)
         {
             double weight = 0.0;
-            var f = CultureInfo.CurrentCulture;
-            logger.Info(f);
-            try
+
+            var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
+            if(raw == null)
             {
-                //var raw = item.Param.FirstOrDefault(m => m.Name.Trim() == "Коробка вес кг");
-                Param raw = new Param();
-
-                foreach (var item2 in item.Param)
-                {
-                    if(item2.Name.Equals("Коробка вес кг", StringComparison.OrdinalIgnoreCase))
-                    {   
-                        raw = item2;
-                        logger.Info("find weigh! = " + item2.Text);
-                        break;  
-                    }
-                    if(item2.Text == "0.578")
-                    {
-                        logger.Info("FIND 0 578 " + item2.Name);
-                    }
-
-                    logger.Info($"{item2.Name} : {item2.Text}");
-                }
-           
-                if (raw != null && raw.Name != "" && raw.Name != null)
-                {
-                    logger.Info(raw.Text);
-                    weight = Convert.ToDouble(raw.Text.Replace(".", ","));
-                    if (weight == 0.0)
-                    {
-                        weight = Convert.ToDouble(raw.Text);
-
-                    }
-                }
+                raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес гр");
             }
-            catch (Exception ex)
+
+
+            if (raw.Name.Contains("гр"))
             {
-
-                logger.Error(ex.Message);
+                var r = Convert.ToInt32(raw.Text);
+                weight = Convert.ToDouble(r/1000);
             }
-          
+            else if (raw.Name.Contains("кг"))
+            {
+                weight = Convert.ToDouble(raw.Text);
+            }
+            else
+            {
+                return weight;
+            }
+
 
             logger.Info(weight);
             return weight;
