@@ -270,8 +270,8 @@ namespace BartMarket
         {
             Encoding iso = Encoding.GetEncoding("ISO-8859-1");
             Encoding utf8 = Encoding.UTF8;
-            byte[] utfBytes = utf8.GetBytes("Коробка вес кг");
-            byte[] isoBytes = Encoding.Convert(utf8, iso, utfBytes);
+            byte[] utfBytes = iso.GetBytes("Коробка вес кг");
+            byte[] isoBytes = Encoding.Convert(iso, utf8, utfBytes);
             string msg = iso.GetString(isoBytes);
 
             var raw = item.Param.FirstOrDefault(m => m.Name == msg);
