@@ -291,6 +291,7 @@ namespace BartMarket
             double weight = 0.0;
             logger.Info(weight); 
 
+
             try
             {
 
