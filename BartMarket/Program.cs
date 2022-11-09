@@ -82,12 +82,7 @@ namespace BartMarket
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
 
-            var text = File.ReadAllText("Example1.xml");
-            using (StringReader reader = new StringReader(text))
-            {
-                var text2 = serializer.Deserialize(reader);
-                catalog = (YmlCatalog)text2;
-            }
+        
             try
             {
                 using (var client = new HttpClient())
@@ -103,30 +98,51 @@ namespace BartMarket
                     }
                 }
 
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
+                    {
+                        using (var fs = new FileStream("exmp3.xml", FileMode.OpenOrCreate))
+                        {
+                            s.Result.CopyTo(fs);
+                            logger.Info("success");
+
+                        }
+                    }
+                }
+
             }
             catch (Exception ex)
             {
                 logger.Error(ex.Message);
             }
-       
-            if (File.Exists("exmp2"))
+
+
+            var text = File.ReadAllText("exmp2.xml");
+            using (StringReader reader = new StringReader(text))
             {
-                logger.Info(File.ReadAllText("exmp2.xml"));
+                var text2 = serializer.Deserialize(reader);
+                catalog = (YmlCatalog)text2;
+            }
+
+        
+
+            YmlCatalog catalog2 = new YmlCatalog();
+            var text22 = File.ReadAllText("exmp3.xml");
+            using (StringReader reader = new StringReader(text22))
+            {
+                var text2 = serializer.Deserialize(reader);
+                catalog2 = (YmlCatalog)text2;
+            }
+            if (File.Exists("exmp3.xml"))
+            {
+                logger.Info(File.ReadAllText("exmp3.xml"));
 
             }
             else
             {
                 logger.Error("No acceess");
             }
-
-            YmlCatalog catalog2 = new YmlCatalog();
-            var text22 = File.ReadAllText("Example22.xml");
-            using (StringReader reader = new StringReader(text22))
-            {
-                var text2 = serializer.Deserialize(reader);
-                catalog2 = (YmlCatalog)text2;
-            }
-
             var ofrs = new List<Offer>();
             foreach (var item in catalog.Shop.Offers.Offer)
             {
@@ -231,7 +247,8 @@ namespace BartMarket
         private static double CheckWeight(Offer item)
         {
             double weight = 0.0;
-
+            var f = CultureInfo.CurrentCulture;
+            logger.Info(f);
             try
             {
                 //var raw = item.Param.FirstOrDefault(m => m.Name.Trim() == "Коробка вес кг");
