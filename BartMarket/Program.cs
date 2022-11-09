@@ -254,7 +254,7 @@ namespace BartMarket
         private static double CheckWeight(Offer item)
         {
             var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
-
+            logger.Info("CULT - " + CultureInfo.CurrentCulture);
             double weight = 0.0;
             try
             {
