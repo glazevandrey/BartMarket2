@@ -68,7 +68,16 @@ namespace BartMarket
                     return false;
                 }
             }
-            
+
+            if (item.Param.FirstOrDefault(m => m.Name == "Производитель") != null)
+            {
+                var brand = item.Param.FirstOrDefault(m => m.Name == "Производитель");
+                if (brand.Text == "Reccagni Angelo" || brand.Text == "Reccagni Angelo" || brand.Text == "Brillica")
+                {
+                    return false;
+                }
+            }
+
             return true;
         }
 
@@ -108,101 +117,42 @@ namespace BartMarket
         }
         public static double CheckWeight(Offer item)
         {
-            Encoding iso = Encoding.GetEncoding("ISO-8859-1");
-            Encoding utf8 = Encoding.UTF8;
-            byte[] utfBytes = iso.GetBytes("Коробка вес кг");
-            byte[] isoBytes = Encoding.Convert(iso, utf8, utfBytes);
-            string msg = iso.GetString(isoBytes);
+            //Encoding iso = Encoding.GetEncoding("ISO-8859-1");
+            //Encoding utf8 = Encoding.UTF8;
+            //byte[] utfBytes = iso.GetBytes("Коробка вес кг");
+            //byte[] isoBytes = Encoding.Convert(iso, utf8, utfBytes);
+            //string msg = iso.GetString(isoBytes);
 
-            var raw = item.Param.FirstOrDefault(m => m.Name == msg);
-            var d = CultureInfo.CurrentCulture.Name;
-            logger.Info(d);
-            if(raw != null)
-            {
-                logger.Info("0COMPARE!!!!!!!!!!! ");
+            var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
 
-            }
-            raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес гр");
-            if (raw != null)
-            {
-                logger.Info("-1COMPARE!!!!!!!!!!! ");
-
-            }
-            double weight = 0.0;
-            logger.Info(weight); 
-
-
-            try
-            {
-
-                foreach (var item2 in item.Param)
-                {
-
-                    //if (string.Compare(item2.Name, "Коробка вес кг", true) == 0)
-                    //{
-                    //    logger.Info("1COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
-                    //    return 0.0;
-                    //}
-                    //if (string.Compare(item2.Name, "Коробка вес кг", StringComparison.OrdinalIgnoreCase) == 0)
-                    //{
-                    //    logger.Info("2COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
-                    //    return 0.0;
-                    //}
-                    //if (string.Compare(item2.Name, "Коробка вес кг", StringComparison.InvariantCultureIgnoreCase) == 0)
-                    //{
-                    //    logger.Info("3COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
-                    //    return 0.0;
-                    //}
-                    //if (string.Compare(item2.Name, "Коробка вес кг") == 0)
-                    //{
-                    //    logger.Info("4COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
-                    //    return 0.0;
-                    //}
-                    if (item2.Name == msg)
-                    {
-                        logger.Info("5COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
-                        return 0.0;
-                    }
-
-                    if (item2.Name.ToLower().Trim() == "коробка вес кг")
-                    {
-                        logger.Info("6COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
-                        return 0.0;
-                    }
-                    if (item2.Name.Contains("кг"))
-                    {
-                        logger.Info("7COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
-                        return 0.0;
-                    }
-                }
-            
             if(raw == null)
             {
                 raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес гр");
-                    if(raw != null)
-                    {
-                        logger.Info("GR - " + raw?.Text);
-                    }
-
-             }
-            if(raw == null)
+                if(raw == null)
                 {
+                    logger.Warn("No weight ITEM-" + item.Name);
                     return 0.0;
                 }
 
-            if (raw.Name.Contains("гр"))
-            {
-                var r = Convert.ToInt32(raw.Text);
-                weight = Convert.ToDouble(r/1000);
             }
-            else if (raw.Name.Contains("кг"))
-            {
-                weight = Convert.ToDouble(raw.Text);
-            }
-            else
-            {
-                return weight;
-            }
+          
+            double weight = 0.0;
+
+            try
+            {            
+                if (raw.Name.Contains("гр"))
+                {
+                    var r = Convert.ToInt32(raw.Text);
+                    weight = Convert.ToDouble(r/1000);
+                }
+                else if (raw.Name.Contains("кг"))
+                {
+                    weight = Convert.ToDouble(raw.Text);
+                }
+                else
+                {
+                    return weight;
+                }
             }
             catch (Exception ex)
             {
@@ -316,6 +266,7 @@ namespace BartMarket
 
                 offer.AppendChild(outlets);
                 offers.AppendChild(offer);
+                logger.Info("end offer: " + item.Name);
             }
 
             if(type == "full")

@@ -31,7 +31,7 @@ namespace BartMarket
 
         public static void Main(string[] args)
         {
-           // StartLite();
+            // StartLite();
 
             CreateHostBuilder(args).Build().Run();
         }
@@ -42,7 +42,7 @@ namespace BartMarket
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-   
+
         public async static Task StartLite()
         {
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
@@ -56,125 +56,131 @@ namespace BartMarket
             {
                 File.Delete("exml3.xml");
             }
-            //try
-            //{
-            //    using (var client = new HttpClient())
-            //    {
-            //        using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
-            //        {
-            //            using (var fs = new FileStream("exmp2.xml", FileMode.OpenOrCreate))
-            //            {
-            //                s.Result.CopyTo(fs);
-            //                logger.Info("success");
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
+                    {
+                        using (var fs = new FileStream("exmp2.xml", FileMode.OpenOrCreate))
+                        {
+                            s.Result.CopyTo(fs);
+                            logger.Info("success");
 
-            //            }
-            //        }
-            //    }
+                        }
+                    }
+                }
 
-            //    using (var client = new HttpClient())
-            //    {
-            //        using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
-            //        {
-            //            using (var fs = new FileStream("exmp3.xml", FileMode.OpenOrCreate))
-            //            {
-            //                s.Result.CopyTo(fs);
-            //                logger.Info("success");
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
+                    {
+                        using (var fs = new FileStream("exmp3.xml", FileMode.OpenOrCreate))
+                        {
+                            s.Result.CopyTo(fs);
+                            logger.Info("success");
 
-            //            }
-            //        }
-            //    }
+                        }
+                    }
+                }
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    logger.Error(ex.Message);
-            //}
-
-
-            //var text = File.ReadAllText("exmp2.xml");
-            //using (StringReader reader = new StringReader(text))
-            //{
-            //    var text2 = serializer.Deserialize(reader);
-            //    catalog = (YmlCatalog)text2;
-            //}
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+            }
 
 
-
-            //YmlCatalog catalog2 = new YmlCatalog();
-            //var text22 = File.ReadAllText("exmp3.xml");
-            //using (StringReader reader = new StringReader(text22))
-            //{
-            //    var text2 = serializer.Deserialize(reader);
-            //    catalog2 = (YmlCatalog)text2;
-            //}
-            //if (File.Exists("exmp3.xml"))
-            //{
-
-            //}
-            //else
-            //{
-            //    logger.Error("No acceess");
-            //}
-            //var ofrs = new List<Offer>();
-            //foreach (var item in catalog.Shop.Offers.Offer)
-            //{
-            //    if(item.Price == null)
-            //    {
-            //        if (Convert.ToInt32(item.OldPrice) > 1000)
-            //        {
-            //            ofrs.Add(item);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        if (Convert.ToInt32(item.Price) > 1000)
-            //        {
-            //            ofrs.Add(item);
-            //        }
-            //    }
-
-
-            //}
-
-            //
-            YmlCatalog catalog2 = new YmlCatalog();
-
-            var text4 = File.ReadAllText("Example1.xml", Encoding.UTF8);
-            using (StringReader reader = new StringReader(text4))
+            var text = File.ReadAllText("exmp2.xml");
+            using (StringReader reader = new StringReader(text))
             {
                 var text2 = serializer.Deserialize(reader);
                 catalog = (YmlCatalog)text2;
             }
-            var text3 = File.ReadAllText("Example22.xml", Encoding.UTF8);
-            using (StringReader reader = new StringReader(text3))
+
+
+
+            YmlCatalog catalog2 = new YmlCatalog();
+            var text22 = File.ReadAllText("exmp3.xml");
+            using (StringReader reader = new StringReader(text22))
             {
                 var text2 = serializer.Deserialize(reader);
                 catalog2 = (YmlCatalog)text2;
             }
-            //catalog.Shop.Offers.Offer = ofrs;
+            if (File.Exists("exmp3.xml"))
+            {
+
+            }
+            else
+            {
+                logger.Error("No acceess");
+            }
+            var ofrs = new List<Offer>();
+            var ofrs2 = new List<Offer>();
+
+            foreach (var item in catalog.Shop.Offers.Offer)
+            {
+                if (item.Price == null)
+                {
+                    if (Convert.ToInt32(item.OldPrice) > 1000)
+                    {
+                        ofrs.Add(item);
+                    }
+                }
+                else
+                {
+                    if (Convert.ToInt32(item.Price) > 1000)
+                    {
+                        ofrs.Add(item);
+                    }
+                }
+
+
+                //}
+
+                //
+                //YmlCatalog catalog2 = new YmlCatalog();
+
+                //var text4 = File.ReadAllText("Example1.xml", Encoding.UTF8);
+                //using (StringReader reader = new StringReader(text4))
+                //{
+                //    var text2 = serializer.Deserialize(reader);
+                //    catalog = (YmlCatalog)text2;
+                //}
+                //var text3 = File.ReadAllText("Example22.xml", Encoding.UTF8);
+                //using (StringReader reader = new StringReader(text3))
+                //{
+                //    var text2 = serializer.Deserialize(reader);
+                //    catalog2 = (YmlCatalog)text2;
+                //}
+            }
+
+
+            catalog.Shop.Offers.Offer = ofrs;
 
             XmlDocument docNew = new XmlDocument();
-            XmlElement newRoot = docNew.CreateElement("yml_catalog");
-            docNew.AppendChild(newRoot);
-            var shop =  docNew.CreateElement("shop");
-            var offers = docNew.CreateElement("offers");
-            newRoot.AppendChild(shop);
-            shop.AppendChild(offers);
-            
+                XmlElement newRoot = docNew.CreateElement("yml_catalog");
+                docNew.AppendChild(newRoot);
+                var shop = docNew.CreateElement("shop");
+                var offers = docNew.CreateElement("offers");
+                newRoot.AppendChild(shop);
+                shop.AppendChild(offers);
 
-            Logic.StartParse(catalog, catalog2, docNew, offers, "light");
-            docNew = new XmlDocument();
-            newRoot = docNew.CreateElement("yml_catalog");
-            docNew.AppendChild(newRoot);
-            shop = docNew.CreateElement("shop");
-            offers = docNew.CreateElement("offers");
-            newRoot.AppendChild(shop);
-            shop.AppendChild(offers);
 
-           Logic.StartParse(catalog, catalog2, docNew, offers, "full");
+                Logic.StartParse(catalog, catalog2, docNew, offers, "light");
+                docNew = new XmlDocument();
+                newRoot = docNew.CreateElement("yml_catalog");
+                docNew.AppendChild(newRoot);
+                shop = docNew.CreateElement("shop");
+                offers = docNew.CreateElement("offers");
+                newRoot.AppendChild(shop);
+                shop.AppendChild(offers);
 
-            logger.Info("-----SUCCESS ENDED FORMATING FEED-----");
+                Logic.StartParse(catalog, catalog2, docNew, offers, "full");
+
+                logger.Info("-----SUCCESS ENDED FORMATING FEED-----");
+            }
+
         }
-    
     }
-}
+
