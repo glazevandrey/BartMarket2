@@ -237,16 +237,21 @@ namespace BartMarket
                 //var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
                 Param raw = new Param();
 
-            foreach (var item2 in item.Param)
-            {
-                if(item2.Name.ToLower().Contains("коробка вес кг"))
+                foreach (var item2 in item.Param)
                 {
-                    raw = item2;
-                    logger.Info("find weigh! = " + item2.Text);
-                    break;
+                    if(item2.Name == "Коробка вес кг")
+                    {
+                        raw = item2;
+                        logger.Info("find weigh! = " + item2.Text);
+                        break;  
+                    }
+                    if(item2.Text == "0.578")
+                    {
+                        logger.Info("FIND 0 578 " + item2.Name);
+                    }
+
+                    logger.Info($"{item2.Name} : {item2.Text}");
                 }
-                logger.Info($"{item2.Name} : {item2.Text}");
-            }
            
                 if (raw != null && raw.Name != "" && raw.Name != null)
                 {
