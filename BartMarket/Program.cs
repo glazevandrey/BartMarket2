@@ -244,7 +244,7 @@ namespace BartMarket
                 }
                 logger.Info($"{item2.Name} : {item2.Text}");
             }
-            if (raw != null)
+            if (raw != null && raw.Name != "" && raw.Name != null )
             {
                 logger.Info(raw.Text);
                 weight = Convert.ToDouble(raw.Text.Replace(".", ","));
