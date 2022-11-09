@@ -41,7 +41,7 @@ namespace BartMarket.Quartz
                 {
                     using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
                     {
-                        using (var fs = new FileStream("exmp2.xml", FileMode.OpenOrCreate))
+                        using (var fs = new FileStream("~/content/exmp2.xml", FileMode.OpenOrCreate))
                         {
                             s.Result.CopyTo(fs);
                             logger.Info("success");
@@ -54,7 +54,7 @@ namespace BartMarket.Quartz
                 {
                     using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
                     {
-                        using (var fs = new FileStream("exmp3.xml", FileMode.OpenOrCreate))
+                        using (var fs = new FileStream("~/content/exmp3.xml", FileMode.OpenOrCreate))
                         {
                             s.Result.CopyTo(fs);
                             logger.Info("success");

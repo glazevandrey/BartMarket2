@@ -117,12 +117,6 @@ namespace BartMarket
         }
         public static double CheckWeight(Offer item)
         {
-            //Encoding iso = Encoding.GetEncoding("ISO-8859-1");
-            //Encoding utf8 = Encoding.UTF8;
-            //byte[] utfBytes = iso.GetBytes("Коробка вес кг");
-            //byte[] isoBytes = Encoding.Convert(iso, utf8, utfBytes);
-            //string msg = iso.GetString(isoBytes);
-
             var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
 
             if(raw == null)

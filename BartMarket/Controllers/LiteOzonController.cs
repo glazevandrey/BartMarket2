@@ -19,6 +19,8 @@ namespace BartMarket.Controllers
             }
             ViewData["URL1"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/content/liteozon.xml";
             ViewData["URL2"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/content/fullozon.xml";
+            ViewData["URL1"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/content/exmp2.xml";
+            ViewData["URL2"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/content/exmp3.xml";
 
             ViewData["FORMULA"] = $"{Program.formula1};{Program.formula2};{Program.formula3};";
 
