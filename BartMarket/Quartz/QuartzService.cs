@@ -68,7 +68,7 @@ namespace BartMarket.Quartz
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message);
+                logger.Error("from download" + ex.Message);
                 return;
             }
             YmlCatalog catalog2 = new YmlCatalog();
@@ -93,7 +93,7 @@ namespace BartMarket.Quartz
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message);
+                logger.Error("from upload to disk" + ex.Message);
                 return;
             }
           
