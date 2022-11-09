@@ -240,6 +240,11 @@ namespace BartMarket
             if (raw != null)
             {
                 weight = Convert.ToDouble(raw.Text.Replace(".", ","));
+                if(weight == 0.0)
+                {
+                    weight = Convert.ToDouble(raw.Text);
+
+                }
             }
 
             logger.Info(weight);
