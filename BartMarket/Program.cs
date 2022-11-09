@@ -239,7 +239,7 @@ namespace BartMarket
 
                 foreach (var item2 in item.Param)
                 {
-                    if(item2.Name.Equals("Коробка вес кг"))
+                    if(item2.Name.Equals("Коробка вес кг", StringComparison.OrdinalIgnoreCase))
                     {   
                         raw = item2;
                         logger.Info("find weigh! = " + item2.Text);
