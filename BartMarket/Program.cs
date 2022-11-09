@@ -193,7 +193,7 @@ namespace BartMarket
 
             StartParse(catalog, catalog2, docNew, offers, "full");
 
-
+            logger.Info("-----SUCCESS ENDED FORMATING FEED-----");
         }
         private static bool CheckBrand(Offer item)
         {
@@ -254,7 +254,10 @@ namespace BartMarket
         private static double CheckWeight(Offer item)
         {
             double weight = 0.0;
+            try
+            {
 
+            
             var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
             if(raw == null)
             {
@@ -275,7 +278,11 @@ namespace BartMarket
             {
                 return weight;
             }
-
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message);
+            }
 
             logger.Info(weight);
             return weight;
