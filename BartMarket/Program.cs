@@ -176,11 +176,21 @@ namespace BartMarket
                 newRoot.AppendChild(shop);
                 shop.AppendChild(offers);
 
-                Logic.StartParse(catalog, catalog2, docNew, offers, "full");
+            var startTime = System.Diagnostics.Stopwatch.StartNew();
+            startTime.Stop();
+            var resultTime = startTime.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+    resultTime.Hours,
+    resultTime.Minutes,
+    resultTime.Seconds,
+    resultTime.Milliseconds);
+            Logic.StartParse(catalog, catalog2, docNew, offers, "full");
 
                 logger.Info("-----SUCCESS ENDED FORMATING FEED-----");
-            }
+            logger.Info($"-----ELLAPSED: {elapsedTime}-----");
 
         }
+
+    }
     }
 
