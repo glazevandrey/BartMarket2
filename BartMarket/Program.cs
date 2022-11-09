@@ -244,16 +244,25 @@ namespace BartMarket
                 }
                 logger.Info($"{item2.Name} : {item2.Text}");
             }
-            if (raw != null && raw.Name != "" && raw.Name != null )
+            try
             {
-                logger.Info(raw.Text);
-                weight = Convert.ToDouble(raw.Text.Replace(".", ","));
-                if(weight == 0.0)
+                if (raw != null && raw.Name != "" && raw.Name != null)
                 {
-                    weight = Convert.ToDouble(raw.Text);
+                    logger.Info(raw.Text);
+                    weight = Convert.ToDouble(raw.Text.Replace(".", ","));
+                    if (weight == 0.0)
+                    {
+                        weight = Convert.ToDouble(raw.Text);
 
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+
+                logger.Error(ex.Message);
+            }
+          
 
             logger.Info(weight);
             return weight;
