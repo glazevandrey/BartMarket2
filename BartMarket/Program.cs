@@ -259,11 +259,20 @@ namespace BartMarket
 
             
             var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
+            
             if(raw == null)
             {
                 raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес гр");
-            }
+                    if(raw != null)
+                    {
+                        logger.Info("GR - " + raw?.Text);
+                    }
 
+             }
+            if(raw == null)
+                {
+                    return 0.0;
+                }
 
             if (raw.Name.Contains("гр"))
             {
