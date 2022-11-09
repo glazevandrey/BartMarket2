@@ -268,7 +268,13 @@ namespace BartMarket
         }
         private static double CheckWeight(Offer item)
         {
-            var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
+            Encoding iso = Encoding.GetEncoding("ISO-8859-1");
+            Encoding utf8 = Encoding.UTF8;
+            byte[] utfBytes = utf8.GetBytes("Коробка вес кг");
+            byte[] isoBytes = Encoding.Convert(utf8, iso, utfBytes);
+            string msg = iso.GetString(isoBytes);
+
+            var raw = item.Param.FirstOrDefault(m => m.Name == msg);
             var d = CultureInfo.CurrentCulture.Name;
             logger.Info(d);
             if(raw != null)
@@ -311,7 +317,7 @@ namespace BartMarket
                     //    logger.Info("4COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
                     //    return 0.0;
                     //}
-                    if (item2.Name == "Коробка вес кг")
+                    if (item2.Name == msg)
                     {
                         logger.Info("5COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
                         return 0.0;
