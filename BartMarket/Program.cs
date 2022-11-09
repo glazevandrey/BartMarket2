@@ -231,16 +231,19 @@ namespace BartMarket
         private static double CheckWeight(Offer item)
         {
             var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
-            var f = item.Param.Where(m => m.Name == "Коробка вес кг").ToList();
-            var f2 = item.Param.Where(m => m.Name == "Коробка вес гр").ToList();
-            var f3 = item.Param.Where(m => m.Name == "Производитель").ToList();
 
-            logger.Info(f.Count + " - " + f2.Count + " - " + f3.Count);
+            double weight = 0.0;
+
             foreach (var item2 in item.Param)
             {
+                if(item2.Name.ToLower().Contains("коробка вес кг"))
+                {
+                    raw = item2;
+                    logger.Info("find weigh! = " + item2.Text);
+                    break;
+                }
                 logger.Info($"{item2.Name} : {item2.Text}");
             }
-            double weight = 0.0;
             if (raw != null)
             {
                 logger.Info(raw.Text);
@@ -332,7 +335,7 @@ namespace BartMarket
 
                 var weight = CheckWeight(item);
 
-                if (weight < 30.0 && Convert.ToInt32(mainPrice) > 3000 && Convert.ToInt32(mainPrice) < 50000)
+                if (weight < 30.0 && Convert.ToInt32(item.Price) > 3000 && Convert.ToInt32(item.Price) < 50000)
                 {
                     var outlet2 = docNew.CreateElement("outlet");
                     var instock2 = CreateAndSetAttr(docNew, "instock", instInt);
