@@ -69,6 +69,7 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
                 logger.Error(ex.Message);
+                return;
             }
             YmlCatalog catalog2 = new YmlCatalog();
 
@@ -90,10 +91,10 @@ namespace BartMarket.Quartz
                     catalog2 = (YmlCatalog)text2;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                logger.Error(ex.Message);
+                return;
             }
           
             if (File.Exists("exmp3.xml"))
