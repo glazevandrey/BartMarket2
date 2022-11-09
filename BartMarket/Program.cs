@@ -136,7 +136,7 @@ namespace BartMarket
             }
             if (File.Exists("exmp3.xml"))
             {
-                logger.Info(File.ReadAllText("exmp3.xml"));
+               // logger.Info(File.ReadAllText("exmp3.xml"));
 
             }
             else
