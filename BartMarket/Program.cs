@@ -271,37 +271,38 @@ namespace BartMarket
 
                 foreach (var item2 in item.Param)
                 {
-                    logger.Info($"{item2.Name} - {item2.Text}");
-                    if(string.Compare(item2.Name, "Коробка вес гр", true) == 0){
+
+                    if (string.Compare(item2.Name, "Коробка вес кг", true) == 0)
+                    {
                         logger.Info("1COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
                         return 0.0;
                     }
-                    if (string.Compare(item2.Name, "Коробка вес гр", StringComparison.OrdinalIgnoreCase) == 0)
+                    if (string.Compare(item2.Name, "Коробка вес кг", StringComparison.OrdinalIgnoreCase) == 0)
                     {
                         logger.Info("2COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
                         return 0.0;
                     }
-                    if (string.Compare(item2.Name, "Коробка вес гр", StringComparison.InvariantCultureIgnoreCase) == 0)
+                    if (string.Compare(item2.Name, "Коробка вес кг", StringComparison.InvariantCultureIgnoreCase) == 0)
                     {
                         logger.Info("3COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
                         return 0.0;
                     }
-                    if (string.Compare(item2.Name, "Коробка вес гр") == 0)
+                    if (string.Compare(item2.Name, "Коробка вес кг") == 0)
                     {
                         logger.Info("4COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
                         return 0.0;
                     }
-                    if (item2.Name ==  "Коробка вес гр")
+                    if (item2.Name == "Коробка вес кг")
                     {
                         logger.Info("5COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
                         return 0.0;
                     }
-                    if (item2.Name.ToLower().Trim() == "коробка вес гр")
+                    if (item2.Name.ToLower().Trim() == "коробка вес кг")
                     {
                         logger.Info("6COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
                         return 0.0;
                     }
-                    if (item2.Name.Contains("гр"))
+                    if (item2.Name.Contains("кг"))
                     {
                         logger.Info("7COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
                         return 0.0;
