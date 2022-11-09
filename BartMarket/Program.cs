@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
@@ -173,13 +174,13 @@ namespace BartMarket
             //
             YmlCatalog catalog2 = new YmlCatalog();
 
-            var text4 = File.ReadAllText("Example1.xml");
+            var text4 = File.ReadAllText("Example1.xml", Encoding.UTF8);
             using (StringReader reader = new StringReader(text4))
             {
                 var text2 = serializer.Deserialize(reader);
                 catalog = (YmlCatalog)text2;
             }
-            var text3 = File.ReadAllText("Example22.xml");
+            var text3 = File.ReadAllText("Example22.xml", Encoding.UTF8);
             using (StringReader reader = new StringReader(text3))
             {
                 var text2 = serializer.Deserialize(reader);
