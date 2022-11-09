@@ -316,6 +316,7 @@ namespace BartMarket
                         logger.Info("5COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
                         return 0.0;
                     }
+
                     if (item2.Name.ToLower().Trim() == "коробка вес кг")
                     {
                         logger.Info("6COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
