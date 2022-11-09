@@ -24,6 +24,8 @@ namespace BartMarket.Quartz
         }
         public async static Task StartLite()
         {
+           
+
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
 
@@ -41,7 +43,7 @@ namespace BartMarket.Quartz
                 {
                     using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
                     {
-                        using (var fs = new FileStream("~/content/exmp2.xml", FileMode.OpenOrCreate))
+                        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/content/exmp2.xml", FileMode.OpenOrCreate))
                         {
                             s.Result.CopyTo(fs);
                             logger.Info("success");
@@ -54,7 +56,7 @@ namespace BartMarket.Quartz
                 {
                     using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
                     {
-                        using (var fs = new FileStream("~/content/exmp3.xml", FileMode.OpenOrCreate))
+                        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/content/exmp3.xml", FileMode.OpenOrCreate))
                         {
                             s.Result.CopyTo(fs);
                             logger.Info("success");
@@ -70,7 +72,7 @@ namespace BartMarket.Quartz
             }
 
 
-            var text = File.ReadAllText("~/content/exmp2.xml");
+            var text = File.ReadAllText("/wwwroot/content/exmp2.xml");
             using (StringReader reader = new StringReader(text))
             {
                 var text2 = serializer.Deserialize(reader);
@@ -80,7 +82,7 @@ namespace BartMarket.Quartz
 
 
             YmlCatalog catalog2 = new YmlCatalog();
-            var text22 = File.ReadAllText("~/content/exmp3.xml");
+            var text22 = File.ReadAllText("/wwwroot/content/exmp3.xml");
             using (StringReader reader = new StringReader(text22))
             {
                 var text2 = serializer.Deserialize(reader);
