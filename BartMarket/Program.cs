@@ -231,7 +231,7 @@ namespace BartMarket
         private static double CheckWeight(Offer item)
         {
             var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
-
+            
             foreach (var item2 in item.Param)
             {
                 logger.Info($"{item2.Name} : {item2.Text}");
@@ -239,6 +239,7 @@ namespace BartMarket
             double weight = 0.0;
             if (raw != null)
             {
+                logger.Info(raw.Text);
                 weight = Convert.ToDouble(raw.Text.Replace(".", ","));
                 if(weight == 0.0)
                 {
