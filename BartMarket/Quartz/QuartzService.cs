@@ -153,6 +153,8 @@ namespace BartMarket.Quartz
 
             logger.Info("-----SUCCESS ENDED LITE FORMATING FEED-----");
             logger.Info($"-----ELLAPSED: {elapsedTime}-----");
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
             docNew = new XmlDocument();
             newRoot = docNew.CreateElement("yml_catalog");
             docNew.AppendChild(newRoot);
@@ -173,6 +175,8 @@ namespace BartMarket.Quartz
 
             logger.Info("-----SUCCESS ENDED FULL FORMATING FEED-----");
             logger.Info($"-----ELLAPSED: {elapsedTime}-----");
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
 
         }
 
