@@ -253,12 +253,19 @@ namespace BartMarket
         }
         private static double CheckWeight(Offer item)
         {
+            var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
+
             double weight = 0.0;
             try
             {
 
-            
-            var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
+                foreach (var item2 in item.Param)
+                {
+                    if(string.Compare(item2.Name, "Коробка вес гр", true) == 0){
+                        logger.Info("COMPARE!!!!!!!!!!! " + item2.Name + " " + item2.Text);
+                        return 0.0;
+                    }
+                }
             
             if(raw == null)
             {
@@ -293,7 +300,7 @@ namespace BartMarket
                 logger.Error(ex.Message);
             }
 
-            logger.Info(weight);
+            logger.Info("final w" + weight);
             return weight;
         }
         private static int GetInst(List<Offer> item, int id)
