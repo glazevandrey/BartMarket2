@@ -241,6 +241,8 @@ namespace BartMarket
             {
                 weight = Convert.ToDouble(raw.Text.Replace(".", ","));
             }
+
+            logger.Info(weight);
             return weight;
         }
         private static int GetInst(List<Offer> item, int id)
