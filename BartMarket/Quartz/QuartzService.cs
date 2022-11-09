@@ -70,24 +70,32 @@ namespace BartMarket.Quartz
             {
                 logger.Error(ex.Message);
             }
-
-
-            var text = File.ReadAllText("/wwwroot/content/exmp2.xml");
-            using (StringReader reader = new StringReader(text))
-            {
-                var text2 = serializer.Deserialize(reader);
-                catalog = (YmlCatalog)text2;
-            }
-
-
-
             YmlCatalog catalog2 = new YmlCatalog();
-            var text22 = File.ReadAllText("/wwwroot/content/exmp3.xml");
-            using (StringReader reader = new StringReader(text22))
+
+            try
             {
-                var text2 = serializer.Deserialize(reader);
-                catalog2 = (YmlCatalog)text2;
+                var text = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
+                using (StringReader reader = new StringReader(text))
+                {
+                    var text2 = serializer.Deserialize(reader);
+                    catalog = (YmlCatalog)text2;
+                }
+
+
+
+                var text22 = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
+                using (StringReader reader = new StringReader(text22))
+                {
+                    var text2 = serializer.Deserialize(reader);
+                    catalog2 = (YmlCatalog)text2;
+                }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+          
             if (File.Exists("exmp3.xml"))
             {
 
