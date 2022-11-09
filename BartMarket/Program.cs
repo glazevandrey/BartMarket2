@@ -82,7 +82,14 @@ namespace BartMarket
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
 
-        
+            if (File.Exists("exmp2.xml"))
+            {
+                File.Delete("exml2.xml");
+            }
+            if (File.Exists("exmp3.xml"))
+            {
+                File.Delete("exml3.xml");
+            }
             try
             {
                 using (var client = new HttpClient())
