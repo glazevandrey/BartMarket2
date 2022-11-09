@@ -143,12 +143,12 @@ namespace BartMarket.Quartz
     //        logger.Info("-----SUCCESS ENDED LITE FORMATING FEED-----");
     //        logger.Info($"-----ELLAPSED: {elapsedTime}-----");
     //        docNew = new XmlDocument();
-            newRoot = docNew.CreateElement("yml_catalog");
-            docNew.AppendChild(newRoot);
-            shop = docNew.CreateElement("shop");
-            offers = docNew.CreateElement("offers");
-            newRoot.AppendChild(shop);
-            shop.AppendChild(offers);
+            //newRoot = docNew.CreateElement("yml_catalog");
+            //docNew.AppendChild(newRoot);
+            //shop = docNew.CreateElement("shop");
+            //offers = docNew.CreateElement("offers");
+            //newRoot.AppendChild(shop);
+            //shop.AppendChild(offers);
 
             var startTime = System.Diagnostics.Stopwatch.StartNew();
             Logic.StartParse(catalog, catalog2, docNew, offers, "full");
