@@ -234,12 +234,12 @@ namespace BartMarket
 
             try
             {
-                //var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
+                //var raw = item.Param.FirstOrDefault(m => m.Name.Trim() == "Коробка вес кг");
                 Param raw = new Param();
 
                 foreach (var item2 in item.Param)
                 {
-                    if(item2.Name == "Коробка вес кг")
+                    if(item2.Name.Trim().Trim() == "Коробка вес кг")
                     {
                         raw = item2;
                         logger.Info("find weigh! = " + item2.Text);
