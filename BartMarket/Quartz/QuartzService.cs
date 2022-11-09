@@ -70,7 +70,7 @@ namespace BartMarket.Quartz
             }
 
 
-            var text = File.ReadAllText("exmp2.xml");
+            var text = File.ReadAllText("~/content/exmp2.xml");
             using (StringReader reader = new StringReader(text))
             {
                 var text2 = serializer.Deserialize(reader);
@@ -80,7 +80,7 @@ namespace BartMarket.Quartz
 
 
             YmlCatalog catalog2 = new YmlCatalog();
-            var text22 = File.ReadAllText("exmp3.xml");
+            var text22 = File.ReadAllText("~/content/exmp3.xml");
             using (StringReader reader = new StringReader(text22))
             {
                 var text2 = serializer.Deserialize(reader);
