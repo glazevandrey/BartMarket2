@@ -29,13 +29,13 @@ namespace BartMarket.Quartz
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
 
-            if (File.Exists("exmp2.xml"))
+            if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
             {
-                File.Delete("exml2.xml");
+                File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
             }
-            if (File.Exists("exmp3.xml"))
+            if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
             {
-                File.Delete("exml3.xml");
+                File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
             }
             try
             {

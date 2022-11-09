@@ -124,7 +124,7 @@ namespace BartMarket
                 raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес гр");
                 if(raw == null)
                 {
-                    logger.Warn("No weight ITEM-" + item.Name);
+                    //logger.Warn("No weight ITEM-" + item.Name);
                     return 0.0;
                 }
 
@@ -153,7 +153,7 @@ namespace BartMarket
                 logger.Error(ex.Message);
             }
 
-            logger.Info("final w" + weight);
+            //logger.Info("final w" + weight);
             return weight;
         }
         public static int GetInst(List<Offer> item, int id)
@@ -262,7 +262,11 @@ namespace BartMarket
 
                 offer.AppendChild(outlets);
                 offers.AppendChild(offer);
-                logger.Info("end offer: " + item.Name + $"({x}/{y})");
+                if(x%1000 == 0)
+                {
+                    logger.Info($"({x}/{y})");
+                }
+                x++;
             }
 
             if(type == "full")
