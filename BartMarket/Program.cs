@@ -289,7 +289,7 @@ namespace BartMarket
 
             }
             double weight = 0.0;
-            logger.Info(weight);
+            logger.Info(weight); 
 
             try
             {
