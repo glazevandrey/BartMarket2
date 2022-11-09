@@ -230,8 +230,12 @@ namespace BartMarket
         }
         private static double CheckWeight(Offer item)
         {
-            var raw = item.Param.FirstOrDefault(m => m.Name.ToLower() == "коробка вес кг");
-            
+            var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
+            var f = item.Param.Where(m => m.Name == "Коробка вес кг").ToList();
+            var f2 = item.Param.Where(m => m.Name == "Коробка вес гр").ToList();
+            var f3 = item.Param.Where(m => m.Name == "Производитель").ToList();
+
+            logger.Info(f.Count + " - " + f2.Count + " - " + f3.Count);
             foreach (var item2 in item.Param)
             {
                 logger.Info($"{item2.Name} : {item2.Text}");
