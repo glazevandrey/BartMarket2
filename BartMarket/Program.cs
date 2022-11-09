@@ -90,88 +90,102 @@ namespace BartMarket
             {
                 File.Delete("exml3.xml");
             }
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
-                    {
-                        using (var fs = new FileStream("exmp2.xml", FileMode.OpenOrCreate))
-                        {
-                            s.Result.CopyTo(fs);
-                            logger.Info("success");
+            //try
+            //{
+            //    using (var client = new HttpClient())
+            //    {
+            //        using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
+            //        {
+            //            using (var fs = new FileStream("exmp2.xml", FileMode.OpenOrCreate))
+            //            {
+            //                s.Result.CopyTo(fs);
+            //                logger.Info("success");
 
-                        }
-                    }
-                }
+            //            }
+            //        }
+            //    }
 
-                using (var client = new HttpClient())
-                {
-                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
-                    {
-                        using (var fs = new FileStream("exmp3.xml", FileMode.OpenOrCreate))
-                        {
-                            s.Result.CopyTo(fs);
-                            logger.Info("success");
+            //    using (var client = new HttpClient())
+            //    {
+            //        using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
+            //        {
+            //            using (var fs = new FileStream("exmp3.xml", FileMode.OpenOrCreate))
+            //            {
+            //                s.Result.CopyTo(fs);
+            //                logger.Info("success");
 
-                        }
-                    }
-                }
+            //            }
+            //        }
+            //    }
 
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.Error(ex.Message);
+            //}
 
 
-            var text = File.ReadAllText("exmp2.xml");
-            using (StringReader reader = new StringReader(text))
+            //var text = File.ReadAllText("exmp2.xml");
+            //using (StringReader reader = new StringReader(text))
+            //{
+            //    var text2 = serializer.Deserialize(reader);
+            //    catalog = (YmlCatalog)text2;
+            //}
+
+
+
+            //YmlCatalog catalog2 = new YmlCatalog();
+            //var text22 = File.ReadAllText("exmp3.xml");
+            //using (StringReader reader = new StringReader(text22))
+            //{
+            //    var text2 = serializer.Deserialize(reader);
+            //    catalog2 = (YmlCatalog)text2;
+            //}
+            //if (File.Exists("exmp3.xml"))
+            //{
+
+            //}
+            //else
+            //{
+            //    logger.Error("No acceess");
+            //}
+            //var ofrs = new List<Offer>();
+            //foreach (var item in catalog.Shop.Offers.Offer)
+            //{
+            //    if(item.Price == null)
+            //    {
+            //        if (Convert.ToInt32(item.OldPrice) > 1000)
+            //        {
+            //            ofrs.Add(item);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (Convert.ToInt32(item.Price) > 1000)
+            //        {
+            //            ofrs.Add(item);
+            //        }
+            //    }
+
+
+            //}
+
+            //
+            YmlCatalog catalog2 = new YmlCatalog();
+
+            var text4 = File.ReadAllText("Example1.xml");
+            using (StringReader reader = new StringReader(text4))
             {
                 var text2 = serializer.Deserialize(reader);
                 catalog = (YmlCatalog)text2;
             }
-
-        
-
-            YmlCatalog catalog2 = new YmlCatalog();
-            var text22 = File.ReadAllText("exmp3.xml");
-            using (StringReader reader = new StringReader(text22))
+            var text3 = File.ReadAllText("Example22.xml");
+            using (StringReader reader = new StringReader(text3))
             {
                 var text2 = serializer.Deserialize(reader);
                 catalog2 = (YmlCatalog)text2;
             }
-            if (File.Exists("exmp3.xml"))
-            {
-               // logger.Info(File.ReadAllText("exmp3.xml"));
-
-            }
-            else
-            {
-                logger.Error("No acceess");
-            }
-            var ofrs = new List<Offer>();
-            foreach (var item in catalog.Shop.Offers.Offer)
-            {
-                if(item.Price == null)
-                {
-                    if (Convert.ToInt32(item.OldPrice) > 1000)
-                    {
-                        ofrs.Add(item);
-                    }
-                }
-                else
-                {
-                    if (Convert.ToInt32(item.Price) > 1000)
-                    {
-                        ofrs.Add(item);
-                    }
-                }
-
-               
-            }
-
-            catalog.Shop.Offers.Offer = ofrs;
+            //catalog.Shop.Offers.Offer = ofrs;
 
             XmlDocument docNew = new XmlDocument();
             XmlElement newRoot = docNew.CreateElement("yml_catalog");
@@ -254,6 +268,8 @@ namespace BartMarket
         private static double CheckWeight(Offer item)
         {
             var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
+            var d = CultureInfo.CurrentCulture.Name;
+            logger.Info(d);
             if(raw != null)
             {
                 logger.Info("0COMPARE!!!!!!!!!!! ");
@@ -266,6 +282,8 @@ namespace BartMarket
 
             }
             double weight = 0.0;
+            logger.Info(weight);
+
             try
             {
 
