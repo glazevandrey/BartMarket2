@@ -2,31 +2,6 @@
   <shop>
     <offers>
       <offer id="52566_DPN">
-        <name>Подсветка для зеркал Eglo Kio 83732</name>
-        <name_back>Подсветка для зеркал 23738 oiK olgE</name_back>
-        <price>7308</price>
-        <oldprice>9135</oldprice>
-        <min_price>7004</min_price>
-        <formula>(4590 + 1500) * 1.2;(4590 + 1500) * 1.5;(4590 + 1500) * 1.15;</formula>
-        <outlets>
-          <outlet instock="0" warehouse_name="DPN" />
-          <outlet instock="0" warehouse_name="DPN2" />
-          <outlet instock="0" warehouse_name="DPN3" />
-        </outlets>
-      </offer>
-      <offer id="52569_DPN">
-        <name>Подсветка для зеркал Eglo Granada 85816</name>
-        <name_back>Подсветка для зеркал 61858 adanarG olgE</name_back>
-        <price>6468</price>
-        <oldprice>8085</oldprice>
-        <min_price>6198</min_price>
-        <formula>(3890 + 1500) * 1.2;(3890 + 1500) * 1.5;(3890 + 1500) * 1.15;</formula>
-        <outlets>
-          <outlet instock="0" warehouse_name="DPN" />
-          <outlet instock="0" warehouse_name="DPN3" />
-        </outlets>
-      </offer>
-      <offer id="52566_DPN">
         <param name="Высота, мм">50</param>
         <param name="Глубина, мм">75</param>
         <param name="Ширина, мм">300</param>
@@ -116,6 +91,7 @@
         <formula>(3890 + 1500) * 1.2;(3890 + 1500) * 1.5;(3890 + 1500) * 1.15;</formula>
         <outlets>
           <outlet instock="0" warehouse_name="DPN" />
+          <outlet instock="0" warehouse_name="DPN2" />
           <outlet instock="0" warehouse_name="DPN3" />
         </outlets>
       </offer>

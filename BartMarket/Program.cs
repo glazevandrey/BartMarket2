@@ -160,6 +160,14 @@ namespace BartMarket
             
 
             StartParse(catalog, catalog2, docNew, offers, "light");
+            docNew = new XmlDocument();
+            newRoot = docNew.CreateElement("yml_catalog");
+            docNew.AppendChild(newRoot);
+            shop = docNew.CreateElement("shop");
+            offers = docNew.CreateElement("offers");
+            newRoot.AppendChild(shop);
+            shop.AppendChild(offers);
+
             StartParse(catalog, catalog2, docNew, offers, "full");
 
 
@@ -267,15 +275,6 @@ namespace BartMarket
                 var price = CreateAndSetElement(docNew, "price", Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 0)).ToString());
 
                 var name = CreateAndSetElement(docNew, "name", item.Name);
-
-                if(type == "full")
-                {
-                    foreach (var pm in item.Param)
-                    {
-                        var node = CreateAndSetElementParam(docNew, pm.Name, pm.Text);
-                        offer.AppendChild(node);
-                    }
-                }
                 
                 var nameback = CreateAndSetElement(docNew, "name_back", Reverse(item.Name));
 
@@ -285,6 +284,14 @@ namespace BartMarket
 
                 var formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1.Replace("x", mainPrice.ToString())};{Program.formula2.Replace("x", mainPrice.ToString())};{Program.formula3.Replace("x", mainPrice.ToString())};");
 
+                if (type == "full")
+                {
+                    foreach (var pm in item.Param)
+                    {
+                        var node = CreateAndSetElementParam(docNew, pm.Name, pm.Text);
+                        offer.AppendChild(node);
+                    }
+                }
 
                 offer.AppendChild(name);
                 offer.AppendChild(nameback);
@@ -308,7 +315,7 @@ namespace BartMarket
 
                 var weight = CheckWeight(item);
 
-                if (weight < 30.0 && Convert.ToInt32(item.Price) > 3000 && Convert.ToInt32(item.Price) < 50000)
+                if (weight < 30.0 && Convert.ToInt32(mainPrice) > 3000 && Convert.ToInt32(mainPrice) < 50000)
                 {
                     var outlet2 = docNew.CreateElement("outlet");
                     var instock2 = CreateAndSetAttr(docNew, "instock", instInt);
@@ -326,11 +333,12 @@ namespace BartMarket
                 var instock3 = CreateAndSetAttr(docNew, "instock", instInt);
                 outlet3.Attributes.Append(instock3);
 
-             
-                var warehouse_name3 = CreateAndSetAttr(docNew, "warehouse_name", "DPN3");
-                outlet3.Attributes.Append(warehouse_name3);
-                outlets.AppendChild(outlet3);
-                
+                if(weight != 0.0)
+                {
+                    var warehouse_name3 = CreateAndSetAttr(docNew, "warehouse_name", "DPN3");
+                    outlet3.Attributes.Append(warehouse_name3);
+                    outlets.AppendChild(outlet3);
+                }
 
                 offer.AppendChild(outlets);
                 offers.AppendChild(offer);
