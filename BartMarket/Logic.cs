@@ -363,6 +363,8 @@ namespace BartMarket
                     catch (Exception ex)
                     {
                         logger.Error("from full:" + ex.Message);
+                        logger.Error(docNew.InnerXml);
+
                         Program.Last.Success = false;
                         Program.Last.Error = ex.Message;
                         return;
@@ -407,6 +409,8 @@ namespace BartMarket
                     catch (Exception ex)
                     {
                         logger.Error("from full:" + ex.Message);
+                        logger.Error(docNew.InnerXml);
+
                         Program.Last.Success = false;
                         Program.Last.Error = ex.Message;
                         return;
