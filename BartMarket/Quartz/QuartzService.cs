@@ -91,7 +91,14 @@ namespace BartMarket.Quartz
 
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
-
+            if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
+            {
+                File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
+            }
+            if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
+            {
+                File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
+            }
             try
             {
                 using (var client = new HttpClient())
@@ -131,14 +138,7 @@ namespace BartMarket.Quartz
             }
             YmlCatalog catalog2 = new YmlCatalog();
 
-            if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
-            {
-                File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
-            }
-            if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
-            {
-                File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
-            }
+           
             try
             {
                 var text = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
