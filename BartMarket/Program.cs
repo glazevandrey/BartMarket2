@@ -87,6 +87,14 @@ namespace BartMarket
 
                     db.SaveChanges();
                 }
+
+
+            }
+
+            using (var db = new UserContext())
+            {
+                list = db.Warehouses.ToList();
+
             }
             foreach (var item in list)
             {
@@ -118,11 +126,12 @@ namespace BartMarket
                         db.SaveChanges();
                         break;
                     }
+                }
+                using (var db = new UserContext())
+                {
 
-
-
-                    var set = db.WarehouseSettings.Where(m=>m.WarehouseId == item.Id).ToList();
-                    if(set != null)
+                    var set = db.WarehouseSettings.Where(m => m.WarehouseId == item.Id).ToList();
+                    if (set != null)
                     {
                         n.Condition = new List<string>();
                         foreach (var item2 in set)
