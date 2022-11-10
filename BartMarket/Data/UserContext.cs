@@ -12,6 +12,7 @@ namespace BartMarket.Data
 
         public UserContext()
         {
+            Database.Migrate();
             //Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
