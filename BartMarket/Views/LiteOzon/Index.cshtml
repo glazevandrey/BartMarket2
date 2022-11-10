@@ -9,51 +9,83 @@
         padding: 0;
     }
 </style>
-<div align="center">
-    <label style="font-size:medium"><b>Ссылка для копирования (и для озона) лайт фида:</b></label>
+<div align="left">
+    <label style="font-size:medium"><b>Лайт фид:</b></label>
     <br />
     <br />
 
-    <input size="52" value="@ViewData["URL1"]" />
-
+    <form method="post" action="savelink">
+        <label>http://ovz1.j34469996.pxlzp.vps.myjino.ru</label><input size="40" name="link_lite" value="@ViewData["URL1"]" /> <br/>
+        <button type="submit">Сохранить ссылку</button>
+    </form>
     <br />
     <br />
-
-    <label style="font-size:medium"><b>Ссылка для скачивания лайт фида:</b></label>
-    <br />
-    <a href="~/content/liteozon.xml" download="liteozon.xml">Скачать</a>
+    <a href="@ViewData["URL1F"]">Просмотреть фид</a>
         <br />
     <br />
 
-    <hr />
     <br />
+    <a href="~@ViewData["URL1"]" download="@ViewData["URL1"].ToString().Split("/").Last()">Скачать фид</a>
+        <br />
+    <br />
+    <div align="right">
+        <label>Дата последней обработки: @ViewData["DATE"]</label>
+        <br/>
+        <label>Затрачено времени на лайт версию: @ViewData["TIMELITE"]</label>
+                <br/>
+
+        <label>Затрачено времени на полную версию: @ViewData["TIMEFULL"]</label>
+                <br/>
+
+        <label>Успех: @ViewData["SUCCESS2"]</label>
+                <br/>
+
+        @if (ViewData["SUCCESS2"] != null && (bool)ViewData["SUCCESS2"] == false)
+        {
+            <label>Ошибка: @ViewData["ERROR"]</label>
+
+        }
+        <br />
+
+        <label>Всего офферов обработано: @ViewData["COUNT"]</label>
+
+    </div>
+
+    <hr />
     <br />
     <br />
     
-    <label style="font-size:medium"><b>Ссылка для копирования полного фида:</b></label>
+    <label style="font-size:medium"><b>Полный фид:</b></label>
     <br />
     <br />
 
-    <input size="52" value="@ViewData["URL2"]" />
+    <form method="post" action="savelink">
+        <label>http://ovz1.j34469996.pxlzp.vps.myjino.ru</label><input size="40" name="link_full" value="@ViewData["URL2"]" /> <br/>
+        <button type="submit">Сохранить ссылку</button>
+    </form>
+    <br />
+    <br />
+    <a href="@ViewData["URL2F"]">Просмотреть фид</a>
+        <br />
+    <br />
 
     <br />
+    <a href="~@ViewData["URL2"]" download="@ViewData["URL2"].ToString().Split("/").Last()">Скачать фид</a>
     <br />
+    <br />
+    <div align="right">
+        @Html.ActionLink("Редактор складов", "index","warehouses")
 
-    <label style="font-size:medium"><b>Ссылка для скачивания полного фида:</b></label>
-    <br />
-    <a href="~/content/fullozon.xml" download="fullozon.xml">Скачать</a>
-    <br />
-    <br />
+    </div>
 
     <hr />
-    <br />
     <br />
     <br />
     <label style="font-size:medium"><b>Ссылка для копирования первого онлайн фида :</b></label>
     <br />
     <br />
 
-    <input size="52" value="@ViewData["URL3"]" />
+    <a href="@ViewData["URL3"]">@ViewData["URL3"]</a>
 
     <br />
     <br />
@@ -67,17 +99,11 @@
     <hr />
     <br />
     <br />
-
-    <hr />
-    <br />
-    <br />
-    <br />
     <label style="font-size:medium"><b>Ссылка для копирования второго онлайн фида :</b></label>
     <br />
     <br />
 
-    <input size="52" value="@ViewData["URL4"]" />
-
+    <a href="@ViewData["URL4"]">@ViewData["URL4"]</a>
     <br />
     <br />
 
@@ -93,12 +119,14 @@
     {
         <script>alert("Формулы успешно сохранены");</script>
     }
-    <form method="post" action="ozon">
+    <form method="post" action="Donplafon_Ozon">
 
         <input type="text" size="42" id="formula" name="formula" value="@ViewData["FORMULA"]" />
-
+        <br />
         <button type="submit">Сохранить формулы</button>
 
 
     </form>
+
 </div>
+

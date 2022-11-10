@@ -27,10 +27,38 @@ namespace BartMarket
         public static string formula1 = "(x + 1500) * 1.2";
         public static string formula2 = "(x + 1500) * 1.5";
         public static string formula3 = "(x + 1500) * 1.15";
+        public static List<Warehouse> warehouses = new List<Warehouse>();
+        public static string link_ozon_lite = "/content/liteozon.xml";
+        public static string link_ozon_full = "/content/fullozon.xml";
+        public static StatModel Last = new StatModel();
+
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public static void Main(string[] args)
         {
+            warehouses.Add(new Warehouse()
+            {
+                Name= "DPN", Condition = null
+
+            });
+            warehouses.Add(new Warehouse()
+            {
+                Name = "DPN2",
+                Condition = new List<string>()
+                {
+                    "weight < 30.0",
+                    "price > 3000",
+                    "price < 50000"
+                }
+
+            });
+            warehouses.Add(new Warehouse()
+            {
+                Name = "DPN3",
+                Condition = null
+
+            });
+
             CreateHostBuilder(args).Build().Run();
         }
 

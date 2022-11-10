@@ -7,6 +7,10 @@ using System.Text;
 using System.Globalization;
 using NLog;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.WebUtilities;
+using BartMarket.Quartz;
+using System.IO;
+using System.Threading;
 
 namespace BartMarket
 {
@@ -178,6 +182,7 @@ namespace BartMarket
         {
             int x = 1;
             int y = catalog.Shop.Offers.Offer.Count;
+            Program.Last.Count = catalog.Shop.Offers.Offer.Count;
             foreach (var item in catalog.Shop.Offers.Offer)
             {
                 if(CheckBrand(item) == false)
@@ -192,15 +197,15 @@ namespace BartMarket
                 offer.Attributes.Append(idAttr);
                 offer.Attributes.Item(0).Value = item.Id.ToString() + "_DPN";
 
-                var price = CreateAndSetElement(docNew, "price", Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 0)).ToString());
+                var price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 0)).ToString()).ToString());
 
                 var name = CreateAndSetElement(docNew, "name", item.Name);
                 
                 var nameback = CreateAndSetElement(docNew, "name_back", Reverse(item.Name));
 
-                var oldPrice = CreateAndSetElement(docNew, "oldprice", Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 1)).ToString());
+                var oldPrice = CreateAndSetElement(docNew, "oldprice", QuartzService.MakePrice(Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 1)).ToString()).ToString());
 
-                var minPrice = CreateAndSetElement(docNew, "min_price", Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 2)).ToString());
+                var minPrice = CreateAndSetElement(docNew, "min_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 2)).ToString()).ToString());
 
                 var formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1.Replace("x", mainPrice.ToString())};{Program.formula2.Replace("x", mainPrice.ToString())};{Program.formula3.Replace("x", mainPrice.ToString())};");
 
@@ -221,48 +226,100 @@ namespace BartMarket
                 offer.AppendChild(formula);
 
                 var outlets = docNew.CreateElement("outlets");
-                var outlet = docNew.CreateElement("outlet");
 
-                var instInt = GetInst(catalog2.Shop.Offers.Offer, item.Id).ToString();
-                var instock = CreateAndSetAttr(docNew, "instock", instInt);
-
-                outlet.Attributes.Append(instock);
-
-
-                var warehouse_name = CreateAndSetAttr(docNew, "warehouse_name", "DPN");
-                outlet.Attributes.Append(warehouse_name);
-                outlets.AppendChild(outlet);
 
                 var weight = CheckWeight(item);
 
-                if (weight < 30.0 && Convert.ToInt32(item.Price) > 3000 && Convert.ToInt32(item.Price) < 50000)
+                foreach (var ware in Program.warehouses)
                 {
-                    var outlet2 = docNew.CreateElement("outlet");
-                    var instock2 = CreateAndSetAttr(docNew, "instock", instInt);
-                    outlet2.Attributes.Append(instock2);
+                    var outlet = docNew.CreateElement("outlet");
+
+                    var instInt = GetInst(catalog2.Shop.Offers.Offer, item.Id).ToString();
+
+                    if(ware.Condition == null)
+                    {
+                        var instock = CreateAndSetAttr(docNew, "instock", instInt);
+                        outlet.Attributes.Append(instock);
+                    }
+                    else
+                    {
+                        List<bool> bools = new List<bool>();
 
 
-                    var warehouse_name2 = CreateAndSetAttr(docNew, "warehouse_name", "DPN2");
-                    outlet2.Attributes.Append(warehouse_name2);
-                    outlets.AppendChild(outlet2);
+                        foreach (var cond in ware.Condition)
+                        {
+                            bool d = false;
+                            if (cond.Contains("weight"))
+                            {
+                                d = (bool)new DataTable().Compute(cond.Replace("weight", weight.ToString()), null);
+                                
 
+                            }
+                            else if (cond.Contains("price"))
+                            {
+                                d = (bool)new DataTable().Compute(cond.Replace("price", mainPrice.ToString()), null);
+
+                            }
+                            if(d == true)
+                            {
+                                bools.Add(true);
+                            }
+                            else
+                            {
+                                bools.Add(false);
+
+                            }
+
+                        }
+                        if(bools.Where(m=>m == true).ToList().Count == ware.Condition.Count)
+                        {
+                            var instock = CreateAndSetAttr(docNew, "instock", instInt);
+                            outlet.Attributes.Append(instock);
+                        }
+                        else
+                        {
+                            var instock = CreateAndSetAttr(docNew, "instock", "0");
+                            outlet.Attributes.Append(instock);
+                        }
+                    }
+                   
+                    var w_name = CreateAndSetAttr(docNew, "warehouse_name", ware.Name);
+                    outlet.Attributes.Append(w_name);
+                    outlets.AppendChild(outlet);
                 }
 
-                var outlet3 = docNew.CreateElement("outlet");
+               // var warehouse_name = CreateAndSetAttr(docNew, "warehouse_name", "DPN");
+              
 
-                var instock3 = CreateAndSetAttr(docNew, "instock", instInt);
-                outlet3.Attributes.Append(instock3);
 
-                if(weight != 0.0)
-                {
-                    var warehouse_name3 = CreateAndSetAttr(docNew, "warehouse_name", "DPN3");
-                    outlet3.Attributes.Append(warehouse_name3);
-                    outlets.AppendChild(outlet3);
-                }
+                //if (weight < 30.0 && Convert.ToInt32(item.Price) > 3000 && Convert.ToInt32(item.Price) < 50000)
+                //{
+                    //var outlet2 = docNew.CreateElement("outlet");
+                    //var instock2 = CreateAndSetAttr(docNew, "instock", instInt);
+                    //outlet2.Attributes.Append(instock2);
+
+
+                    //var warehouse_name2 = CreateAndSetAttr(docNew, "warehouse_name", "DPN2");
+                    //outlet2.Attributes.Append(warehouse_name2);
+                    //outlets.AppendChild(outlet2);
+
+                //}
+
+                //var outlet3 = docNew.CreateElement("outlet");
+
+                //var instock3 = CreateAndSetAttr(docNew, "instock", instInt);
+                //outlet3.Attributes.Append(instock3);
+
+                //if(weight != 0.0)
+                //{
+                //    var warehouse_name3 = CreateAndSetAttr(docNew, "warehouse_name", "DPN3");
+                //    outlet3.Attributes.Append(warehouse_name3);
+                //    outlets.AppendChild(outlet3);
+                //}
 
                 offer.AppendChild(outlets);
                 offers.AppendChild(offer);
-                if(x%1000 == 0)
+                if(x%10000 == 0)
                 {
                     logger.Info($"({x}/{y})");
                 }
@@ -271,11 +328,90 @@ namespace BartMarket
 
             if(type == "full")
             {
-                docNew.Save("wwwroot/content/fullozon.xml");
+                
+                var _1 = Program.link_ozon_full.TrimStart('/').Split("/")[0];
+                if (_1.Contains(".xml"))
+                {
+                    docNew.Save("wwwroot" + Program.link_ozon_full);
+                }
+                else
+                {
+                    string path = "wwwroot/" + _1;
+                    string subpath = "";
+                    for (int i = 1; i < Program.link_ozon_full.TrimStart('/').Split("/").Length; i++)
+                    {
+                        if (Program.link_ozon_full.TrimStart('/').Split("/")[i].Contains(".xml"))
+                        {
+                            break;
+                        }
+                        subpath += Program.link_ozon_full.TrimStart('/').Split("/")[i] + "/";
+                        
+                    }
+                    subpath.TrimEnd('/');
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    Directory.CreateDirectory($"{path}/{subpath}");
+                    try
+                    {
+                        docNew.Save("wwwroot" + Program.link_ozon_full);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error(ex.Message);
+                        Program.Last.Success = false;
+                        Program.Last.Error = ex.Message;
+                        return;
+
+                    }
+                }
+         
             }
             else
             {
-                docNew.Save("wwwroot/content/liteozon.xml");
+                var _1 = Program.link_ozon_lite.TrimStart('/').Split("/")[0];
+                if (_1.Contains(".xml"))
+                {
+                    docNew.Save("wwwroot" + Program.link_ozon_lite);
+                }
+                else
+                {
+                    string path = "wwwroot/" + _1;
+                    string subpath = "";
+                    for (int i = 1; i < Program.link_ozon_lite.TrimStart('/').Split("/").Length; i++)
+                    {
+                        if (Program.link_ozon_lite.TrimStart('/').Split("/")[i].Contains(".xml"))
+                        {
+                            break;
+                        }
+                        subpath += Program.link_ozon_lite.TrimStart('/').Split("/")[i] + "/";
+
+                    }
+                    subpath.TrimEnd('/');
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    Directory.CreateDirectory($"{path}/{subpath}");
+                    try
+                    {
+                        docNew.Save("wwwroot" + Program.link_ozon_lite);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error(ex.Message);
+                        Program.Last.Success = false;
+                        Program.Last.Error = ex.Message;
+                        return;
+                    }
+                }
             }
         }
     }

@@ -1,0 +1,48 @@
+﻿@model List<BartMarket.Warehouse>
+<div>
+    <label>Имя склада:</label>
+    <br />
+
+    @foreach (var item in Model)
+{
+
+        <input type="text" disabled="disabled" value=@item.Name name="ware" />
+      <a href="changeware?ware=@item.Name">Изменить склад</a>
+        <br />
+
+      
+}
+</div>
+    <br /><br /><br />
+<form method="post" action="warehouses">
+
+    <label>Введите имя склада:</label>
+    <br/>
+    <input type="text" name="ware"/>
+    <br /><br />
+
+    <label>Есть ли у склада условия:</label>
+    <br />
+    <input type="checkbox" name="havecond" />
+    <br /><br />
+
+    <label>Если есть условия, впишите их в строку ниже как показано в примере.</label>
+    <br />
+
+    <label>Доступные фильтры сейчас : weight(вес) и price(цена)</label>
+    <br />
+    <label>Примеры:</label>
+    <br />
+    <input disabled="disabled" value="weight > 30;price+1500-200 > 5000;(price+1500) * 2 < 10000">
+    <br />
+    <input disabled="disabled" value="weight > 30;price+1500-200 > 5000">
+    <br />
+    <input disabled="disabled" value="(price+1500) < 10000">
+    <br />
+
+<label>Введите условия:</label>
+    <input type="text" size="40" name="cond" />
+    <br /><br />
+
+    <button type="submit">Сохранить склад</button>
+</form>

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -22,21 +23,75 @@ namespace BartMarket.Quartz
         {
             await StartLite();
         }
+        public static int MakePrice(string s1)
+        {
+            string ss = s1.ToString();
+            char[] hh = ss.ToCharArray();
+
+
+            char[] d = s1.ToString().ToCharArray();
+            Array.Reverse(d);
+            var __3 = Convert.ToInt32(d[2].ToString());
+            int g1 = 0;
+            List<int> ints = new List<int>();
+
+            int x2 = 0;
+            if (__3 == 9)
+            {
+                var fist = s1.ToString().IndexOf('9');
+                char[] newhh = new char[hh.Length + 1];
+                for (int i = hh.Length; i > fist; i--)
+                {
+                    hh[i - 1] = '0';
+                }
+                try
+                {
+                    hh[fist - 1] = Convert.ToChar((Convert.ToInt32(hh[fist - 1].ToString()) + 1).ToString());
+
+                }
+                catch (Exception ex)
+                {
+                    newhh = new char[hh.Length + 1];
+                    for (int i = 1; i < newhh.Length; i++)
+                    {
+                        newhh[i] = hh[i - 1];
+                    }
+                    newhh[0] = '1';
+                }
+                try
+                {
+                    x2 = Convert.ToInt32(new string(newhh));
+
+                }
+                catch (Exception)
+                {
+                    x2 = Convert.ToInt32(new string(hh));
+
+                }
+
+            }
+            else
+            {
+                g1 = __3 + 1;
+                char _1 = '0';
+                char _2 = _1;
+                char _3 = Convert.ToChar(g1.ToString());
+                d[0] = _1;
+                d[1] = _2;
+                d[2] = _3;
+                Array.Reverse(d);
+                x2 = Convert.ToInt32(new string(d));
+
+            }
+            return x2;
+        }
         public async static Task StartLite()
         {
-           
+
 
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
 
-            if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
-            {
-                File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
-            }
-            if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
-            {
-                File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
-            }
             try
             {
                 using (var client = new HttpClient())
@@ -69,6 +124,9 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
                 logger.Error("from download" + ex.Message);
+                Program.Last.Success = false;
+                Program.Last.Error = ex.Message;
+
                 return;
             }
             YmlCatalog catalog2 = new YmlCatalog();
@@ -90,23 +148,34 @@ namespace BartMarket.Quartz
                     var text2 = serializer.Deserialize(reader);
                     catalog2 = (YmlCatalog)text2;
                 }
+
+
+                //var text = File.ReadAllText($"Example1.xml");
+                //using (StringReader reader = new StringReader(text))
+                //{
+                //    var text2 = serializer.Deserialize(reader);
+                //    catalog = (YmlCatalog)text2;
+                //}
+
+
+
+                //var text22 = File.ReadAllText($"Example22.xml");
+                //using (StringReader reader = new StringReader(text22))
+                //{
+                //    var text2 = serializer.Deserialize(reader);
+                //    catalog2 = (YmlCatalog)text2;
+                //}
             }
             catch (Exception ex)
             {
                 logger.Error("from upload to disk" + ex.Message);
+                Program.Last.Success = false;
+                Program.Last.Error = ex.Message;
                 return;
             }
           
-            if (File.Exists("exmp3.xml"))
-            {
-
-            }
-            else
-            {
-                logger.Error("No acceess");
-            }
+         
             var ofrs = new List<Offer>();
-            var ofrs2 = new List<Offer>();
 
             foreach (var item in catalog.Shop.Offers.Offer)
             {
@@ -138,6 +207,8 @@ namespace BartMarket.Quartz
             shop.AppendChild(offers);
             var startTime = System.Diagnostics.Stopwatch.StartNew();
 
+        
+
 
             Logic.StartParse(catalog, catalog2, docNew, offers, "lite");
 
@@ -150,7 +221,7 @@ namespace BartMarket.Quartz
     resultTime.Seconds,
     resultTime.Milliseconds);
 
-
+            Program.Last.ElapsedLite = elapsedTime;
             logger.Info("-----SUCCESS ENDED LITE FORMATING FEED-----");
             logger.Info($"-----ELLAPSED: {elapsedTime}-----");
             GC.Collect();
@@ -172,12 +243,15 @@ namespace BartMarket.Quartz
     resultTime.Minutes,
     resultTime.Seconds,
     resultTime.Milliseconds);
+            Program.Last.ElapsedFull = elapsedTime;
 
             logger.Info("-----SUCCESS ENDED FULL FORMATING FEED-----");
             logger.Info($"-----ELLAPSED: {elapsedTime}-----");
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
+            Program.Last.Date = DateTime.Now;
+            
         }
 
     }

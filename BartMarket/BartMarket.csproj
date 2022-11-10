@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\content\hello.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Example1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

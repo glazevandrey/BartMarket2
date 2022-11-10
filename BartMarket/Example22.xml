@@ -17,7 +17,7 @@
 				<quantity>0</quantity>
 				<currencyId>RUB</currencyId>
 			</offer>
-			<offer id="52581" available="true">
+			<offer id="52569" available="true">
 				<snippet>82751</snippet>
 				<price>3290</price>
 				<oldprice>4090</oldprice>
@@ -38,11 +38,11 @@
 				<quantity>38</quantity>
 				<currencyId>RUB</currencyId>
 			</offer>
-			<offer id="52607" available="true">
+			<offer id="52566" available="true">
 				<snippet>82752</snippet>
 				<price>5990</price>
 				<oldprice>6490</oldprice>
-				<quantity>1090</quantity>
+				<quantity>12</quantity>
 				<currencyId>RUB</currencyId>
 			</offer>
 			<offer id="52625" available="true">
