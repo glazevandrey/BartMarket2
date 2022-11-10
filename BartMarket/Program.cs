@@ -37,12 +37,7 @@ namespace BartMarket
 
         public static void Main(string[] args)
         {
-            var list = new List<WarehouseModel>();
-            using (var db = new UserContext())
-            {
-                 list = db.Warehouses.ToList();
-
-            }
+            
             using (var db = new UserContext())
             {
                 var l = db.LinkModels.ToList();
@@ -70,6 +65,29 @@ namespace BartMarket
                 link_ozon_full = l.FirstOrDefault(m => m.Type == "Full").Link;
                 link_ozon_lite = l.FirstOrDefault(m => m.Type == "Lite").Link;
             }
+
+
+            var list = new List<WarehouseModel>();
+            using (var db = new UserContext())
+            {
+                list = db.Warehouses.ToList();
+                if(list.Count == 0)
+                {
+                    var _1 = new WarehouseModel();
+                    var _2 = new WarehouseModel();
+                    var _3 = new WarehouseModel();
+
+                    _1.Name = "DPN";
+                    _2.Name = "DPN2";
+                    _3.Name = "DPN3";
+
+                    db.Warehouses.Add(_1);
+                    db.Warehouses.Add(_2);
+                    db.Warehouses.Add(_3);
+
+                    db.SaveChanges();
+                }
+            }
             foreach (var item in list)
             {
                 var n = new Warehouse();
@@ -80,18 +98,7 @@ namespace BartMarket
 
                     if(houses.Count == 0)
                     {
-                        var _1 = new WarehouseModel();
-                        var _2 = new WarehouseModel();
-                        var _3 = new WarehouseModel();
-
-                        _1.Name = "DPN";
-                        _2.Name = "DPN2";
-                        _3.Name = "DPN3";
-
-                        db.Warehouses.Add(_1);
-                        db.Warehouses.Add(_2);
-                        db.Warehouses.Add(_3);
-
+                        
                         var sett = new List<WarehouseSetting>();
 
                         var sett1 = new WarehouseSetting();
