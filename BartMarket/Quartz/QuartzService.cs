@@ -94,31 +94,31 @@ namespace BartMarket.Quartz
 
             try
             {
-                //using (var client = new HttpClient())
-                //{
-                //    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
-                //    {
-                //        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", FileMode.OpenOrCreate))
-                //        {
-                //            s.Result.CopyTo(fs);
-                //            logger.Info("success");
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
+                    {
+                        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", FileMode.OpenOrCreate))
+                        {
+                            s.Result.CopyTo(fs);
+                            logger.Info("success");
 
-                //        }
-                //    }
-                //}
+                        }
+                    }
+                }
 
-                //using (var client = new HttpClient())
-                //{
-                //    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
-                //    {
-                //        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml", FileMode.OpenOrCreate))
-                //        {
-                //            s.Result.CopyTo(fs);
-                //            logger.Info("success");
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
+                    {
+                        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml", FileMode.OpenOrCreate))
+                        {
+                            s.Result.CopyTo(fs);
+                            logger.Info("success");
 
-                //        }
-                //    }
-                //}
+                        }
+                    }
+                }
 
             }
             catch (Exception ex)
@@ -141,24 +141,7 @@ namespace BartMarket.Quartz
             }
             try
             {
-                //var text = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
-                //using (StringReader reader = new StringReader(text))
-                //{
-                //    var text2 = serializer.Deserialize(reader);
-                //    catalog = (YmlCatalog)text2;
-                //}
-
-
-
-                //var text22 = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
-                //using (StringReader reader = new StringReader(text22))
-                //{
-                //    var text2 = serializer.Deserialize(reader);
-                //    catalog2 = (YmlCatalog)text2;
-                //}
-
-
-                var text = File.ReadAllText($"Example1.xml");
+                var text = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
                 using (StringReader reader = new StringReader(text))
                 {
                     var text2 = serializer.Deserialize(reader);
@@ -167,12 +150,29 @@ namespace BartMarket.Quartz
 
 
 
-                var text22 = File.ReadAllText($"Example22.xml");
+                var text22 = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
                 using (StringReader reader = new StringReader(text22))
                 {
                     var text2 = serializer.Deserialize(reader);
                     catalog2 = (YmlCatalog)text2;
                 }
+
+
+                //var text = File.ReadAllText($"Example1.xml");
+                //using (StringReader reader = new StringReader(text))
+                //{
+                //    var text2 = serializer.Deserialize(reader);
+                //    catalog = (YmlCatalog)text2;
+                //}
+
+
+
+                //var text22 = File.ReadAllText($"Example22.xml");
+                //using (StringReader reader = new StringReader(text22))
+                //{
+                //    var text2 = serializer.Deserialize(reader);
+                //    catalog2 = (YmlCatalog)text2;
+                //}
             }
             catch (Exception ex)
             {
