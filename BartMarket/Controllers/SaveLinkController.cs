@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BartMarket.Data;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace BartMarket.Controllers
 {
@@ -15,6 +17,16 @@ namespace BartMarket.Controllers
         [HttpPost]
         public IActionResult Save([FromForm] string link_lite, [FromForm] string link_full)
         {
+            using (var db = new UserContext())
+            {
+                var l = db.LinkModels.FirstOrDefault(m=>m.Type == "Full");
+                l.Link = link_full;
+
+                l = db.LinkModels.FirstOrDefault(m => m.Type == "Lite");
+                l.Link = link_lite;
+
+                db.SaveChanges();
+            }
 
             if (link_lite != null)
             {
@@ -25,9 +37,8 @@ namespace BartMarket.Controllers
                 Program.link_ozon_full = link_full;
 
             }
-            return Redirect("Donplafon_Ozon");
 
-            //return RedirectToAction("Donplafon_Ozon");
+            return Redirect("Donplafon_Ozon");
         }
     }
 }

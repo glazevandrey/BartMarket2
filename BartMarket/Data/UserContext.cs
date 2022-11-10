@@ -8,10 +8,11 @@ namespace BartMarket.Data
     {
         public DbSet<WarehouseModel> Warehouses { get; set; }
         public DbSet<WarehouseSetting> WarehouseSettings { get; set; }
+        public DbSet<LinkModel> LinkModels { get; set; }
 
         public UserContext()
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

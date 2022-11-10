@@ -236,7 +236,7 @@ namespace BartMarket
 
                     var instInt = GetInst(catalog2.Shop.Offers.Offer, item.Id).ToString();
 
-                    if(ware.Condition == null)
+                    if(ware.Condition == null || ware.Condition.Count == 0)
                     {
                         var instock = CreateAndSetAttr(docNew, "instock", instInt);
                         outlet.Attributes.Append(instock);

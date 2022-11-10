@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BartMarket.Data;
+using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace BartMarket.Controllers
 {
@@ -14,26 +16,55 @@ namespace BartMarket.Controllers
         public IActionResult Save([FromForm] string ware, [FromForm] string havecond, [FromForm] string cond)
         {
             var warehouse = new Warehouse();
-
+            var model = new WarehouseModel();
+            model.Name = ware;
             warehouse.Name = ware.Trim();
-            if(havecond == "false" || havecond == "off")
+            var id = 0;
+            using (var db = new UserContext())
+            {
+                db.Warehouses.Add(model);
+                db.SaveChanges();
+
+               
+            }
+
+            using (var db = new UserContext())
+            {
+                id = db.Warehouses.FirstOrDefault(m=>m.Name == model.Name).Id;
+            }
+
+            if (havecond == "false" || havecond == "off")
             {
                 warehouse.Condition = null;
                 Program.warehouses.Add(warehouse);
+
+               
+
                 return Redirect("Donplafon_Ozon");
             }
             else
             {
                 warehouse.Condition = new System.Collections.Generic.List<string>();
-              
+               
             }
 
             var split = cond.Split(";");
             for (int i = 0; i < split.Length; i++)
             {
                 warehouse.Condition.Add(split[i].Trim());
-            }
+                using (var db = new UserContext())
+                {
+                    db.WarehouseSettings.Add(new WarehouseSetting()
+                    {
+                        WarehouseId = id,
+                        Filter = split[i].Trim(),
 
+                    });
+                    db.SaveChanges();
+                }
+            }
+           
+           
             Program.warehouses.Add(warehouse);
             return Redirect("Donplafon_Ozon");
         }

@@ -43,6 +43,13 @@ namespace BartMarket
                  list = db.Warehouses.ToList();
 
             }
+            using (var db = new UserContext())
+            {
+                var l = db.LinkModels.ToList();
+                link_ozon_full = l.FirstOrDefault(m=>m.Type == "Full").Link;
+                link_ozon_lite = l.FirstOrDefault(m => m.Type == "Lite").Link;
+
+            }
 
             foreach (var item in list)
             {
