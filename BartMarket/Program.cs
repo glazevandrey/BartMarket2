@@ -1,3 +1,4 @@
+using BartMarket.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -36,28 +37,60 @@ namespace BartMarket
 
         public static void Main(string[] args)
         {
-            warehouses.Add(new Warehouse()
+            var list = new List<WarehouseModel>();
+            using (var db = new UserContext())
             {
-                Name= "DPN", Condition = null
+                 list = db.Warehouses.ToList();
 
-            });
-            warehouses.Add(new Warehouse()
+            }
+
+            foreach (var item in list)
             {
-                Name = "DPN2",
-                Condition = new List<string>()
+                var n = new Warehouse();
+                n.Name = item.Name;
+                using (var db = new UserContext())
                 {
-                    "weight < 30.0",
-                    "price > 3000",
-                    "price < 50000"
+                    var set = db.WarehouseSettings.Where(m=>m.WarehouseId == item.Id).ToList();
+                    if(set != null)
+                    {
+                        n.Condition = new List<string>();
+                        foreach (var item2 in set)
+                        {
+                            n.Condition.Add(item2.Filter.Trim());
+                        }
+                    }
+                    else
+                    {
+                        n.Condition = null;
+                    }
                 }
+                warehouses.Add(n);
 
-            });
-            warehouses.Add(new Warehouse()
-            {
-                Name = "DPN3",
-                Condition = null
+            }
+            //warehouses.Add(new Warehouse()
+            //{
+            //    Name = "DPN",
+            //    Condition = null
 
-            });
+            //});
+            //warehouses.Add(new Warehouse()
+            //{
+            //    Name = "DPN2",
+            //    Condition = new List<string>()
+            //    {
+            //        "weight < 30.0",
+            //        "price > 3000",
+            //        "price < 50000"
+            //    }
+
+            //});
+            //warehouses.Add(new Warehouse()
+            //{
+            //    Name = "DPN3",
+            //    Condition = null
+
+            //});
+
 
             CreateHostBuilder(args).Build().Run();
         }
