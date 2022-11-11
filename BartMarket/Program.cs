@@ -124,7 +124,6 @@ namespace BartMarket
                         db.WarehouseSettings.AddRange(sett1,sett2, sett3);
 
                         db.SaveChanges();
-                        break;
                     }
                 }
                 using (var db = new UserContext())
