@@ -12,6 +12,7 @@ namespace BartMarket.Controllers
         {
             return View(Program.warehouses);
         }
+
         [HttpPost]
         public IActionResult Save([FromForm] string ware, [FromForm] string havecond, [FromForm] string cond)
         {

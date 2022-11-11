@@ -6,9 +6,14 @@
     @foreach (var item in Model)
 {
 
-        <input type="text" disabled="disabled" value=@item.Name name="ware" />
+        <form method="post" action="warehouses">
+        <input type="text" disabled="disabled" value=@item.Name name="ware_delete" />
       <a href="changeware?ware=@item.Name">Изменить склад</a>
+            <a href="changeware?delete=@item.Name">Удалить склад</a>
+
+
         <br />
+        </form>
 
       
 }

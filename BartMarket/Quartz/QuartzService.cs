@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using BartMarket.Data;
+using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -201,6 +202,42 @@ namespace BartMarket.Quartz
                         ofrs.Add(item);
                     }
                 }
+            }
+
+
+            
+            using (var db = new UserContext())
+            {
+                var wares = db.Warehouses;
+                foreach (var item in wares)
+                {
+                    var setts = db.WarehouseSettings.Where(m=>m.WarehouseId == item.Id);
+                    if(setts.ToList().Count == 0)
+                    {
+                        continue;
+                    }
+
+                    if(setts.First().Filter == "DELETED")
+                    {
+                        if(setts.ToList().Count == 3)
+                        {
+                            db.Warehouses.Remove(item);
+                            db.WarehouseSettings.RemoveRange(setts);
+                            Program.warehouses.Remove(Program.warehouses.FirstOrDefault(m=>m.Name == item.Name));
+                        }
+                        else
+                        {
+                            db.WarehouseSettings.Add(new WarehouseSetting()
+                            {
+                                WarehouseId = db.Warehouses.FirstOrDefault(m => m.Name == item.Name).Id,
+                                Filter = "DELETED"
+                            });
+                        }
+                    }
+                }
+
+                db.SaveChanges();
+                
             }
 
 

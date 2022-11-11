@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using BartMarket.Quartz;
 using System.IO;
 using System.Threading;
+using BartMarket.Data;
 
 namespace BartMarket
 {
@@ -245,10 +246,24 @@ namespace BartMarket
                     {
                         List<bool> bools = new List<bool>();
 
+                        if (ware.Condition[0] == "DELETED")
+                        {
+                        
+                            foreach (var ii in ware.Condition)
+                            {
+                                bools.Add(false);
+                            }
+                           
+                        }
 
                         foreach (var cond in ware.Condition)
                         {
                             bool d = false;
+                            if(cond == "DELETED")
+                            {
+                                break;
+                            }
+
                             if (cond.Contains("weight"))
                             {
                                 d = (bool)new DataTable().Compute(cond.Replace("weight", weight.ToString()), null);

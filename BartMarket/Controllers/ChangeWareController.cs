@@ -10,10 +10,43 @@ namespace BartMarket.Controllers
     [Route("changeware")]
     public class ChangeWareController : Controller
     {
-        public IActionResult Index([FromQuery]string ware)
+        public IActionResult Index([FromQuery]string ware, [FromQuery] string delete)
         {
-            return View(Program.warehouses.FirstOrDefault(m=>m.Name == ware));
+            if (delete != null)
+            {
+
+                using (var db = new UserContext())
+                {
+                    var c = db.Warehouses.FirstOrDefault(m=>m.Name == delete);
+                    if(c == null)
+                    {
+                        return Redirect("warehouses");
+                    }
+
+                    var filters = db.WarehouseSettings.Where(m=>m.WarehouseId == c.Id);
+                    if(filters.ToList().Count != 0)
+                    {
+                        db.WarehouseSettings.RemoveRange(filters);
+                    }
+                    else
+                    {
+                        db.WarehouseSettings.Add(new WarehouseSetting()
+                        {
+                            WarehouseId = c.Id,
+                            Filter = "DELETED"
+                        });
+                    }
+                    db.SaveChanges();
+                }
+                return Redirect("warehouses");
+
+            }
+
+            return View(Program.warehouses.FirstOrDefault(m => m.Name == ware));
+
         }
+
+
         [HttpPost]
         public IActionResult Save([FromForm] string cond, [FromForm] string ware, [FromForm] string oldware)
         {
