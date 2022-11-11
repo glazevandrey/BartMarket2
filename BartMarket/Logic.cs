@@ -141,8 +141,16 @@ namespace BartMarket
             {            
                 if (raw.Name.Contains("гр"))
                 {
-                    var r = Convert.ToInt32(raw.Text);
-                    weight = Convert.ToDouble(r/1000);
+                    try
+                    {
+                        var r = Convert.ToInt32(raw.Text);
+                        weight = Convert.ToDouble(r / 1000);
+                    }
+                    catch (Exception)
+                    {
+                        weight = Convert.ToDouble(raw.Text)/1000;
+                    }
+                   
                 }
                 else if (raw.Name.Contains("кг"))
                 {
