@@ -155,7 +155,7 @@ namespace BartMarket
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message);
+                logger.Error(ex.Message +" : " + item.Name + " : " + raw);
             }
 
             //logger.Info("final w" + weight);
