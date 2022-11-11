@@ -102,7 +102,7 @@ namespace BartMarket
                 n.Name = item.Name;
                 using (var db = new UserContext())
                 {
-                    var houses = db.Warehouses.ToList();
+                    var houses = db.WarehouseSettings.ToList();
 
                     if(houses.Count == 0)
                     {
