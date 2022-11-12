@@ -34,7 +34,7 @@ namespace BartMarket.Controllers
                 id = db.Warehouses.FirstOrDefault(m=>m.Name == model.Name).Id;
             }
 
-            if (havecond == "false" || havecond == "off")
+            if (havecond == "false" || havecond == "off" || cond == null)
             {
                 warehouse.Condition = null;
                 Program.warehouses.Add(warehouse);
@@ -50,12 +50,13 @@ namespace BartMarket.Controllers
             }
 
             var split = cond.Split(";");
-            for (int i = 0; i < split.Length; i++)
+            using (var db = new UserContext())
+            {
+
+                for (int i = 0; i < split.Length; i++)
             {
                 warehouse.Condition.Add(split[i].Trim());
-                using (var db = new UserContext())
-                {
-                    db.WarehouseSettings.Add(new WarehouseSetting()
+                  db.WarehouseSettings.Add(new WarehouseSetting()
                     {
                         WarehouseId = id,
                         Filter = split[i].Trim(),
