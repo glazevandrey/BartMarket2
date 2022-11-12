@@ -243,6 +243,47 @@ namespace BartMarket.Quartz
             }
 
 
+            var list = new List<WarehouseModel>();
+            using (var db = new UserContext())
+            {
+                list = db.Warehouses.ToList();
+
+            }
+
+            logger.Info("remove old warehouses");
+
+            Program.warehouses = new List<Warehouse>();
+
+            foreach (var item in list)
+            {
+
+                var n = new Warehouse();
+                n.Name = item.Name;
+                using (var db = new UserContext())
+                {
+
+                    var set = db.WarehouseSettings.Where(m => m.WarehouseId == item.Id).ToList();
+                    if (set != null)
+                    {
+                        n.Condition = new List<string>();
+                        foreach (var item2 in set)
+                        {
+                            n.Condition.Add(item2.Filter.Trim());
+                        }
+                    }
+                    else
+                    {
+                        n.Condition = null;
+                    }
+                }
+
+                 Program.warehouses.Add(n);
+
+                logger.Info("add new warehouse: " + item.Name + " cond.count: " + Program.warehouses.FirstOrDefault(m=>m.Name == item.Name).Condition.Count);
+
+            }
+
+
             catalog.Shop.Offers.Offer = ofrs;
 
             XmlDocument docNew = new XmlDocument();
