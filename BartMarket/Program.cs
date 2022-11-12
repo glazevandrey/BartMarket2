@@ -32,7 +32,7 @@ namespace BartMarket
         public static string link_ozon_lite = "/content/liteozon.xml";
         public static string link_ozon_full = "/content/fullozon.xml";
         public static StatModel Last = new StatModel();
-
+        public static bool inAir = false;
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public static void Main(string[] args)

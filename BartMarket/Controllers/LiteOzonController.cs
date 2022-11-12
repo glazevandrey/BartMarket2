@@ -20,7 +20,7 @@ namespace BartMarket.Controllers
             ViewData["DATE"] = Program.Last.Date;
             ViewData["TIMELITE"] = Program.Last.ElapsedLite;
             ViewData["TIMEFULL"] = Program.Last.ElapsedFull;
-
+            ViewData["AIR"] = Program.inAir;
 
 
             if (success)

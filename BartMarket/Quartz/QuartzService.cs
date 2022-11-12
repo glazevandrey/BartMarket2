@@ -89,7 +89,7 @@ namespace BartMarket.Quartz
         public async static Task StartLite()
         {
 
-
+            Program.inAir = true;
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
             if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
@@ -134,6 +134,7 @@ namespace BartMarket.Quartz
                 logger.Error("from download" + ex.Message);
                 Program.Last.Success = false;
                 Program.Last.Error = ex.Message;
+                Program.inAir = false;
 
                 return;
             }
@@ -180,6 +181,7 @@ namespace BartMarket.Quartz
                 logger.Error("from upload to disk" + ex.Message);
                 Program.Last.Success = false;
                 Program.Last.Error = ex.Message;
+                Program.inAir = false;
                 return;
             }
           
@@ -296,6 +298,7 @@ namespace BartMarket.Quartz
             GC.WaitForPendingFinalizers();
 
             Program.Last.Date = DateTime.Now;
+            Program.inAir = false;
             
         }
 
