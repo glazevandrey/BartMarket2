@@ -30,7 +30,9 @@
     <br />
     <div align="right">
         @if((bool)ViewData["AIR"] == true){
-            <label>Сейчас идет обработка...</label>
+            <label style="color:red">Сейчас идет обработка...</label>
+            <br/>
+            <br />
         }
         <label>Дата последней обработки: @ViewData["DATE"]</label>
         <br/>
