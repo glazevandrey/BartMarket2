@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using NLog;
 using Quartz;
 using Quartz.Spi;
 using System;
@@ -9,6 +10,7 @@ namespace BartMarket.Quartz.Jobs
     {
         private readonly IServiceProvider _serviceProvider;
 
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public JobFactory(IServiceProvider serviceProvider)
         {
@@ -29,6 +31,7 @@ namespace BartMarket.Quartz.Jobs
             }
             catch (Exception e)
             {
+                logger.Error(e);
                 throw e;
             }
 

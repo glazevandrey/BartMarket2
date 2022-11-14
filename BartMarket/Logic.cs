@@ -33,25 +33,79 @@ namespace BartMarket
                     return 0;
             }
         }
+
+        //public static string Reverse(string text)
+        //{
+        //    string res = text;
+
+        //    var word = new Regex(@"([a-zA-Z0-9]+)+");
+        //    //var word = new Regex(@"([a-zA-Z0-9]+\s*\/*)+");
+        //    var g = word.Matches(text);
+
+        //    if (g.Count > 0)
+        //    {
+        //        foreach (var m in g)
+        //        {
+        //            var chars = m.ToString().ToCharArray();
+        //            Array.Reverse(chars);
+
+        //            res = res.Replace(m.ToString(), new string(chars));
+        //        }
+        //    }
+
+        //    word = new Regex(@"(\d+)+");
+        //    g = word.Matches(text);
+        //    if (g.Count > 0)
+        //    {
+        //        foreach (var m in g)
+        //        {
+        //            var chars = m.ToString().ToCharArray();
+        //            Array.Reverse(chars);
+
+        //            res = res.Replace(m.ToString(), new string(chars));
+        //        }
+        //    }
+
+
+        //    return res;
+        //}
         public static string Reverse(string text)
         {
             string res = text;
 
-            var regex1 = new Regex(@"([a-zA-Z0-9]+\s*\/*)+");
+            var regex1 = new Regex(@"([a-zA-Z0-9]+\s*\/*)+", RegexOptions.CultureInvariant);
             Match m1 = regex1.Match(text);
+            if (text.Contains("Wi-Fi"))
+            {
+                m1 = regex1.Match(text.Replace("Wi-Fi", string.Empty));
+            }
 
             if (m1.Groups.Count == 0 || m1.Groups[0].Success == false)
             {
                 return text;
             }
             var item = m1.Groups[0];
-            var old = item.Value;
+            var old = item.Value.Trim();
 
             var chars = old.ToCharArray();
             Array.Reverse(chars);
 
             res = res.Replace(old, new string(chars));
 
+            for (int i = 0; i < 10; i++)
+            {
+                m1 = m1.NextMatch();
+                if (!m1.Success)
+                {
+                    return res;
+                }
+
+                var chars2 = m1.Value.Trim().ToCharArray();
+                Array.Reverse(chars2);
+
+                res = res.Replace(m1.Value.Trim(), new string(chars2));
+
+            }
 
             return res;
         }
@@ -163,7 +217,15 @@ namespace BartMarket
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message +" : " + item.Name + " : " + raw);
+                try
+                {
+                    weight = Convert.ToDouble(raw.Text.Replace(".", ","));
+                }
+                catch (Exception)
+                {
+                    logger.Error(ex.Message + " : " + item.Name + " : " + raw);
+
+                }
             }
 
             //logger.Info("final w" + weight);
@@ -238,6 +300,8 @@ namespace BartMarket
 
 
                 var weight = CheckWeight(item);
+                try
+                {
 
                 foreach (var ware in Program.warehouses)
                 {
@@ -263,7 +327,7 @@ namespace BartMarket
                             }
                            
                         }
-
+                      
                         foreach (var cond in ware.Condition)
                         {
                             bool d = false;
@@ -274,15 +338,60 @@ namespace BartMarket
 
                             if (cond.Contains("weight"))
                             {
-                                d = (bool)new DataTable().Compute(cond.Replace("weight", weight.ToString()), null);
-                                
+                                    try
+                                    {
+                                        d = (bool)new DataTable().Compute(cond.Replace("weight", weight.ToString()), null);
 
-                            }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        try
+                                        {
+                                            d = (bool)new DataTable().Compute(cond.Replace("weight", Convert.ToInt32(weight).ToString()), null);
+
+                                        }
+                                        catch (Exception ex2)
+                                        {
+                                            try
+                                            {
+                                                d = (bool)new DataTable().Compute(cond.Replace("weight", Convert.ToInt32(weight.ToString().Replace(".", ",")).ToString()), null);
+
+                                            }
+                                            catch (Exception ex3)
+                                            {
+
+                                                throw ex3;
+                                            }
+                                        }
+                                    }
+
+
+                                }
                             else if (cond.Contains("price"))
                             {
                                 d = (bool)new DataTable().Compute(cond.Replace("price", mainPrice.ToString()), null);
 
                             }
+                            else if (cond.Contains("glass"))
+                            {
+                                    var yes = cond.Contains("yes");
+                                    var no = cond.Contains("no");
+
+                                    string material = item.Param.FirstOrDefault(m=>m.Name.Contains("Материал")).Text;
+                                    
+                                    if(material.ToLower().Contains("хрусталь") || material.ToLower().Contains("стекло"))
+                                    {
+                                        if (yes)
+                                        {
+                                            d = true;
+                                        }
+                                        else 
+                                        {
+                                            d = false;
+                                        }
+
+                                    }
+                                }
                             if(d == true)
                             {
                                 bools.Add(true);
@@ -311,35 +420,16 @@ namespace BartMarket
                     outlets.AppendChild(outlet);
                 }
 
-               // var warehouse_name = CreateAndSetAttr(docNew, "warehouse_name", "DPN");
-              
 
-
-                //if (weight < 30.0 && Convert.ToInt32(item.Price) > 3000 && Convert.ToInt32(item.Price) < 50000)
-                //{
-                    //var outlet2 = docNew.CreateElement("outlet");
-                    //var instock2 = CreateAndSetAttr(docNew, "instock", instInt);
-                    //outlet2.Attributes.Append(instock2);
-
-
-                    //var warehouse_name2 = CreateAndSetAttr(docNew, "warehouse_name", "DPN2");
-                    //outlet2.Attributes.Append(warehouse_name2);
-                    //outlets.AppendChild(outlet2);
-
-                //}
-
-                //var outlet3 = docNew.CreateElement("outlet");
-
-                //var instock3 = CreateAndSetAttr(docNew, "instock", instInt);
-                //outlet3.Attributes.Append(instock3);
-
-                //if(weight != 0.0)
-                //{
-                //    var warehouse_name3 = CreateAndSetAttr(docNew, "warehouse_name", "DPN3");
-                //    outlet3.Attributes.Append(warehouse_name3);
-                //    outlets.AppendChild(outlet3);
-                //}
-
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("Неверно задан фильтр у одного из складов. Нужна проверка");
+                    Program.inAir = false;
+                    Program.Last.Success = false;
+                    Program.Last.Error = "Неверно задан фильтр у одного из складов. Нужна проверка";
+                    return;
+                }
                 offer.AppendChild(outlets);
                 offers.AppendChild(offer);
                 if(x%10000 == 0)
@@ -347,6 +437,7 @@ namespace BartMarket
                     logger.Info($"({x}/{y})");
                 }
                 x++;
+                
             }
 
             if(type == "full")

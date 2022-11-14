@@ -14,10 +14,12 @@ namespace BartMarket.Controllers
         public IActionResult Index(bool success)
         {
 
+            var date = Program.Last.Date.AddHours(3);
+
             ViewData["SUCCESS2"] = Program.Last.Success;
             ViewData["ERROR"] = Program.Last.Error;
             ViewData["COUNT"] = Program.Last.Count;
-            ViewData["DATE"] = Program.Last.Date;
+            ViewData["DATE"] = date;
             ViewData["TIMELITE"] = Program.Last.ElapsedLite;
             ViewData["TIMEFULL"] = Program.Last.ElapsedFull;
             ViewData["AIR"] = Program.inAir;

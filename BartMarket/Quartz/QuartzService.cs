@@ -90,6 +90,8 @@ namespace BartMarket.Quartz
         {
 
             Program.inAir = true;
+            Program.Last.Success = true;
+
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
             if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
