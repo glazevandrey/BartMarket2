@@ -94,6 +94,7 @@ namespace BartMarket.Quartz
 
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
+
             if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
             {
                 File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
@@ -133,19 +134,21 @@ namespace BartMarket.Quartz
             }
             catch (Exception ex)
             {
-                logger.Error("from download" + ex.Message);
+                logger.Error("from download " + ex.Message);
                 Program.Last.Success = false;
                 Program.Last.Error = ex.Message;
                 Program.inAir = false;
 
                 return;
             }
+
             YmlCatalog catalog2 = new YmlCatalog();
 
            
             try
             {
                 var text = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
+                logger.Info(text);
                 using (StringReader reader = new StringReader(text))
                 {
                     var text2 = serializer.Deserialize(reader);
@@ -180,7 +183,7 @@ namespace BartMarket.Quartz
             }
             catch (Exception ex)
             {
-                logger.Error("from upload to disk" + ex.Message);
+                logger.Error("from upload to disk " + ex.Message);
                 Program.Last.Success = false;
                 Program.Last.Error = ex.Message;
                 Program.inAir = false;
