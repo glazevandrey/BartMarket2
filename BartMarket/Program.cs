@@ -1,24 +1,10 @@
 using BartMarket.Data;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using NLog;
-using Quartz.Logging;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Serialization;
 using Logger = NLog.Logger;
 
 namespace BartMarket
@@ -37,11 +23,11 @@ namespace BartMarket
 
         public static void Main(string[] args)
         {
-            
+
             using (var db = new UserContext())
             {
                 var l = db.LinkModels.ToList();
-                if(l.Count == 0)
+                if (l.Count == 0)
                 {
                     var lite = new LinkModel();
                     lite.Link = link_ozon_lite;
@@ -71,7 +57,7 @@ namespace BartMarket
             using (var db = new UserContext())
             {
                 list = db.Warehouses.ToList();
-                if(list.Count == 0)
+                if (list.Count == 0)
                 {
                     var _1 = new WarehouseModel();
                     var _2 = new WarehouseModel();
@@ -104,9 +90,9 @@ namespace BartMarket
                 {
                     var houses = db.WarehouseSettings.ToList();
 
-                    if(houses.Count == 0)
+                    if (houses.Count == 0)
                     {
-                        
+
                         var sett = new List<WarehouseSetting>();
 
                         var sett1 = new WarehouseSetting();
@@ -121,7 +107,7 @@ namespace BartMarket
                         sett3.WarehouseId = 2;
                         sett3.Filter = "weight < 30";
 
-                        db.WarehouseSettings.AddRange(sett1,sett2, sett3);
+                        db.WarehouseSettings.AddRange(sett1, sett2, sett3);
 
                         db.SaveChanges();
                     }
@@ -183,5 +169,5 @@ namespace BartMarket
 
 
     }
-    }
+}
 

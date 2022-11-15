@@ -26,12 +26,12 @@ namespace BartMarket.Controllers
                 db.Warehouses.Add(model);
                 db.SaveChanges();
 
-               
+
             }
 
             using (var db = new UserContext())
             {
-                id = db.Warehouses.FirstOrDefault(m=>m.Name == model.Name).Id;
+                id = db.Warehouses.FirstOrDefault(m => m.Name == model.Name).Id;
             }
 
             if (havecond == "false" || havecond == "off" || cond == null)
@@ -39,14 +39,14 @@ namespace BartMarket.Controllers
                 warehouse.Condition = null;
                 Program.warehouses.Add(warehouse);
 
-               
+
 
                 return Redirect("Donplafon_Ozon");
             }
             else
             {
                 warehouse.Condition = new System.Collections.Generic.List<string>();
-               
+
             }
 
             var split = cond.Split(";");
@@ -54,9 +54,9 @@ namespace BartMarket.Controllers
             {
 
                 for (int i = 0; i < split.Length; i++)
-            {
-                warehouse.Condition.Add(split[i].Trim());
-                  db.WarehouseSettings.Add(new WarehouseSetting()
+                {
+                    warehouse.Condition.Add(split[i].Trim());
+                    db.WarehouseSettings.Add(new WarehouseSetting()
                     {
                         WarehouseId = id,
                         Filter = split[i].Trim(),
@@ -65,8 +65,8 @@ namespace BartMarket.Controllers
                     db.SaveChanges();
                 }
             }
-           
-           
+
+
             Program.warehouses.Add(warehouse);
             return Redirect("Donplafon_Ozon");
         }

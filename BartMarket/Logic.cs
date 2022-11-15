@@ -1,17 +1,12 @@
-﻿using System.Data;
-using System.Text.RegularExpressions;
-using System;
-using System.Linq;
-using System.Xml;
-using System.Text;
-using System.Globalization;
+﻿using BartMarket.Quartz;
 using NLog;
+using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.WebUtilities;
-using BartMarket.Quartz;
+using System.Data;
 using System.IO;
-using System.Threading;
-using BartMarket.Data;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace BartMarket
 {
@@ -34,41 +29,6 @@ namespace BartMarket
             }
         }
 
-        //public static string Reverse(string text)
-        //{
-        //    string res = text;
-
-        //    var word = new Regex(@"([a-zA-Z0-9]+)+");
-        //    //var word = new Regex(@"([a-zA-Z0-9]+\s*\/*)+");
-        //    var g = word.Matches(text);
-
-        //    if (g.Count > 0)
-        //    {
-        //        foreach (var m in g)
-        //        {
-        //            var chars = m.ToString().ToCharArray();
-        //            Array.Reverse(chars);
-
-        //            res = res.Replace(m.ToString(), new string(chars));
-        //        }
-        //    }
-
-        //    word = new Regex(@"(\d+)+");
-        //    g = word.Matches(text);
-        //    if (g.Count > 0)
-        //    {
-        //        foreach (var m in g)
-        //        {
-        //            var chars = m.ToString().ToCharArray();
-        //            Array.Reverse(chars);
-
-        //            res = res.Replace(m.ToString(), new string(chars));
-        //        }
-        //    }
-
-
-        //    return res;
-        //}
         public static string Reverse(string text)
         {
             string res = text;
@@ -178,21 +138,21 @@ namespace BartMarket
         {
             var raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес кг");
 
-            if(raw == null)
+            if (raw == null)
             {
                 raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес гр");
-                if(raw == null)
+                if (raw == null)
                 {
                     //logger.Warn("No weight ITEM-" + item.Name);
                     return 0.0;
                 }
 
             }
-          
+
             double weight = 0.0;
 
             try
-            {            
+            {
                 if (raw.Name.Contains("гр"))
                 {
                     try
@@ -202,9 +162,9 @@ namespace BartMarket
                     }
                     catch (Exception)
                     {
-                        weight = Convert.ToDouble(raw.Text)/1000;
+                        weight = Convert.ToDouble(raw.Text) / 1000;
                     }
-                   
+
                 }
                 else if (raw.Name.Contains("кг"))
                 {
@@ -228,7 +188,6 @@ namespace BartMarket
                 }
             }
 
-            //logger.Info("final w" + weight);
             return weight;
         }
         public static int GetInst(List<Offer> item, int id)
@@ -256,7 +215,7 @@ namespace BartMarket
             Program.Last.Count = catalog.Shop.Offers.Offer.Count;
             foreach (var item in catalog.Shop.Offers.Offer)
             {
-                if(CheckBrand(item) == false)
+                if (CheckBrand(item) == false)
                 {
                     continue;
                 }
@@ -271,7 +230,7 @@ namespace BartMarket
                 var price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 0)).ToString()).ToString());
 
                 var name = CreateAndSetElement(docNew, "name", item.Name);
-                
+
                 var nameback = CreateAndSetElement(docNew, "name_back", Reverse(item.Name));
 
                 var oldPrice = CreateAndSetElement(docNew, "oldprice", QuartzService.MakePrice(Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 1)).ToString()).ToString());
@@ -303,41 +262,41 @@ namespace BartMarket
                 try
                 {
 
-                foreach (var ware in Program.warehouses)
-                {
-                    var outlet = docNew.CreateElement("outlet");
-
-                    var instInt = GetInst(catalog2.Shop.Offers.Offer, item.Id).ToString();
-
-                    if(ware.Condition == null || ware.Condition.Count == 0)
+                    foreach (var ware in Program.warehouses)
                     {
-                        var instock = CreateAndSetAttr(docNew, "instock", instInt);
-                        outlet.Attributes.Append(instock);
-                    }
-                    else
-                    {
-                        List<bool> bools = new List<bool>();
+                        var outlet = docNew.CreateElement("outlet");
 
-                        if (ware.Condition[0] == "DELETED")
+                        var instInt = GetInst(catalog2.Shop.Offers.Offer, item.Id).ToString();
+
+                        if (ware.Condition == null || ware.Condition.Count == 0)
                         {
-                        
-                            foreach (var ii in ware.Condition)
-                            {
-                                bools.Add(false);
-                            }
-                           
+                            var instock = CreateAndSetAttr(docNew, "instock", instInt);
+                            outlet.Attributes.Append(instock);
                         }
-                      
-                        foreach (var cond in ware.Condition)
+                        else
                         {
-                            bool d = false;
-                            if(cond == "DELETED")
+                            List<bool> bools = new List<bool>();
+
+                            if (ware.Condition[0] == "DELETED")
                             {
-                                break;
+
+                                foreach (var ii in ware.Condition)
+                                {
+                                    bools.Add(false);
+                                }
+
                             }
 
-                            if (cond.Contains("weight"))
+                            foreach (var cond in ware.Condition)
                             {
+                                bool d = false;
+                                if (cond == "DELETED")
+                                {
+                                    break;
+                                }
+
+                                if (cond.Contains("weight"))
+                                {
                                     try
                                     {
                                         d = (bool)new DataTable().Compute(cond.Replace("weight", weight.ToString()), null);
@@ -367,20 +326,20 @@ namespace BartMarket
 
 
                                 }
-                            else if (cond.Contains("price"))
-                            {
-                                d = (bool)new DataTable().Compute(cond.Replace("price", mainPrice.ToString()), null);
+                                else if (cond.Contains("price"))
+                                {
+                                    d = (bool)new DataTable().Compute(cond.Replace("price", mainPrice.ToString()), null);
 
-                            }
-                            else if (cond.Contains("glass"))
-                            {
+                                }
+                                else if (cond.Contains("glass"))
+                                {
                                     var yes = cond.Contains("yes");
                                     var no = cond.Contains("no");
 
-                                    var material = item.Param.FirstOrDefault(m=>m.Name == "Материал плафона/абажура");
+                                    var material = item.Param.FirstOrDefault(m => m.Name == "Материал плафона/абажура");
 
-                                    
-                                    if(material == null)
+
+                                    if (material == null)
                                     {
                                         // logger.Error(item.Name + " has zero param Material");
                                         d = true;
@@ -401,33 +360,33 @@ namespace BartMarket
                                         }
                                     }
                                 }
-                            if(d == true)
+                                if (d == true)
+                                {
+                                    bools.Add(true);
+                                }
+                                else
+                                {
+                                    bools.Add(false);
+
+                                }
+
+                            }
+                            if (bools.Where(m => m == true).ToList().Count == ware.Condition.Count)
                             {
-                                bools.Add(true);
+                                var instock = CreateAndSetAttr(docNew, "instock", instInt);
+                                outlet.Attributes.Append(instock);
                             }
                             else
                             {
-                                bools.Add(false);
-
+                                var instock = CreateAndSetAttr(docNew, "instock", "0");
+                                outlet.Attributes.Append(instock);
                             }
+                        }
 
-                        }
-                        if(bools.Where(m=>m == true).ToList().Count == ware.Condition.Count)
-                        {
-                            var instock = CreateAndSetAttr(docNew, "instock", instInt);
-                            outlet.Attributes.Append(instock);
-                        }
-                        else
-                        {
-                            var instock = CreateAndSetAttr(docNew, "instock", "0");
-                            outlet.Attributes.Append(instock);
-                        }
+                        var w_name = CreateAndSetAttr(docNew, "warehouse_name", ware.Name);
+                        outlet.Attributes.Append(w_name);
+                        outlets.AppendChild(outlet);
                     }
-                   
-                    var w_name = CreateAndSetAttr(docNew, "warehouse_name", ware.Name);
-                    outlet.Attributes.Append(w_name);
-                    outlets.AppendChild(outlet);
-                }
 
 
                 }
@@ -441,17 +400,17 @@ namespace BartMarket
                 }
                 offer.AppendChild(outlets);
                 offers.AppendChild(offer);
-                if(x%10000 == 0)
+                if (x % 10000 == 0)
                 {
                     logger.Info($"({x}/{y})");
                 }
                 x++;
-                
+
             }
 
-            if(type == "full")
+            if (type == "full")
             {
-                
+
                 var _1 = Program.link_ozon_full.TrimStart('/').Split("/")[0];
                 if (_1.Contains(".xml"))
                 {
@@ -468,7 +427,7 @@ namespace BartMarket
                             break;
                         }
                         subpath += Program.link_ozon_full.TrimStart('/').Split("/")[i] + "/";
-                        
+
                     }
                     subpath.TrimEnd('/');
 
@@ -494,7 +453,7 @@ namespace BartMarket
 
                     }
                 }
-         
+
             }
             else
             {

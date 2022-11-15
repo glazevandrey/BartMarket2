@@ -1,12 +1,10 @@
 ﻿using BartMarket.Data;
-using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -144,7 +142,7 @@ namespace BartMarket.Quartz
 
             YmlCatalog catalog2 = new YmlCatalog();
 
-           
+
             try
             {
                 var text = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
@@ -188,8 +186,8 @@ namespace BartMarket.Quartz
                 Program.inAir = false;
                 return;
             }
-          
-         
+
+
             var ofrs = new List<Offer>();
 
             foreach (var item in catalog.Shop.Offers.Offer)
@@ -211,25 +209,25 @@ namespace BartMarket.Quartz
             }
 
 
-            
+
             using (var db = new UserContext())
             {
                 var wares = db.Warehouses;
                 foreach (var item in wares)
                 {
-                    var setts = db.WarehouseSettings.Where(m=>m.WarehouseId == item.Id);
-                    if(setts.ToList().Count == 0)
+                    var setts = db.WarehouseSettings.Where(m => m.WarehouseId == item.Id);
+                    if (setts.ToList().Count == 0)
                     {
                         continue;
                     }
 
-                    if(setts.First().Filter == "DELETED")
+                    if (setts.First().Filter == "DELETED")
                     {
-                        if(setts.ToList().Count == 3)
+                        if (setts.ToList().Count == 3)
                         {
                             db.Warehouses.Remove(item);
                             db.WarehouseSettings.RemoveRange(setts);
-                            Program.warehouses.Remove(Program.warehouses.FirstOrDefault(m=>m.Name == item.Name));
+                            Program.warehouses.Remove(Program.warehouses.FirstOrDefault(m => m.Name == item.Name));
                         }
                         else
                         {
@@ -243,7 +241,7 @@ namespace BartMarket.Quartz
                 }
 
                 db.SaveChanges();
-                
+
             }
 
 
@@ -281,9 +279,9 @@ namespace BartMarket.Quartz
                     }
                 }
 
-                 Program.warehouses.Add(n);
+                Program.warehouses.Add(n);
 
-                logger.Info("add new warehouse: " + item.Name + " cond.count: " + Program.warehouses.FirstOrDefault(m=>m.Name == item.Name).Condition.Count);
+                logger.Info("add new warehouse: " + item.Name + " cond.count: " + Program.warehouses.FirstOrDefault(m => m.Name == item.Name).Condition.Count);
 
             }
 
@@ -299,7 +297,7 @@ namespace BartMarket.Quartz
             shop.AppendChild(offers);
             var startTime = System.Diagnostics.Stopwatch.StartNew();
 
-        
+
 
 
             Logic.StartParse(catalog, catalog2, docNew, offers, "lite");
@@ -326,15 +324,15 @@ namespace BartMarket.Quartz
             newRoot.AppendChild(shop);
             shop.AppendChild(offers);
 
-             startTime = System.Diagnostics.Stopwatch.StartNew();
+            startTime = System.Diagnostics.Stopwatch.StartNew();
             Logic.StartParse(catalog, catalog2, docNew, offers, "full");
             startTime.Stop();
-             resultTime = startTime.Elapsed;
-             elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
-    resultTime.Hours,
-    resultTime.Minutes,
-    resultTime.Seconds,
-    resultTime.Milliseconds);
+            resultTime = startTime.Elapsed;
+            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+   resultTime.Hours,
+   resultTime.Minutes,
+   resultTime.Seconds,
+   resultTime.Milliseconds);
             Program.Last.ElapsedFull = elapsedTime;
 
             logger.Info("-----SUCCESS ENDED FULL FORMATING FEED-----");
@@ -344,7 +342,7 @@ namespace BartMarket.Quartz
 
             Program.Last.Date = DateTime.Now;
             Program.inAir = false;
-            
+
         }
 
     }

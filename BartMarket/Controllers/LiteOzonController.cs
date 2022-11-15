@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NLog;
-using System.Linq;
 
 namespace BartMarket.Controllers
 {
@@ -50,7 +49,7 @@ namespace BartMarket.Controllers
 
             if (formula == null)
             {
-               return Redirect("Donplafon_Ozon");
+                return Redirect("Donplafon_Ozon");
             }
             var data = formula.Split(";");
             if (data.Length < 3)
@@ -61,8 +60,8 @@ namespace BartMarket.Controllers
             Program.formula2 = data[1];
             Program.formula3 = data[2];
 
-            return Redirect("Donplafon_Ozon?success=true") ;
+            return Redirect("Donplafon_Ozon?success=true");
         }
     }
-    
+
 }
