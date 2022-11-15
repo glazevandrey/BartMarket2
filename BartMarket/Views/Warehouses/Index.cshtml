@@ -30,23 +30,27 @@
     <br />
     <input type="checkbox" name="havecond" />
     <br /><br />
-
     <label>Если есть условия, впишите их в строку ниже как показано в примере.</label>
     <br />
     <label>Если параметр стекло не указано, значение по умолчанию: yes(стекло на данном складе разрешено)</label>
-    <br/>
+    <br />
     <label>Доступные фильтры сейчас : weight(вес), price(цена), glass(стекло)</label>
     <br />
-    <label>Примеры:</label>
+    <div >
+       
+        <label>Примеры:</label>
+        <br />
+        <input size="50" disabled="disabled" value="weight > 30;price+1500-200 > 5000;(price+1500) * 2 < 10000">
+        <br />
+        <input size="40" disabled="disabled" value="weight > 30;price+1500-200 > 5000;glass=yes">
+        <br />
+
+        <input size="30" disabled="disabled" value="glass=price < 1000; glass=no">
+        <br />
+        <input size="20" disabled="disabled" value="(price+1500) < 10000">
+    </div>
     <br />
-    <input disabled="disabled" value="weight > 30;price+1500-200 > 5000;(price+1500) * 2 < 10000">
-    <br />
-    <input disabled="disabled" value="weight > 30;price+1500-200 > 5000;glass=yes">
-    <br />
-    <input disabled="disabled" value="(price+1500) < 10000">
-    <br />
-    <input disabled="disabled" value="glass=price < 1000; glass=no">
-    <br />
+
 <label>Введите условия:</label>
     <input type="text" size="40" name="cond" />
     <br /><br />

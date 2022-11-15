@@ -377,19 +377,25 @@ namespace BartMarket
                                     var yes = cond.Contains("yes");
                                     var no = cond.Contains("no");
 
-                                    string material = item.Param.FirstOrDefault(m=>m.Name.Contains("Материал")).Text;
-                                    
-                                    if(material.ToLower().Contains("хрусталь") || material.ToLower().Contains("стекло"))
+                                    var material = item.Param.FirstOrDefault(m=>m.Name.Contains("Материал"));
+                                    if(material == null)
                                     {
-                                        if (yes)
+                                        logger.Error(item.Name + " has zero param Material");
+                                    }
+                                    else
+                                    {
+                                        if (material.Text.ToLower().Contains("хрусталь") || material.Text.ToLower().Contains("стекло"))
                                         {
-                                            d = true;
-                                        }
-                                        else 
-                                        {
-                                            d = false;
-                                        }
+                                            if (yes)
+                                            {
+                                                d = true;
+                                            }
+                                            else
+                                            {
+                                                d = false;
+                                            }
 
+                                        }
                                     }
                                 }
                             if(d == true)
