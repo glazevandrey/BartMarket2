@@ -148,7 +148,6 @@ namespace BartMarket.Quartz
             try
             {
                 var text = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
-                logger.Info(text);
                 using (StringReader reader = new StringReader(text))
                 {
                     var text2 = serializer.Deserialize(reader);
