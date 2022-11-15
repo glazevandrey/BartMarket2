@@ -378,9 +378,12 @@ namespace BartMarket
                                     var no = cond.Contains("no");
 
                                     var material = item.Param.FirstOrDefault(m=>m.Name == "Материал плафона/абажура");
+
+                                    
                                     if(material == null)
                                     {
-                                        logger.Error(item.Name + " has zero param Material");
+                                        // logger.Error(item.Name + " has zero param Material");
+                                        d = true;
                                     }
                                     else
                                     {
