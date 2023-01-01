@@ -186,67 +186,105 @@ namespace BartMarket.Quartz
                 Program.inAir = false;
                 return;
             }
-
-
             var ofrs = new List<Offer>();
 
-            foreach (var item in catalog.Shop.Offers.Offer)
+            try
             {
-                if (item.Price == null)
+                foreach (var item in catalog.Shop.Offers.Offer)
                 {
-                    if (Convert.ToInt32(item.OldPrice) > 1000)
+                    if (item.Price == null)
                     {
-                        ofrs.Add(item);
-                    }
-                }
-                else
-                {
-                    if (Convert.ToInt32(item.Price) > 1000)
-                    {
-                        ofrs.Add(item);
-                    }
-                }
-            }
-
-
-            using (var db = new UserContext())
-            {
-                var l = db.LinkModels.ToList();
-                Program.link_ozon_full = l.FirstOrDefault(m => m.Type == "Full").Link;
-                Program.link_ozon_lite = l.FirstOrDefault(m => m.Type == "Lite").Link;
-            }
-
-            using (var db = new UserContext())
-            {
-                var wares = db.Warehouses;
-                foreach (var item in wares)
-                {
-                    var setts = db.WarehouseSettings.Where(m => m.WarehouseId == item.Id);
-                    if (setts.ToList().Count == 0)
-                    {
-                        continue;
-                    }
-
-                    if (setts.First().Filter == "DELETED")
-                    {
-                        if (setts.ToList().Count == 3)
+                        if (Convert.ToInt32(item.OldPrice) > 1000)
                         {
-                            db.Warehouses.Remove(item);
-                            db.WarehouseSettings.RemoveRange(setts);
-                            Program.warehouses.Remove(Program.warehouses.FirstOrDefault(m => m.Name == item.Name));
+                            ofrs.Add(item);
                         }
-                        else
+                    }
+                    else
+                    {
+                        if (Convert.ToInt32(item.Price) > 1000)
                         {
-                            db.WarehouseSettings.Add(new WarehouseSetting()
+                            ofrs.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("offers " + ex.Message);
+                Program.Last.Success = false;
+                Program.Last.Error = ex.Message;
+                Program.inAir = false;
+                return;
+
+            }
+
+
+
+            try
+            {
+                using (var db = new UserContext())
+                {
+                    var l = db.LinkModels.ToList();
+                    Program.link_ozon_full = l.FirstOrDefault(m => m.Type == "Full").Link;
+                    Program.link_ozon_lite = l.FirstOrDefault(m => m.Type == "Lite").Link;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("from link " + ex.Message);
+                Program.Last.Success = false;
+                Program.Last.Error = ex.Message;
+                Program.inAir = false;
+                return;
+
+
+            }
+
+            try
+            {
+                using (var db = new UserContext())
+                {
+                    var wares = db.Warehouses;
+                    foreach (var item in wares)
+                    {
+                        var setts = db.WarehouseSettings.Where(m => m.WarehouseId == item.Id);
+                        if (setts.ToList().Count == 0)
+                        {
+                            continue;
+                        }
+
+                        if (setts.First().Filter == "DELETED")
+                        {
+                            if (setts.ToList().Count == 3)
                             {
-                                WarehouseId = db.Warehouses.FirstOrDefault(m => m.Name == item.Name).Id,
-                                Filter = "DELETED"
-                            });
+                                db.Warehouses.Remove(item);
+                                db.WarehouseSettings.RemoveRange(setts);
+                                Program.warehouses.Remove(Program.warehouses.FirstOrDefault(m => m.Name == item.Name));
+                            }
+                            else
+                            {
+                                db.WarehouseSettings.Add(new WarehouseSetting()
+                                {
+                                    WarehouseId = db.Warehouses.FirstOrDefault(m => m.Name == item.Name).Id,
+                                    Filter = "DELETED"
+                                });
+                            }
                         }
                     }
+
+                    db.SaveChanges();
+
                 }
 
-                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                logger.Error("from warehouse " + ex.Message);
+                Program.Last.Success = false;
+                Program.Last.Error = ex.Message;
+                Program.inAir = false;
+                return;
 
             }
 
