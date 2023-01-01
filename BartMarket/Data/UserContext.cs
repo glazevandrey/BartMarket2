@@ -16,8 +16,8 @@ namespace BartMarket.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //  optionsBuilder.UseMySql(@"server=mysql.j48317898.myjino.ru;user=j48317898;password=448agiAoi;database=j48317898;");
-            //optionsBuilder.UseSqlite("Filename=Data.db");
-            optionsBuilder.UseMySql("server=ovz1.j34469996.pxlzp.vps.myjino.ru;user=root;password=448agiAoi;database=newdb;");
+            optionsBuilder.UseSqlite("Filename=Data.db");
+            //optionsBuilder.UseMySql("server=ovz1.j34469996.pxlzp.vps.myjino.ru;user=root;password=448agiAoi;database=newdb;");
             //  optionsBuilder.UseMySql("server=n50jp.spectrum.myjino.ru;user=1231402_wp1;password=WDD$,p|h3/r8e;database=1231402_wp1;");
             //optionsBuilder.UseSqlite("Filename=Data.db");
         }
