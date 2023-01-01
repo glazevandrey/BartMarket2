@@ -42,6 +42,7 @@ namespace BartMarket
 
             using (var db = new UserContext())
             {
+                var fg = db.UploadedOzonIds.ToList();
                 var l = db.LinkModels.ToList();
                 if (l.Count == 0)
                 {

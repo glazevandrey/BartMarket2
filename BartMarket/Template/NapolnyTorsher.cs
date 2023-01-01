@@ -382,7 +382,7 @@ namespace BartMarket.Template
             {
                 foreach (var item in list_id)
                 {
-                    db.UploadedOzonIds.AddRange(new UploadedOzonId() { OzonId = item});
+                    db.UploadedOzonIds.Add(new UploadedOzonId() { OzonId = item});
 
                 }
 
