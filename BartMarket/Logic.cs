@@ -231,6 +231,8 @@ namespace BartMarket
 
                 var name = CreateAndSetElement(docNew, "name", item.Name);
 
+          
+
                 var nameback = CreateAndSetElement(docNew, "name_back", Reverse(item.Name));
 
                 var oldPrice = CreateAndSetElement(docNew, "oldprice", QuartzService.MakePrice(Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 1)).ToString()).ToString());
@@ -245,6 +247,12 @@ namespace BartMarket
                     {
                         var node = CreateAndSetElementParam(docNew, pm.Name, pm.Text);
                         offer.AppendChild(node);
+                    }
+
+                    foreach (var pic in item.Pictures)
+                    {
+                        var pEl = CreateAndSetElement(docNew, "picture", pic.Trim());
+                        offer.AppendChild(pEl);
                     }
                 }
 

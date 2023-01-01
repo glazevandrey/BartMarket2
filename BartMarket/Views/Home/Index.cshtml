@@ -1,0 +1,26 @@
+﻿<div>
+    <label style="font-size:large">Выберите площадку:</label>
+</div>
+
+<br />
+<br />
+<div>
+    <form action="home" method="post">
+        <input hidden="hidden" value="ozon" name="type" id="type"/>
+        <input type="submit" value="Ozon"/>
+
+    </form>
+
+</div>
+<br />
+<div>
+
+    <input disabled="disabled" type="button" value="Wildberries" onclick="location.href='@Url.Action("Create", "User")'" />
+
+</div>
+<br />
+<div>
+
+    <input disabled="disabled" type="button" value="Yandex.Market" onclick="location.href='@Url.Action("Create", "User")'" />
+
+</div>

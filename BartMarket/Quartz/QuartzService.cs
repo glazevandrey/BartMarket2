@@ -93,41 +93,41 @@ namespace BartMarket.Quartz
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
 
-            if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
-            {
-                File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
-            }
-            if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
-            {
-                File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
-            }
+            //if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
+            //{
+            //    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
+            //}
+            //if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
+            //{
+            //    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
+            //}
             try
             {
-                using (var client = new HttpClient())
-                {
-                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
-                    {
-                        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", FileMode.OpenOrCreate))
-                        {
-                            s.Result.CopyTo(fs);
-                            logger.Info("success");
+                //using (var client = new HttpClient())
+                //{
+                //    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
+                //    {
+                //        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", FileMode.OpenOrCreate))
+                //        {
+                //            s.Result.CopyTo(fs);
+                //            logger.Info("success");
 
-                        }
-                    }
-                }
+                //        }
+                //    }
+                //}
 
-                using (var client = new HttpClient())
-                {
-                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
-                    {
-                        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml", FileMode.OpenOrCreate))
-                        {
-                            s.Result.CopyTo(fs);
-                            logger.Info("success");
+                //using (var client = new HttpClient())
+                //{
+                //    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
+                //    {
+                //        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml", FileMode.OpenOrCreate))
+                //        {
+                //            s.Result.CopyTo(fs);
+                //            logger.Info("success");
 
-                        }
-                    }
-                }
+                //        }
+                //    }
+                //}
 
             }
             catch (Exception ex)
@@ -209,6 +209,12 @@ namespace BartMarket.Quartz
             }
 
 
+            using (var db = new UserContext())
+            {
+                var l = db.LinkModels.ToList();
+                Program.link_ozon_full = l.FirstOrDefault(m => m.Type == "Full").Link;
+                Program.link_ozon_lite = l.FirstOrDefault(m => m.Type == "Lite").Link;
+            }
 
             using (var db = new UserContext())
             {

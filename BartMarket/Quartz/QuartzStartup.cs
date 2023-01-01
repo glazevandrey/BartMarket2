@@ -29,7 +29,7 @@ namespace BartMarket.Quartz
                 .WithIdentity("MainParseJob", "group1")
                 .StartAt(DateTimeOffset.Now.AddSeconds(15))
                 .WithSimpleSchedule(x => x
-                    .WithIntervalInHours(1) // Повторяем каждый час
+                    .WithIntervalInHours(3) // Повторяем каждый час
                     .RepeatForever())
                 .Build();
             await scheduler.ScheduleJob(job, trigger);

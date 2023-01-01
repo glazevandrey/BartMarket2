@@ -1,0 +1,22 @@
+﻿
+<div>
+    <label style="font-size:large">Выберите поставщика:</label>
+</div>
+
+<br />
+<br />
+
+
+@{
+    foreach(var item in (List<string>)ViewData["providers"])
+    {
+
+        var str = $"{item}_{ViewData["type"]}";
+
+        <div>
+            <form action="@str" method="post">
+                <input type="submit" value=@item />
+            </form>
+        </div>
+    }
+}

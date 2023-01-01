@@ -6,11 +6,17 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Logger = NLog.Logger;
+using System;
+using IronXL;
+using BartMarket.Services;
+using BartMarket.Template;
 
 namespace BartMarket
 {
     public class Program
     {
+        public static ExcelService excelService = new ExcelService();
+
         public static string formula1 = "(x + 1500) * 1.2";
         public static string formula2 = "(x + 1500) * 1.5";
         public static string formula3 = "(x + 1500) * 1.15";
@@ -20,9 +26,19 @@ namespace BartMarket
         public static StatModel Last = new StatModel();
         public static bool inAir = false;
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        public static List<IBaseOzonTemplate> ozonTemplates= new List<IBaseOzonTemplate>();
+        public static Dictionary<string, List<string>> Providers = new Dictionary<string, List<string>>()
+        {
+            { "ozon", new List<string>(){ "donplafon"} } ,
+            { "wb", new List<string>(){ ""} },
+            { "ym", new List<string>(){ ""} },
 
+        };
         public static void Main(string[] args)
         {
+            ozonTemplates.Add(new NapolnyTorsher());
+
+            var ex = new ExcelService();
 
             using (var db = new UserContext())
             {
@@ -44,14 +60,6 @@ namespace BartMarket
 
                 }
             }
-
-            using (var db = new UserContext())
-            {
-                var l = db.LinkModels.ToList();
-                link_ozon_full = l.FirstOrDefault(m => m.Type == "Full").Link;
-                link_ozon_lite = l.FirstOrDefault(m => m.Type == "Lite").Link;
-            }
-
 
             var list = new List<WarehouseModel>();
             using (var db = new UserContext())

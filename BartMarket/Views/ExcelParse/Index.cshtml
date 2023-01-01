@@ -1,0 +1,33 @@
+﻿@using BartMarket.Template;
+<div>
+    <label>Выберите шаблон из списка предложенных:</label>
+    <br/>
+    <br />
+    <br />
+    @{
+
+        foreach (var item in (List<IBaseOzonTemplate>)ViewData["Templates"])
+        {
+            <form method="post" action="excel">
+
+                <label>@item.Name</label>
+                <input id="temp" hidden="hidden" name="temp" value="@item.Name"/>
+                <input type="submit" value="Заполнить"/>
+
+                
+
+            </form>
+            @if (ViewData["TempReady"] != null)
+            {            
+                            <label>@item.Name ГОТОВ</label>
+                <a href="@ViewData["TempReady"]" download="@ViewData["TempReady"].ToString().Split("/").Last()">Скачать</a>
+            }
+            @if (ViewData["Error"] != null)
+            {
+                <label>@ViewData["Error"]</label>
+            }
+            <br />
+            <br />
+        }
+    }
+</div>

@@ -4,7 +4,7 @@ using NLog;
 namespace BartMarket.Controllers
 {
     [ApiController]
-    [Route("Donplafon_Ozon")]
+    [Route("donplafon_ozon")]
     public class LiteOzonController : Controller
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -49,18 +49,18 @@ namespace BartMarket.Controllers
 
             if (formula == null)
             {
-                return Redirect("Donplafon_Ozon");
+                return Redirect("donplafon_ozon");
             }
             var data = formula.Split(";");
             if (data.Length < 3)
             {
-                return Redirect("Donplafon_Ozon");
+                return Redirect("donplafon_ozon");
             }
             Program.formula1 = data[0];
             Program.formula2 = data[1];
             Program.formula3 = data[2];
 
-            return Redirect("Donplafon_Ozon?success=true");
+            return Redirect("donplafon_ozon?success=true");
         }
     }
 
