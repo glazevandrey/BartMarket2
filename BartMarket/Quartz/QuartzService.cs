@@ -242,19 +242,29 @@ namespace BartMarket.Quartz
 
             try
             {
+                var whs = new List<WarehouseModel>();
                 using (var db = new UserContext())
                 {
-                    var wares = db.Warehouses;
-                    foreach (var item in wares)
-                    {
-                        var setts = db.WarehouseSettings.Where(m => m.WarehouseId == item.Id);
-                        if (setts.ToList().Count == 0)
-                        {
-                            continue;
-                        }
+                    whs = db.Warehouses.ToList();
+                }
 
-                        if (setts.First().Filter == "DELETED")
-                        {
+                foreach (var item in whs)
+                {
+                    var setts = new List<WarehouseSetting>();
+                    using (var db = new UserContext())
+                    {
+                        setts = db.WarehouseSettings.Where(m => m.WarehouseId == item.Id).ToList();
+                    } 
+
+                    if (setts.Count == 0)
+                    {
+                        continue;
+                    }
+
+                    if (setts.First().Filter == "DELETED")
+                    {
+                        using (var db = new UserContext())
+                        {                        
                             if (setts.ToList().Count == 3)
                             {
                                 db.Warehouses.Remove(item);
@@ -268,13 +278,11 @@ namespace BartMarket.Quartz
                                     WarehouseId = db.Warehouses.FirstOrDefault(m => m.Name == item.Name).Id,
                                     Filter = "DELETED"
                                 });
-                            }
+                        }
                         }
                     }
-
-                    db.SaveChanges();
-
                 }
+
 
             }
             catch (Exception ex)
