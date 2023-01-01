@@ -2,6 +2,7 @@
 using IronXL;
 using IronXL.Xml.Dml.Diagram;
 using Microsoft.AspNetCore.Components.Forms;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,8 @@ namespace BartMarket.Template
 {
     public class NapolnyTorsher : IBaseOzonTemplate
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public string Name { get; set; } = "Светильник напольный";
         public string PathToTemplate { get; set; } = "СветильникНапольный";
 
@@ -23,6 +26,12 @@ namespace BartMarket.Template
         }
         private string GetExcel()
         {
+            string path = "wwwroot/" + PathToTemplate + "_ready.xlsx";
+
+            try
+            {
+
+           
             if (Program.inAir)
             {
                 return null;
@@ -389,7 +398,6 @@ namespace BartMarket.Template
                 db.SaveChanges();
             }
 
-            string path = "wwwroot/" + PathToTemplate + "_ready.xlsx";
 
             if (File.Exists(path))
             {
@@ -397,7 +405,11 @@ namespace BartMarket.Template
             }
 
             workbook.SaveAs(path);
-
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+            }
             return path;
         }
     }
