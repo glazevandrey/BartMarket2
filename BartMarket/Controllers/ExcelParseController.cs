@@ -54,7 +54,9 @@ namespace BartMarket.Controllers
             }
 
             var res = Program.excelService.OzonParse(tempate, count);
-            if(res == null)
+            logger.Info( " res = " + res);
+
+            if (res == null)
             {
                 return RedirectToAction("Index", new { error = "error"});
             }
