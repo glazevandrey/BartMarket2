@@ -15,6 +15,14 @@ namespace BartMarket.Controllers
             ViewData["Templates"] = Program.ozonTemplates;
             if(temp_path != null)
             {
+                if(error != null) 
+                {
+                    if (error.StartsWith("err"))
+                    {
+                        ViewData["Error"] = error.Split(":")[1].Trim();
+
+                    }
+                }
                 ViewData["TempReady"]  = "http://ovz1.j34469996.pxlzp.vps.myjino/" + temp_path + "_ready.xlsx";
             }
             if (error != null)
@@ -42,6 +50,10 @@ namespace BartMarket.Controllers
             if(res == null)
             {
                 return RedirectToAction("Index", new { error = "error"});
+            }else if (res.StartsWith("err"))
+            {
+                return RedirectToAction("Index", new { error = res });
+
             }
 
             return RedirectToAction("Index", new { temp_path = tempate.PathToTemplate }); 

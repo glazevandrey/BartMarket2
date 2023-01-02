@@ -411,6 +411,7 @@ namespace BartMarket.Template
             catch (Exception ex)
             {
                 logger.Error(ex);
+                return "err:" + ex.Message;
             }
             return path;
         }
