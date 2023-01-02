@@ -8,7 +8,7 @@ namespace BartMarket.Template
         public string PathToTemplate { get; set; }
         public List<string> KeyWords { get; set; }
 
-        public string Parse();
+        public string Parse(int count);
      
     }
 }

@@ -25,7 +25,7 @@ namespace BartMarket.Controllers
         }
 
         [HttpPost]
-        public IActionResult Parse([FromForm] string temp)
+        public IActionResult Parse([FromForm] string temp, [FromForm] int count)
         {
             IBaseOzonTemplate tempate = null;
 
@@ -38,7 +38,7 @@ namespace BartMarket.Controllers
                     break;
             }
 
-            var res = Program.excelService.OzonParse(tempate);
+            var res = Program.excelService.OzonParse(tempate, count);
             if(res == null)
             {
                 return RedirectToAction("Index", new { error = "error"});

@@ -4,9 +4,9 @@ namespace BartMarket.Services
 {
     public class ExcelService
     {
-        public string OzonParse(IBaseOzonTemplate template)
+        public string OzonParse(IBaseOzonTemplate template, int count)
         {
-            return template.Parse();
+            return template.Parse(count);
         }
     }
 }

@@ -20,11 +20,11 @@ namespace BartMarket.Template
 
         public List<string> KeyWords { get; set; } = new List<string>() { "Торшер" };
 
-        public string Parse()
+        public string Parse(int count)
         {
-            return GetExcel();
+            return GetExcel(count);
         }
-        private string GetExcel()
+        private string GetExcel(int count)
         {
             string path = "wwwroot/" + PathToTemplate + "_ready.xlsx";
 
@@ -114,10 +114,7 @@ namespace BartMarket.Template
                 {
                     continue;
                 }
-                if(x == 1937)
-                {
-                    int v = 2;
-                }
+
                 sheet["A" + x].Value = y;
                 sheet["B" + x].Value = item.Id;
                 sheet["C" + x].Value = item.NameBack;
@@ -385,6 +382,11 @@ namespace BartMarket.Template
 
                 x++;
                 y++;
+                list_id.Add(item.Id);
+                if (x == count)
+                {
+                    break;
+                }
             }
 
             using (var db = new UserContext())
