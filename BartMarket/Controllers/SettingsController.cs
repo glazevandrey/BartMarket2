@@ -22,7 +22,7 @@ namespace BartMarket.Controllers
           [HttpPost]
         public string Save()
         {
-            var path = "wwwroot/content";
+            var path = "wwwroot/content/";
             var uploadedFile = Request.Form.Files;
             string name = "";
             foreach (var item in uploadedFile)
