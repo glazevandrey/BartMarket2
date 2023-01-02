@@ -33,8 +33,7 @@ namespace BartMarket.Controllers
                 Match m = reg.Match(item.FileName);
                 string format = ".xml";
                     name = item.FileName;
-                    path += m.Groups[1].Value + format;
-                    path = path.Replace("/", @"\");
+                    path += "fullozon" + format;
                     using (var fileStream = new FileStream(path, FileMode.Create))
                     {
                         item.CopyToAsync(fileStream);
