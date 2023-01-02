@@ -25,10 +25,14 @@ namespace BartMarket.Controllers
                 }
                 ViewData["TempReady"]  = "http://ovz1.j34469996.pxlzp.vps.myjino/" + temp_path + "_ready.xlsx";
             }
-            if (error != null)
+            else
             {
-                ViewData["Error"] = "Сейчас идет обработка основного фида. Попробуйте через некоторое время.";
+                if (error != null)
+                {
+                    ViewData["Error"] = "Сейчас идет обработка основного фида. Попробуйте через некоторое время.";
+                }
             }
+         
             return View();
         }
 
