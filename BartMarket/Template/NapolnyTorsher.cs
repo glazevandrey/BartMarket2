@@ -38,7 +38,8 @@ namespace BartMarket.Template
             }
 
             WorkBook workbook = WorkBook.Load("wwwroot/" + PathToTemplate +".xlsx");
-
+                logger.Info(PathToTemplate) ;
+                if(workbook == null) { logger.Error("workbook == null"); return null; }
             var sheets = workbook.WorkSheets;
             var sheet = sheets.First(m => m.Name == "Шаблон для поставщика");
             var s = sheet["C2"].Value;
@@ -49,6 +50,7 @@ namespace BartMarket.Template
             YmlCatalog2 catalog = new YmlCatalog2();
 
             var text = File.ReadAllText("wwwroot/" + Program.link_ozon_full);
+            if (text == null || text == "") { logger.Error("text == null"); return null; }
 
             using (StringReader reader = new StringReader(text))
             {
@@ -62,8 +64,9 @@ namespace BartMarket.Template
             {
                 used = db.UploadedOzonIds.ToList();
             }
+                if (used == null) { logger.Error("useed == null"); return null; }
 
-            var list = new List<Offer2>();
+                var list = new List<Offer2>();
 
             foreach (var item in catalog.Shop.Offers.Offer)
             {
@@ -73,8 +76,9 @@ namespace BartMarket.Template
                 }
                 list.Add(item);
             }
+                if (catalog == null) { logger.Error("catalog == null"); return null; }
 
-            int x = 4;
+                int x = 4;
             int y = 1;
             var list_id = new List<string>();
             var colors = new List<string>()
@@ -108,12 +112,22 @@ namespace BartMarket.Template
                 "теплый белый", "темно-зеленый","темно-коричневый","темно-серый",
                 "темно-синий","фиолетовый","фуксия","черный","шоколадный"
             };
+
+                if (list == null)
+                {
+                    logger.Error("list == null");
+                    return null;
+                }
+
             foreach (var item in list)
             {
                 if (!item.Name.ToLower().Contains(KeyWords[0].ToLower()))
                 {
                     continue;
                 }
+
+
+
 
                 sheet["A" + x].Value = y;
                 sheet["B" + x].Value = item.Id;
