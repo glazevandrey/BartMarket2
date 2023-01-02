@@ -1,6 +1,7 @@
 ﻿using BartMarket.Services;
 using BartMarket.Template;
 using Microsoft.AspNetCore.Mvc;
+using NLog;
 
 namespace BartMarket.Controllers
 {
@@ -8,16 +9,18 @@ namespace BartMarket.Controllers
     [Route("excel")]
     public class ExcelParseController : Controller
     {
-       
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         [HttpGet]
         public IActionResult Index(string temp_path, string error)
         {
             ViewData["Templates"] = Program.ozonTemplates;
+            logger.Info(temp_path + "    " + error);
             if(temp_path != null)
             {
                 if(error != null) 
                 {
-                    if (error.StartsWith("err"))
+                    if (error?.StartsWith("err"))
                     {
                         ViewData["Error"] = error.Split(":")[1].Trim();
 
@@ -54,7 +57,8 @@ namespace BartMarket.Controllers
             if(res == null)
             {
                 return RedirectToAction("Index", new { error = "error"});
-            }else if (res.StartsWith("err"))
+            }
+            else if (res.StartsWith("err"))
             {
                 return RedirectToAction("Index", new { error = res });
 
