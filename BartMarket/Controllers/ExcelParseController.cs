@@ -15,7 +15,7 @@ namespace BartMarket.Controllers
             ViewData["Templates"] = Program.ozonTemplates;
             if(temp_path != null)
             {
-                ViewData["TempReady"]  = "https://localhost:44368/" + temp_path + "_ready.xlsx";
+                ViewData["TempReady"]  = "http://ovz1.j34469996.pxlzp.vps.myjino/" + temp_path + "_ready.xlsx";
             }
             if (error != null)
             {
