@@ -20,7 +20,7 @@ namespace BartMarket.Controllers
             {
                 if(error != null) 
                 {
-                    if (error?.StartsWith("err"))
+                    if (error.StartsWith("err"))
                     {
                         ViewData["Error"] = error.Split(":")[1].Trim();
 
