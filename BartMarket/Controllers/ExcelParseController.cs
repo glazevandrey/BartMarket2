@@ -52,7 +52,7 @@ namespace BartMarket.Controllers
                 default:
                     break;
             }
-
+            logger.Info("template : " + tempate.Name);
             var res = Program.excelService.OzonParse(tempate, count);
             logger.Info( " res = " + res);
 

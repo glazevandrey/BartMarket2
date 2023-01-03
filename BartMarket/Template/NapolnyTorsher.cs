@@ -118,7 +118,7 @@ namespace BartMarket.Template
                     logger.Error("list == null");
                     return null;
                 }
-
+                logger.Info("start foreach");
             foreach (var item in list)
             {
                 if (!item.Name.ToLower().Contains(KeyWords[0].ToLower()))
@@ -402,8 +402,10 @@ namespace BartMarket.Template
                     break;
                 }
             }
+                logger.Info("end foreach");
+                logger.Info("start upload ids");
 
-            using (var db = new UserContext())
+                using (var db = new UserContext())
             {
                 foreach (var item in list_id)
                 {
@@ -413,14 +415,16 @@ namespace BartMarket.Template
 
                 db.SaveChanges();
             }
+                logger.Info("end upload ids");
 
 
-            if (File.Exists(path))
+                if (File.Exists(path))
             {
                 File.Delete(path);
             }
+                logger.Info("save path: " + path);
 
-            workbook.SaveAs(path);
+                workbook.SaveAs(path);
             }
             catch (Exception ex)
             {
