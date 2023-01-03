@@ -27,7 +27,7 @@ namespace BartMarket.Quartz
                 .Build();
             var trigger = TriggerBuilder.Create()
                 .WithIdentity("MainParseJob", "group1")
-                .StartAt(DateTimeOffset.Now.AddSeconds(15))
+                .StartAt(DateTimeOffset.Now.AddMinutes(5))
                 .WithSimpleSchedule(x => x
                     .WithIntervalInHours(3) // Повторяем каждый час
                     .RepeatForever())
