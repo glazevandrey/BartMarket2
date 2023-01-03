@@ -16,7 +16,7 @@ namespace BartMarket.Template
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public string Name { get; set; } = "Светильник напольный";
-        public string PathToTemplate { get; set; } = "СветильникНапольный";
+        public string PathToTemplate { get; set; } = "SvetilnikNapolny";
 
         public List<string> KeyWords { get; set; } = new List<string>() { "Торшер" };
 
@@ -37,7 +37,18 @@ namespace BartMarket.Template
                 return null;
             }
 
-            WorkBook workbook = WorkBook.Load("wwwroot/" + PathToTemplate +".xlsx");
+                WorkBook workbook = new WorkBook();
+                try
+                {
+                    workbook = WorkBook.Load("wwwroot/" + PathToTemplate + ".xlsx");
+
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message);
+                    return null;
+
+                }
                 logger.Info(PathToTemplate) ;
                 if(workbook == null) { logger.Error("workbook == null"); return null; }
             var sheets = workbook.WorkSheets;
