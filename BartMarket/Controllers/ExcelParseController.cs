@@ -25,13 +25,20 @@ namespace BartMarket.Controllers
             {
                 if (error != null)
                 {
-                    if (!error.StartsWith("error"))
+                    if (error == "error")
                     {
                         ViewData["Error"] = "Сейчас идет обработка основного фида. Попробуйте через некоторое время.";
                     }
                     else
                     {
-                        ViewData["Error"] = error.Split(":")[1].Trim();
+                        try
+                        {
+                            ViewData["Error"] = error.Split(":")[1].Trim();
+                        }
+                        catch (System.Exception ex)
+                        {
+                            logger.Error(ex.Message);
+                        }
 
                     }
                 }
