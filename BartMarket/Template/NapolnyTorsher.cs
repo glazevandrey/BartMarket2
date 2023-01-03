@@ -38,6 +38,7 @@ namespace BartMarket.Template
             }
 
                 WorkBook workbook = new WorkBook();
+
                 try
                 {
                     workbook = WorkBook.Load("wwwroot/" + PathToTemplate + ".xlsx");
@@ -130,228 +131,231 @@ namespace BartMarket.Template
                     return null;
                 }
                 logger.Info("start foreach");
-            foreach (var item in list)
-            {
-                if (!item.Name.ToLower().Contains(KeyWords[0].ToLower()))
+                foreach (var item in list)
                 {
-                    continue;
-                }
+                   
+
+                        if (!item.Name.ToLower().Contains(KeyWords[0].ToLower()))
+                        {
+                            continue;
+                        }
 
 
 
 
-                sheet["A" + x].Value = y;
-                sheet["B" + x].Value = item.Id;
-                sheet["C" + x].Value = item.NameBack;
-                sheet["D" + x].Value = item.Price;
-                sheet["E" + x].Value = item.Oldprice;
-                sheet["F" + x].Value = "Не облагается";
-                sheet["H" + x].Value = "Светильник напольный";
-                sheet["I" + x].Value = item.Param.FirstOrDefault(m=>m.Name.ToLower() == "штрих-код (служебное)")?.Text;
+                        sheet["A" + x].Value = y;
+                        sheet["B" + x].Value = item.Id;
+                        sheet["C" + x].Value = item.NameBack;
+                        sheet["D" + x].Value = item.Price;
+                        sheet["E" + x].Value = item.Oldprice;
+                        sheet["F" + x].Value = "Не облагается";
+                        sheet["H" + x].Value = "Светильник напольный";
+                        sheet["I" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "штрих-код (служебное)")?.Text;
 
-                var weight = item.Param.FirstOrDefault(m => m.Name.ToLower() == "коробка вес гр")?.Text;
-                string weightString = "";
-                if(weight != null && weight != ""){
+                        var weight = item.Param.FirstOrDefault(m => m.Name.ToLower() == "коробка вес гр")?.Text;
+                        string weightString = "";
+                        if (weight != null && weight != "")
+                        {
 
-                    if (weight.Contains("."))
-                    {
-                        weight = weight.Replace(".", "");
-                    }
-                    int xy = Convert.ToInt32(weight);
-                    if (xy < 500)
-                    {
-                        weightString = "500";
-                    }
-                    else
-                    {
-                        weightString = weight.ToString();
-                    }
-                }
-                else
-                {
-                    weightString = "500";
-                }
-                sheet["J" + x].Value = weightString;
-
-
-                var shirina = item.Param.FirstOrDefault(m => m.Name.ToLower() == "коробка ширина")?.Text;
-                string shirinaString = "";
-                if (shirina != null && shirina != "")
-                {
-                    if (shirina.Contains("."))
-                    {
-                        shirina = shirina.Replace(".", "");
-                    }
-
-                    int xy = Convert.ToInt32(shirina);
-                    if (xy < 50)
-                    {
-                        shirinaString = "150";
-                    }
-                    else
-                    {
-                        shirinaString = shirina.ToString();
-                    }
-                }
-                else
-                {
-                    shirinaString = "150";
-                }
-                sheet["K" + x].Value = shirinaString;
-
-                var height = item.Param.FirstOrDefault(m => m.Name.ToLower() == "коробка высота")?.Text;
-                string heightString = "";
-                if (height != null && height != "")
-                {
-                    if (height.Contains("."))
-                    {
-                        height = height.Replace(".", "");
-                    }
-                    int xy = Convert.ToInt32(height);
-                    if (xy < 50)
-                    {
-                        heightString = "200";
-                    }
-                    else
-                    {
-                        heightString = height.ToString();
-                    }
-                }
-                else
-                {
-                    heightString = "200";
-                }
-                sheet["L" + x].Value = heightString;
-
-                var lenght = item.Param.FirstOrDefault(m => m.Name.ToLower() == "коробка длина")?.Text;
-                string lenghtString = "";
-                if (lenght != null && lenght != "")
-                {
-                    if (lenght.Contains("."))
-                    {
-                        lenght = lenght.Replace(".", "");
-                    }
-                    int xy = Convert.ToInt32(lenght);
-                    if (xy < 50)
-                    {
-                        lenghtString = "200";
-                    }
-                    else
-                    {
-                        lenghtString = lenght.ToString();
-                    }
-                }
-                else
-                {
-                    lenghtString = "200";
-                }
-                sheet["M" + x].Value = lenghtString;
-
-                sheet["N" + x].Value = item.Pictures.FirstOrDefault();
-                
-                var list_pic = new List<string>();
-                
-                if(item.Pictures.Count > 1)
-                {
-                    for (int i = 1; i < item.Pictures.Count; i++)
-                    {
-                        list_pic.Add(item.Pictures[i]);
-                    }
-
-                    foreach (var pic in list_pic)
-                    {
-                        sheet["O" + x].Value = pic + "\n";
-                    }
-                    sheet["O" + x].Value = sheet["O" + x].Value.ToString().TrimEnd('\n');
-
-                }
-
-                sheet["R" + x].Value = "BartMarket";
-                sheet["S" + x].Value = item.NameBack;
-
-                string c1 = item.Param.FirstOrDefault(m => m.Name.ToLower() == "цвет плафона/абажура")?.Text;
-                string c2 = item.Param.FirstOrDefault(m => m.Name.ToLower() == "цвет арматуры")?.Text;
-                if (!colors.Contains(c1?.ToLower()))
-                {
-                    c1 = null;
-                }
-                if (!colors.Contains(c2?.ToLower()))
-                {
-                    c2 = null;
-                }
+                            if (weight.Contains("."))
+                            {
+                                weight = weight.Replace(".", "");
+                            }
+                            int xy = Convert.ToInt32(weight);
+                            if (xy < 500)
+                            {
+                                weightString = "500";
+                            }
+                            else
+                            {
+                                weightString = weight.ToString();
+                            }
+                        }
+                        else
+                        {
+                            weightString = "500";
+                        }
+                        sheet["J" + x].Value = weightString;
 
 
-                if(c1?.ToLower() != c2?.ToLower())
-                {
-                    sheet["U" + x].Value = (c1 + ";" + c2).TrimEnd(';').TrimStart(';');
-                }
-                else
-                {
-                    sheet["U" + x].Value = c1.TrimEnd(';').TrimStart(';');
-                }
+                        var shirina = item.Param.FirstOrDefault(m => m.Name.ToLower() == "коробка ширина")?.Text;
+                        string shirinaString = "";
+                        if (shirina != null && shirina != "")
+                        {
+                            if (shirina.Contains("."))
+                            {
+                                shirina = shirina.Replace(".", "");
+                            }
 
-                sheet["V" + x].Value = (item.Param.FirstOrDefault(m => m.Name.ToLower() == "цвет плафона/абажура")?.Text + "/" + item.Param.FirstOrDefault(m => m.Name.ToLower() == "цвет арматуры")?.Text).TrimEnd('/').TrimStart('/');
-                
-                var type_lamp = item.Param.FirstOrDefault(m => m.Name.ToLower() == "вид ламп")?.Text;
-                if(type_lamp?.ToLower() == "галогеновая")
-                {
-                    sheet["W" + x].Value = "Галогенная";
-                }
-                else if (type_lamp?.ToLower() == "люминесцентные" || type_lamp?.ToLower() == "люминесцентная")
-                {
-                    sheet["W" + x].Value = "Люминисцентная (энергосберегающая)";
+                            int xy = Convert.ToInt32(shirina);
+                            if (xy < 50)
+                            {
+                                shirinaString = "150";
+                            }
+                            else
+                            {
+                                shirinaString = shirina.ToString();
+                            }
+                        }
+                        else
+                        {
+                            shirinaString = "150";
+                        }
+                        sheet["K" + x].Value = shirinaString;
 
-                }
-                else if (type_lamp?.ToLower() == "накаливания" || type_lamp?.ToLower() == "светодиодная")
-                {
-                    sheet["W" + x].Value = type_lamp;
+                        var height = item.Param.FirstOrDefault(m => m.Name.ToLower() == "коробка высота")?.Text;
+                        string heightString = "";
+                        if (height != null && height != "")
+                        {
+                            if (height.Contains("."))
+                            {
+                                height = height.Replace(".", "");
+                            }
+                            int xy = Convert.ToInt32(height);
+                            if (xy < 50)
+                            {
+                                heightString = "200";
+                            }
+                            else
+                            {
+                                heightString = height.ToString();
+                            }
+                        }
+                        else
+                        {
+                            heightString = "200";
+                        }
+                        sheet["L" + x].Value = heightString;
 
-                }
-               
-              
+                        var lenght = item.Param.FirstOrDefault(m => m.Name.ToLower() == "коробка длина")?.Text;
+                        string lenghtString = "";
+                        if (lenght != null && lenght != "")
+                        {
+                            if (lenght.Contains("."))
+                            {
+                                lenght = lenght.Replace(".", "");
+                            }
+                            int xy = Convert.ToInt32(lenght);
+                            if (xy < 50)
+                            {
+                                lenghtString = "200";
+                            }
+                            else
+                            {
+                                lenghtString = lenght.ToString();
+                            }
+                        }
+                        else
+                        {
+                            lenghtString = "200";
+                        }
+                        sheet["M" + x].Value = lenghtString;
 
-                sheet["X" + x].Value = "1";
-                sheet["Y" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "высота, мм")?.Text;
-                sheet["Z" + x].Value = "Напольный светильник";
-                sheet["AF" + x].Value = "Торшер";
-                sheet["AH" + x].Value = "Взрослая;Детская";
-                sheet["AJ" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "цоколь")?.Text;
-                sheet["AK" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "количество ламп")?.Text;
-                sheet["AL" + x].Value = "Нет";
-                sheet["AM" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "общая мощность, w")?.Text;
-                sheet["AN" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "s освещ.(м2)")?.Text;
-                sheet["AR" + x].Value = "Балкон;Баня и сауна;Бар;Бильярдный зал;Ванная;Веранда;Гараж;Гардероб;Гостиная;Детская;Домашний кинотеатр;Душевая;Зимний сад;Кабинет;Кладовка;Коридор;Котельная;Крыльцо;Кухня;Кухня-столовая;Мансарда;Мастер-спальня;Мастерская;Офис;Прачечная;Прохожая;Санузел;Спальня;Столовая;Студия;Студия-кухня;Терраса;Торговый зал;Холл";
-                
-                string c3 = item.Param.FirstOrDefault(m => m.Name.ToLower() == "цвет плафона/абажура")?.Text;
-                if (!colors2.Contains(c3?.ToLower()))
-                {
-                    c3 = null;
-                }
+                        sheet["N" + x].Value = item.Pictures.FirstOrDefault();
 
-                sheet["AS" + x].Value = c3;
-                sheet["AT" + x].Value = "Американский;Ампир;Английский;Ар-деко;Африканский;Борокко;Бохо;Викторианский;Винтаж;Восточный;Готический стиль;Детский;Итальянский;Кантри;Китайский;Китч;Классический;Лофт;Минимализм;Модерн;Молодежный;Морской;Неоклассический;Поп-арт;Прованс;Ретро-стиль;Рококо;Романтика;Русский;Рустик;Скандинавский стиль;Современная классика;Современный;Средиземноморский;Техно;Тиффани;Французский;Хай-тек;Шале;Шебби-шик;Эклектика;Эко-стиль;Этнический;Японский";
+                        var list_pic = new List<string>();
 
-                string mat = "";
-                var mat_plafon = "";
-                mat_plafon = item.Param.FirstOrDefault(m => m.Name.ToLower() == "материал плафона/абажура")?.Text;
+                        if (item.Pictures.Count > 1)
+                        {
+                            for (int i = 1; i < item.Pictures.Count; i++)
+                            {
+                                list_pic.Add(item.Pictures[i]);
+                            }
 
-                if (mat_plafon?.ToLower() == "silicon" || mat_plafon?.ToLower() == "silicone" || mat_plafon?.ToLower() == "силикон")
-                {
-                    mat = "Силикон";
-                }
-                else if(mat_plafon?.ToLower() == "полимер")
-                {
-                    mat = "Полимерный материал";
-                }
-                else
-                {
-                    if(mat_plafon?.ToLower() == "камень" && mat_plafon?.ToLower() == "кожа" && mat_plafon?.ToLower() == "органза")
-                    {
-                        mat = null;
-                    }
-                    else
-                    {
-                        var color4 = new List<string>()
+                            foreach (var pic in list_pic)
+                            {
+                                sheet["O" + x].Value = pic + "\n";
+                            }
+                            sheet["O" + x].Value = sheet["O" + x].Value.ToString().TrimEnd('\n');
+
+                        }
+
+                        sheet["R" + x].Value = "BartMarket";
+                        sheet["S" + x].Value = item.NameBack;
+
+                        string c1 = item.Param.FirstOrDefault(m => m.Name.ToLower() == "цвет плафона/абажура")?.Text;
+                        string c2 = item.Param.FirstOrDefault(m => m.Name.ToLower() == "цвет арматуры")?.Text;
+                        if (!colors.Contains(c1?.ToLower()))
+                        {
+                            c1 = null;
+                        }
+                        if (!colors.Contains(c2?.ToLower()))
+                        {
+                            c2 = null;
+                        }
+
+
+                        if (c1?.ToLower() != c2?.ToLower())
+                        {
+                            sheet["U" + x].Value = (c1 + ";" + c2).TrimEnd(';').TrimStart(';');
+                        }
+                        else
+                        {
+                            sheet["U" + x].Value = c1?.TrimEnd(';').TrimStart(';');
+                        }
+
+                        sheet["V" + x].Value = (item.Param.FirstOrDefault(m => m.Name.ToLower() == "цвет плафона/абажура")?.Text + "/" + item.Param.FirstOrDefault(m => m.Name.ToLower() == "цвет арматуры")?.Text).TrimEnd('/').TrimStart('/');
+
+                        var type_lamp = item.Param.FirstOrDefault(m => m.Name.ToLower() == "вид ламп")?.Text;
+                        if (type_lamp?.ToLower() == "галогеновая")
+                        {
+                            sheet["W" + x].Value = "Галогенная";
+                        }
+                        else if (type_lamp?.ToLower() == "люминесцентные" || type_lamp?.ToLower() == "люминесцентная")
+                        {
+                            sheet["W" + x].Value = "Люминисцентная (энергосберегающая)";
+
+                        }
+                        else if (type_lamp?.ToLower() == "накаливания" || type_lamp?.ToLower() == "светодиодная")
+                        {
+                            sheet["W" + x].Value = type_lamp;
+
+                        }
+
+
+
+                        sheet["X" + x].Value = "1";
+                        sheet["Y" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "высота, мм")?.Text;
+                        sheet["Z" + x].Value = "Напольный светильник";
+                        sheet["AF" + x].Value = "Торшер";
+                        sheet["AH" + x].Value = "Взрослая;Детская";
+                        sheet["AJ" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "цоколь")?.Text;
+                        sheet["AK" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "количество ламп")?.Text;
+                        sheet["AL" + x].Value = "Нет";
+                        sheet["AM" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "общая мощность, w")?.Text;
+                        sheet["AN" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "s освещ.(м2)")?.Text;
+                        sheet["AR" + x].Value = "Балкон;Баня и сауна;Бар;Бильярдный зал;Ванная;Веранда;Гараж;Гардероб;Гостиная;Детская;Домашний кинотеатр;Душевая;Зимний сад;Кабинет;Кладовка;Коридор;Котельная;Крыльцо;Кухня;Кухня-столовая;Мансарда;Мастер-спальня;Мастерская;Офис;Прачечная;Прохожая;Санузел;Спальня;Столовая;Студия;Студия-кухня;Терраса;Торговый зал;Холл";
+
+                        string c3 = item.Param.FirstOrDefault(m => m.Name.ToLower() == "цвет плафона/абажура")?.Text;
+                        if (!colors2.Contains(c3?.ToLower()))
+                        {
+                            c3 = null;
+                        }
+
+                        sheet["AS" + x].Value = c3;
+                        sheet["AT" + x].Value = "Американский;Ампир;Английский;Ар-деко;Африканский;Борокко;Бохо;Викторианский;Винтаж;Восточный;Готический стиль;Детский;Итальянский;Кантри;Китайский;Китч;Классический;Лофт;Минимализм;Модерн;Молодежный;Морской;Неоклассический;Поп-арт;Прованс;Ретро-стиль;Рококо;Романтика;Русский;Рустик;Скандинавский стиль;Современная классика;Современный;Средиземноморский;Техно;Тиффани;Французский;Хай-тек;Шале;Шебби-шик;Эклектика;Эко-стиль;Этнический;Японский";
+
+                        string mat = "";
+                        var mat_plafon = "";
+                        mat_plafon = item.Param.FirstOrDefault(m => m.Name.ToLower() == "материал плафона/абажура")?.Text;
+
+                        if (mat_plafon?.ToLower() == "silicon" || mat_plafon?.ToLower() == "silicone" || mat_plafon?.ToLower() == "силикон")
+                        {
+                            mat = "Силикон";
+                        }
+                        else if (mat_plafon?.ToLower() == "полимер")
+                        {
+                            mat = "Полимерный материал";
+                        }
+                        else
+                        {
+                            if (mat_plafon?.ToLower() == "камень" && mat_plafon?.ToLower() == "кожа" && mat_plafon?.ToLower() == "органза")
+                            {
+                                mat = null;
+                            }
+                            else
+                            {
+                                var color4 = new List<string>()
                         {
                             "abs пластик","авиационный алюминий","акрил","алюминий","бетон","биопластик",
                             "бумага","гипоаллергенный пластик","гипс","дерево","искусственный камень","искусственный мех","каменная соль",
@@ -361,58 +365,59 @@ namespace BartMarket.Template
                             "резина-пластик","силикон","скорлупа","соль","сталь","стекло","стеклопластик",
                             "текстиль","термопластик (tpu)","термопластичная резина (тпр)","ткань","углеродистая сталь","фарфор","хрусталь","хрустальное стекло","ювелирное стекло"
                         };
-                        if (color4.Contains(mat_plafon?.ToLower()))
-                        {
-                            mat = mat_plafon;
+                                if (color4.Contains(mat_plafon?.ToLower()))
+                                {
+                                    mat = mat_plafon;
+                                }
+                                else
+                                {
+                                    mat = null;
+                                }
+                            }
+
                         }
-                        else
-                        {
-                            mat = null;
-                        }
-                    }
-              
-                }
 
 
-                sheet["AU" + x].Value = mat;
-                sheet["AY" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "напряжение")?.Text;
-                sheet["AZ" + x].Value = "IP20";
+                        sheet["AU" + x].Value = mat;
+                        sheet["AY" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "напряжение")?.Text;
+                        sheet["AZ" + x].Value = "IP20";
 
-                var color5 = new List<string>()
+                        var color5 = new List<string>()
                 {
                     "акрил", "алюминий", "биопластик","керамика","металл","пластик"
                 };
-                    
-                var mat_arm = item.Param.FirstOrDefault(m => m.Name.ToLower() == "материал арматуры")?.Text;
 
-                if (!color5.Contains(mat_arm?.ToLower()))
-                {
-                    mat_arm = null;
+                        var mat_arm = item.Param.FirstOrDefault(m => m.Name.ToLower() == "материал арматуры")?.Text;
+
+                        if (!color5.Contains(mat_arm?.ToLower()))
+                        {
+                            mat_arm = null;
+                        }
+
+                        sheet["BD" + x].Value = mat_arm;
+
+                        string country = item.Param.FirstOrDefault(m => m.Name.ToLower() == "страна")?.Text;
+                        if (country?.ToLower() != "китай")
+                        {
+                            country += ";Китай";
+                        }
+                        sheet["BF" + x].Value = country;
+                        sheet["BG" + x].Value = "Стандартная";
+                        sheet["BH" + x].Value = "Картонная коробка";
+                        sheet["BI" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "коробка вес гр")?.Text;
+                        sheet["BJ" + x].Value = "1";
+                        sheet["BB" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "ширина, мм")?.Text;
+
+
+                        x++;
+                        y++;
+                        list_id.Add(item.Id);
+                        if (y == count || (y == 1 && count == 1))
+                        {
+                            break;
+                        }
+                   
                 }
-
-                sheet["BD" + x].Value = mat_arm;
-
-                string country = item.Param.FirstOrDefault(m => m.Name.ToLower() == "страна")?.Text;
-                if(country?.ToLower() != "китай")
-                {
-                    country += ";Китай";
-                }
-                sheet["BF" + x].Value = country;
-                sheet["BG" + x].Value = "Стандартная";
-                sheet["BH" + x].Value = "Картонная коробка";
-                sheet["BI" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "коробка вес гр")?.Text;
-                sheet["BJ" + x].Value = "1";
-                sheet["BB" + x].Value = item.Param.FirstOrDefault(m => m.Name.ToLower() == "ширина, мм")?.Text;
-
-
-                x++;
-                y++;
-                list_id.Add(item.Id);
-                if (x == count)
-                {
-                    break;
-                }
-            }
                 logger.Info("end foreach");
                 logger.Info("start upload ids");
 
