@@ -14,6 +14,10 @@ namespace BartMarket.Controllers
         [HttpGet]
         public IActionResult Index(string temp_path, string error)
         {
+            try
+            {
+
+          
             ViewData["Templates"] = Program.ozonTemplates;
             logger.Info(temp_path + "    " + error);
             if(temp_path != null)
@@ -43,7 +47,11 @@ namespace BartMarket.Controllers
                     }
                 }
             }
-         
+            }
+            catch (System.Exception ex)
+            {
+                logger.Error(ex.Message);
+            }
             return View();
         }
 
