@@ -60,7 +60,7 @@ namespace BartMarket.Template
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog2));
             YmlCatalog2 catalog = new YmlCatalog2();
 
-            var text = File.ReadAllText("wwwroot/" + Program.link_ozon_full);
+            var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
             if (text == null || text == "") { logger.Error("text == null"); return null; }
 
             using (StringReader reader = new StringReader(text))
