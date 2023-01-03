@@ -19,19 +19,20 @@ namespace BartMarket.Controllers
             if(temp_path != null)
             {
                 
-                ViewData["TempReady"]  = "http://ovz1.j34469996.pxlzp.vps.myjino/" + temp_path + "_ready.xlsx";
+                ViewData["TempReady"]  = "http://ovz1.j34469996.pxlzp.vps.myjino/content" + temp_path + "_ready.xlsx";
             }
             else
             {
                 if (error != null)
                 {
-                    if (error.StartsWith("err"))
+                    if (!error.StartsWith("error"))
                     {
-                        ViewData["Error"] = error.Split(":")[1].Trim();                       
+                        ViewData["Error"] = "Сейчас идет обработка основного фида. Попробуйте через некоторое время."
                     }
                     else
                     {
-                        ViewData["Error"] = "Сейчас идет обработка основного фида. Попробуйте через некоторое время.";
+                        ViewData["Error"] = error.Split(":")[1].Trim();
+
                     }
                 }
             }
