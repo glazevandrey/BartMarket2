@@ -4,6 +4,7 @@ using BartMarket.Template;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -173,6 +174,10 @@ namespace BartMarket
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseKestrel(o =>
+                    {
+                        o.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(10);
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
 

@@ -44,8 +44,6 @@ namespace BartMarket.Controllers
         [HttpPost]
         public IActionResult UpdateFormula([FromForm] string formula)
         {
-            logger.Info(Request.HttpContext.Connection.RemoteIpAddress);
-            logger.Info(Request.HttpContext.Connection.LocalIpAddress);
 
             if (formula == null)
             {
