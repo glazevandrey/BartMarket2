@@ -17,13 +17,14 @@ namespace BartMarket.Controllers
             try
             {
 
-          
-            ViewData["Templates"] = Program.ozonTemplates;
+                logger.Info(" END go to index = "  +temp_path);
+
+                ViewData["Templates"] = Program.ozonTemplates;
             logger.Info(temp_path + "    " + error);
             if(temp_path != null)
             {
                 
-                ViewData["TempReady"]  = "http://ovz1.j34469996.pxlzp.vps.myjino/" + temp_path + "_ready.xlsx";
+                ViewData["TempReady"]  = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/" + temp_path + "_ready.xlsx";
             }
             else
             {
@@ -81,6 +82,7 @@ namespace BartMarket.Controllers
                 return RedirectToAction("Index", new { error = res });
 
             }
+            logger.Info(" go to index = " + tempate.PathToTemplate);
 
             return RedirectToAction("Index", new { temp_path = tempate.PathToTemplate }); 
         }

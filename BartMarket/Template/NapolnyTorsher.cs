@@ -436,7 +436,7 @@ namespace BartMarket.Template
                 logger.Info("end upload ids");
 
 
-                if (File.Exists(path))
+            if (File.Exists(path))
             {
                 File.Delete(path);
             }
