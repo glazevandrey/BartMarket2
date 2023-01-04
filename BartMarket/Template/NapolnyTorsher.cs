@@ -89,9 +89,10 @@ namespace BartMarket.Template
                 list.Add(item);
             }
                 if (catalog == null) { logger.Error("catalog == null"); return null; }
-
+                
                 int x = 4;
             int y = 1;
+                int z = 0;
             var list_id = new List<string>();
             var colors = new List<string>()
             {
@@ -411,8 +412,9 @@ namespace BartMarket.Template
 
                         x++;
                         y++;
+                        z++;
                         list_id.Add(item.Id);
-                        if (y == count || (y == 1 && count == 1))
+                        if (z == count)
                         {
                             break;
                         }
