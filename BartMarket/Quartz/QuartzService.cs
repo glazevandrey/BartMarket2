@@ -24,6 +24,7 @@ namespace BartMarket.Quartz
         }
         public static int MakePrice(string s1)
         {
+
             string ss = s1.ToString();
             char[] hh = ss.ToCharArray();
 
@@ -86,7 +87,10 @@ namespace BartMarket.Quartz
         }
         public async static Task StartLite()
         {
-
+            if (Program.ExcelAir)
+            {
+                return;
+            }
             Program.inAir = true;
             Program.Last.Success = true;
 

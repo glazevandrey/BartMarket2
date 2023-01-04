@@ -69,7 +69,10 @@ namespace BartMarket.Controllers
                     break;
             }
             logger.Info("template : " + tempate.Name);
+            Program.ExcelAir = true;
             var res = Program.excelService.OzonParse(tempate, count);
+            Program.ExcelAir = false;
+
             logger.Info(" res = " + res);
 
             if (res == null)

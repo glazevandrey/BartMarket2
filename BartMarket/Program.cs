@@ -14,7 +14,7 @@ namespace BartMarket
     public class Program
     {
         public static ExcelService excelService = new ExcelService();
-
+        public static bool ExcelAir = false;
         public static string formula1 = "(x + 1500) * 1.2";
         public static string formula2 = "(x + 1500) * 1.5";
         public static string formula3 = "(x + 1500) * 1.15";
