@@ -254,7 +254,7 @@ namespace BartMarket.Quartz
                     using (var db = new UserContext())
                     {
                         setts = db.WarehouseSettings.Where(m => m.WarehouseId == item.Id).ToList();
-                    } 
+                    }
 
                     if (setts.Count == 0)
                     {
@@ -264,7 +264,7 @@ namespace BartMarket.Quartz
                     if (setts.First().Filter == "DELETED")
                     {
                         using (var db = new UserContext())
-                        {                        
+                        {
                             if (setts.ToList().Count == 3)
                             {
                                 db.Warehouses.Remove(item);
@@ -278,7 +278,7 @@ namespace BartMarket.Quartz
                                     WarehouseId = db.Warehouses.FirstOrDefault(m => m.Name == item.Name).Id,
                                     Filter = "DELETED"
                                 });
-                        }
+                            }
                         }
                     }
                 }

@@ -1,5 +1,4 @@
-﻿using BartMarket.Services;
-using BartMarket.Template;
+﻿using BartMarket.Template;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
 
@@ -17,37 +16,37 @@ namespace BartMarket.Controllers
             try
             {
 
-                logger.Info(" END go to index = "  +temp_path);
+                logger.Info(" END go to index = " + temp_path);
 
                 ViewData["Templates"] = Program.ozonTemplates;
-            logger.Info(temp_path + "    " + error);
-            if(temp_path != null)
-            {
-                
-                ViewData["TempReady"]  = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/" + temp_path + "_ready.xlsx";
-            }
-            else
-            {
-                if (error != null)
+                logger.Info(temp_path + "    " + error);
+                if (temp_path != null)
                 {
-                    if (error == "error")
-                    {
-                        ViewData["Error"] = "Сейчас идет обработка основного фида. Попробуйте через некоторое время.";
-                    }
-                    else
-                    {
-                        try
-                        {
-                            ViewData["Error"] = error.Split(":")[1].Trim();
-                        }
-                        catch (System.Exception ex)
-                        {
-                            logger.Error(ex.Message);
-                        }
 
+                    ViewData["TempReady"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/" + temp_path + "_ready.xlsx";
+                }
+                else
+                {
+                    if (error != null)
+                    {
+                        if (error == "error")
+                        {
+                            ViewData["Error"] = "Сейчас идет обработка основного фида. Попробуйте через некоторое время.";
+                        }
+                        else
+                        {
+                            try
+                            {
+                                ViewData["Error"] = error.Split(":")[1].Trim();
+                            }
+                            catch (System.Exception ex)
+                            {
+                                logger.Error(ex.Message);
+                            }
+
+                        }
                     }
                 }
-            }
             }
             catch (System.Exception ex)
             {
@@ -71,11 +70,11 @@ namespace BartMarket.Controllers
             }
             logger.Info("template : " + tempate.Name);
             var res = Program.excelService.OzonParse(tempate, count);
-            logger.Info( " res = " + res);
+            logger.Info(" res = " + res);
 
             if (res == null)
             {
-                return RedirectToAction("Index", new { error = "error"});
+                return RedirectToAction("Index", new { error = "error" });
             }
             else if (res.StartsWith("err"))
             {
@@ -84,7 +83,7 @@ namespace BartMarket.Controllers
             }
             logger.Info(" go to index = " + tempate.PathToTemplate);
 
-            return RedirectToAction("Index", new { temp_path = tempate.PathToTemplate }); 
+            return RedirectToAction("Index", new { temp_path = tempate.PathToTemplate });
         }
     }
 }

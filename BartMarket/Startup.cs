@@ -1,7 +1,5 @@
 using BartMarket.Quartz;
 using BartMarket.Quartz.Jobs;
-using BartMarket.Services;
-using BartMarket.Template;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +23,7 @@ namespace BartMarket
             services.AddControllers();
             services.AddMvc();
             services.AddTransient<IQuartzService, QuartzService>();
-           // services.AddTransient<ExcelService>();
+            // services.AddTransient<ExcelService>();
             services.AddTransient<MainParseJob>();
             services.AddMvcCore();
             var serviceProvider = services.BuildServiceProvider();

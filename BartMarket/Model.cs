@@ -36,7 +36,7 @@ namespace BartMarket
 
 
         [XmlElement(ElementName = "picture")]
-        public List<string> Pictures{ get; set; }
+        public List<string> Pictures { get; set; }
 
 
 

@@ -231,7 +231,7 @@ namespace BartMarket
 
                 var name = CreateAndSetElement(docNew, "name", item.Name);
 
-          
+
 
                 var nameback = CreateAndSetElement(docNew, "name_back", Reverse(item.Name));
 

@@ -1,4 +1,6 @@
 using BartMarket.Data;
+using BartMarket.Services;
+using BartMarket.Template;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using NLog;
@@ -6,10 +8,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Logger = NLog.Logger;
-using System;
-using IronXL;
-using BartMarket.Services;
-using BartMarket.Template;
 
 namespace BartMarket
 {
@@ -26,7 +24,7 @@ namespace BartMarket
         public static StatModel Last = new StatModel();
         public static bool inAir = false;
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        public static List<IBaseOzonTemplate> ozonTemplates= new List<IBaseOzonTemplate>();
+        public static List<IBaseOzonTemplate> ozonTemplates = new List<IBaseOzonTemplate>();
         public static Dictionary<string, List<string>> Providers = new Dictionary<string, List<string>>()
         {
             { "ozon", new List<string>(){ "donplafon"} } ,

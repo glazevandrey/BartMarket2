@@ -15,7 +15,7 @@ namespace BartMarket.Controllers
         public IActionResult ReturnProvider([FromForm] string type)
         {
             var list = Program.Providers[type];
-  
+
             ViewData["providers"] = list;
             ViewData["type"] = type;
 
