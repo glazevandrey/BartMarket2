@@ -48,6 +48,7 @@ namespace BartMarket.Template
                     return null;
 
                 }
+
                 logger.Info(PathToTemplate);
                 if (workbook == null) { logger.Error("workbook == null"); return null; }
                 var sheets = workbook.WorkSheets;

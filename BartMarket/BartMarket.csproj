@@ -34,6 +34,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="wwwroot\content\fullozon.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Example1.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
