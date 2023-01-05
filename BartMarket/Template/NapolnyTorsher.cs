@@ -29,7 +29,33 @@ namespace BartMarket.Template
             var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
             if (text == null || text == "") { logger.Error("text == null"); return null; }
 
-            Program.fullozon_text = new StringBuilder(text);
+
+            XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog2));
+            YmlCatalog2 catalog = new YmlCatalog2();
+
+            using (StringReader reader = new StringReader(text))
+            {
+                var text2 = serializer.Deserialize(reader);
+                catalog = (YmlCatalog2)text2;
+            }
+            var used = new List<UploadedOzonId>();
+
+            using (var db = new UserContext())
+            {
+                used = db.UploadedOzonIds.ToList();
+            }
+            var list = new List<Offer2>();
+            foreach (var item in catalog.Shop.Offers.Offer)
+            {
+                logger.Info(item.Id);
+                if (used.FirstOrDefault(m => m.OzonId == item.Id) != null)
+                {
+                    continue;
+                }
+
+                list.Add(item);
+            }
+            Program.list = list.Where(m=>m.Name.ToLower().Contains(KeyWords[0].ToLower())).ToList();
             return "ok";
         }
 
@@ -65,42 +91,10 @@ namespace BartMarket.Template
                 var s = sheet["C2"].Value;
 
                 var link_to_full = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.link_ozon_full;
-
-                XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog2));
-                YmlCatalog2 catalog = new YmlCatalog2();
-
-
-
-                using (StringReader reader = new StringReader(Program.fullozon_text.ToString()))
-                {
-                    var text2 = serializer.Deserialize(reader);
-                    catalog = (YmlCatalog2)text2;
-                }
-
-                var used = new List<UploadedOzonId>();
-
-                using (var db = new UserContext())
-                {
-                    used = db.UploadedOzonIds.ToList();
-                }
-
-                if (used == null) { logger.Error("useed == null"); return null; }
-
+ 
                 var list = new List<Offer2>();
 
-                foreach (var item in catalog.Shop.Offers.Offer)
-                {
-                    if (used.FirstOrDefault(m => m.OzonId == item.Id + "_DPN") != null)
-                    {
-                        continue;
-                    }
-                    list.Add(item);
-                }
-                used = null;
-
-             
-
-                if (catalog == null) { logger.Error("catalog == null"); return null; }
+                if (Program.list == null) { logger.Error("catalog == null"); return null; }
 
                 int x = 4;
                 int y = 1;

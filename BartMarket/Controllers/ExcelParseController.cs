@@ -69,7 +69,7 @@ namespace BartMarket.Controllers
         {
             if (reset)
             {
-                Program.fullozon_text = null;
+                Program.list = null;
                 Thread.Sleep(1000);
                 GC.Collect();
                 GC.WaitForPendingFinalizers();

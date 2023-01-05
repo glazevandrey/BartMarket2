@@ -24,7 +24,8 @@ namespace BartMarket
         public static StatModel Last = new StatModel();
         public static bool inAir = false;
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        public static StringBuilder fullozon_text = new StringBuilder("");
+        public static List<Offer2> list = new List<Offer2>();
+
         public static List<IBaseOzonTemplate> ozonTemplates = new List<IBaseOzonTemplate>();
         public static Dictionary<string, List<string>> Providers = new Dictionary<string, List<string>>()
         {

@@ -93,7 +93,7 @@ namespace BartMarket.Quartz
             }
             Program.inAir = true;
             Program.Last.Success = true;
-            Program.fullozon_text = null;
+            Program.list = null;
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
             GC.Collect();
