@@ -93,10 +93,11 @@ namespace BartMarket.Quartz
             }
             Program.inAir = true;
             Program.Last.Success = true;
-
+            Program.fullozon_text = null;
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
             if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
             {
                 File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
@@ -323,6 +324,7 @@ namespace BartMarket.Quartz
                 logger.Info("add new warehouse: " + item.Name + " cond.count: " + Program.warehouses.FirstOrDefault(m => m.Name == item.Name).Condition.Count);
 
             }
+
 
 
             catalog.Shop.Offers.Offer = ofrs;

@@ -459,10 +459,6 @@ namespace BartMarket
 
                     }
                 }
-
-                var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
-                Program.fullozon_text = new StringBuilder(text);
-                text = null;
             }
             else
             {

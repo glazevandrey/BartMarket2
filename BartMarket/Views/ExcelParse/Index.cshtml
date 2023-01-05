@@ -8,19 +8,50 @@
 
         foreach (var item in (List<IBaseOzonTemplate>)ViewData["Templates"])
         {
-            <form method="post" action="excel">
+             
 
                 <label>@item.Name</label>
+                <form method="post" action="excel">
+                <input id="temp" hidden="hidden" name="temp" value="@item.Name" />
+                
+                @if(ViewData["stage"]?.ToString() == "go")
+                {
+
+                    <input id="step" hidden="hidden" name="step" value="go" />
+
+                    <input type="submit" disabled="disabled" value="Подготовить" />
+                }
+                else
+                {
+                    <input id="step" hidden="hidden" name="step" value="ready" />
+
+                    <input type="submit" value="Подготовить" />
+                }
+
+               
+
+                </form>
+                <form method="post" action="excel">
+
                 <input id="temp" hidden="hidden" name="temp" value="@item.Name"/>
                 <br/>
 
+                <input id="step" hidden="hidden" name="step" value="go" />
+
                 <label>Кол-во необхходимых записей на выходе:</label>
                 <input id ="count" name="count" value="1" />
-                <input type="submit" value="Заполнить"/>
+                @if(ViewData["stage"]?.ToString() != "go"){
+                <input type="submit" disabled="disabled" value="Заполнить" />
+
+                }else{                <input type="submit" value="Заполнить" />
+                }
 
                 
 
             </form>
+                      
+
+
             @if (ViewData["TempReady"] != null)
             {            
                             <label>@item.Name ГОТОВ</label>

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Xml.Serialization;
 
 namespace BartMarket.Template
@@ -22,6 +23,16 @@ namespace BartMarket.Template
         {
             return GetExcel(count);
         }
+
+        public string Prepare()
+        {
+            var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
+            if (text == null || text == "") { logger.Error("text == null"); return null; }
+
+            Program.fullozon_text = new StringBuilder(text);
+            return "ok";
+        }
+
         private string GetExcel(int count)
         {
             string path = "wwwroot/" + PathToTemplate + "_ready.xlsx";
@@ -60,8 +71,7 @@ namespace BartMarket.Template
                 XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog2));
                 YmlCatalog2 catalog = new YmlCatalog2();
 
-                //var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
-                //if (text == null || text == "") { logger.Error("text == null"); return null; }
+
 
                 using (StringReader reader = new StringReader(Program.fullozon_text.ToString()))
                 {

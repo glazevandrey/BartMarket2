@@ -1,5 +1,4 @@
 using BartMarket.Data;
-using BartMarket.Services;
 using BartMarket.Template;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
@@ -15,7 +14,6 @@ namespace BartMarket
 {
     public class Program
     {
-        public static ExcelService excelService = new ExcelService();
         public static bool ExcelAir = false;
         public static string formula1 = "(x + 1500) * 1.2";
         public static string formula2 = "(x + 1500) * 1.5";
@@ -40,8 +38,6 @@ namespace BartMarket
             IronXL.License.LicenseKey = "IRONXL.ANDREIGLAZEV.6127-1437388117-BCLHSJ3L73OL3VJ-HXZNWRL5SQV5-XN3DONZDABSQ-4P5K3IVW22T2-NZNCZUGHI6HD-TXFJE3-TQN7K64XGTWIUA-DEPLOYMENT.TRIAL-2ZETOW.TRIAL.EXPIRES.01.FEB.2023";
 
             ozonTemplates.Add(new NapolnyTorsher());
-
-            var ex = new ExcelService();
 
             using (var db = new UserContext())
             {
@@ -176,10 +172,6 @@ namespace BartMarket
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseKestrel(o =>
-                    {
-                        o.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(10);
-                    });
                     webBuilder.UseStartup<Startup>();
                 });
 

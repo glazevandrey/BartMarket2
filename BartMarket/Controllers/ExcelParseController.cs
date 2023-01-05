@@ -11,11 +11,18 @@ namespace BartMarket.Controllers
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         [HttpGet]
-        public IActionResult Index(string temp_path, string error)
+        public IActionResult Index(string temp_path, string error, string stage)
         {
             try
             {
-
+                if(stage == "ready")
+                {
+                    ViewData["stage"] = "go";
+                }
+                if (stage == "go")
+                {
+                    ViewData["stage"] = "ready";
+                }
                 logger.Info(" END go to index = " + temp_path);
 
                 ViewData["Templates"] = Program.ozonTemplates;
@@ -56,8 +63,9 @@ namespace BartMarket.Controllers
         }
 
         [HttpPost]
-        public IActionResult Parse([FromForm] string temp, [FromForm] int count)
+        public IActionResult Parse([FromForm] string temp, [FromForm] int count, [FromForm] string step)
         {
+            
             IBaseOzonTemplate tempate = null;
 
             switch (temp)
@@ -69,23 +77,36 @@ namespace BartMarket.Controllers
                     break;
             }
             logger.Info("template : " + tempate.Name);
-            Program.ExcelAir = true;
-            var res = Program.excelService.OzonParse(tempate, count);
-            Program.ExcelAir = false;
-
-            logger.Info(" res = " + res);
-
-            if (res == null)
+            if(step == "ready")
             {
-                return RedirectToAction("Index", new { error = "error" });
-            }
-            else if (res.StartsWith("err"))
-            {
-                return RedirectToAction("Index", new { error = res });
+                Program.ExcelAir = true;
+                var res = tempate.Prepare();
+                Program.ExcelAir = false;
+                return Redirect("excel?stage=ready");
 
             }
-            logger.Info(" go to index = " + tempate.PathToTemplate);
-            return Redirect("excel?temp_path=" + tempate.PathToTemplate);
+            else
+            {
+                Program.ExcelAir = true;
+                var res = tempate.Parse(count);
+                Program.ExcelAir = false;
+
+                logger.Info(" res = " + res);
+
+                if (res == null)
+                {
+                    return RedirectToAction("Index", new { error = "error" });
+                }
+                else if (res.StartsWith("err"))
+                {
+                    return RedirectToAction("Index", new { error = res });
+
+                }
+                logger.Info(" go to index = " + tempate.PathToTemplate);
+                return Redirect("excel?temp_path=" + tempate.PathToTemplate + "&stage=go");
+            }
+            return null;
+           
         }
     }
 }
