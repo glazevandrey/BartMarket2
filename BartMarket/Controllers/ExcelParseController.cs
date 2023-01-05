@@ -70,20 +70,22 @@ namespace BartMarket.Controllers
         {
            
            
-            IBaseOzonTemplate tempate = null;
-
-            switch (temp)
-            {
-                case "Светильник напольный":
-                    tempate = new NapolnyTorsher();
-                    break;
-                default:
-                    break;
-            }
-            logger.Info("template : " + tempate.Name);
             if(step == "ready")
             {
+                IBaseOzonTemplate tempate = null;
+
+                switch (temp)
+                {
+                    case "Светильник напольный":
+                        tempate = new NapolnyTorsher();
+                        break;
+                    default:
+                        break;
+                }
+                logger.Info("template : " + tempate.Name);
+
                 Program.ExcelAir = true;
+                Program.lastTemplate = tempate;
                 string res = "";
                 try
                 {
@@ -114,7 +116,7 @@ namespace BartMarket.Controllers
             else
             {
                 Program.ExcelAir = true;
-                var res = tempate.Parse(count);
+                var res = Program.lastTemplate.Parse(count);
                 Program.ExcelAir = false;
 
                 logger.Info(" res = " + res);
@@ -128,8 +130,8 @@ namespace BartMarket.Controllers
                     return RedirectToAction("Index", new { error = res });
 
                 }
-                logger.Info(" go to index = " + tempate.PathToTemplate);
-                return Redirect("excel?temp_path=" + tempate.PathToTemplate + "&stage=go");
+                logger.Info(" go to index = " + Program.lastTemplate.PathToTemplate);
+                return Redirect("excel?temp_path=" + Program.lastTemplate.PathToTemplate + "&stage=go");
             }
            
         }

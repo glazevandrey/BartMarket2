@@ -7,7 +7,7 @@ namespace BartMarket.Template
         public string Name { get; set; }
         public string PathToTemplate { get; set; }
         public List<string> KeyWords { get; set; }
-
+        public List<Offer2> NeededOffers { get; set; }
         public string Parse(int count);
         public string Prepare();
 

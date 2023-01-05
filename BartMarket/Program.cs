@@ -25,7 +25,7 @@ namespace BartMarket
         public static bool inAir = false;
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public static List<Offer2> list = new List<Offer2>();
-
+        public static IBaseOzonTemplate lastTemplate;
         public static List<IBaseOzonTemplate> ozonTemplates = new List<IBaseOzonTemplate>();
         public static Dictionary<string, List<string>> Providers = new Dictionary<string, List<string>>()
         {

@@ -18,7 +18,7 @@ namespace BartMarket.Template
         public string PathToTemplate { get; set; } = "SvetilnikNapolny";
 
         public List<string> KeyWords { get; set; } = new List<string>() { "Торшер" };
-        public List<Offer2> NeededOffers { get; set; }
+        public List<Offer2> NeededOffers { get; set; } = new List<Offer2>();
 
         public string Parse(int count)
         {
@@ -39,6 +39,7 @@ namespace BartMarket.Template
             }
 
             var list = new List<Offer2>();
+
             foreach (var item in Program.list)
             {
                 if (used.FirstOrDefault(m => m.OzonId == item.Id) != null)
@@ -48,6 +49,7 @@ namespace BartMarket.Template
 
                 list.Add(item);
             }
+
             logger.Info($"second list.count " + list.Count);
             this.NeededOffers = list.Where(m => m.Name.ToLower().Contains(KeyWords[0].ToLower())).ToList();
             
