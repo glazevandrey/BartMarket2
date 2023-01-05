@@ -33,6 +33,7 @@ namespace BartMarket.Controllers
                 {
 
                     ViewData["TempReady"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/" + temp_path + "_ready.xlsx";
+                    Program.lastTemplate = null;
                 }
                 else
                 {
