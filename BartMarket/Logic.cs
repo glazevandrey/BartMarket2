@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace BartMarket
 {
@@ -459,6 +460,30 @@ namespace BartMarket
 
                     }
                 }
+
+                try
+                {
+                    var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
+
+
+                    XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog2));
+                    YmlCatalog2 catalog3 = new YmlCatalog2();
+
+                    using (StringReader reader = new StringReader(text))
+                    {
+                        var text2 = serializer.Deserialize(reader);
+                        catalog3 = (YmlCatalog2)text2;
+                    }
+
+                    logger.Info($"zaro list.count " + catalog3.Shop.Offers.Offer);
+
+                    Program.list = catalog3.Shop.Offers.Offer;
+                }
+                catch (Exception ex5) 
+                {
+                    logger.Error(ex5.Message);
+                }
+             
             }
             else
             {

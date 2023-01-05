@@ -18,6 +18,7 @@ namespace BartMarket.Template
         public string PathToTemplate { get; set; } = "SvetilnikNapolny";
 
         public List<string> KeyWords { get; set; } = new List<string>() { "Торшер" };
+        public List<Offer2> NeededOffers { get; set; }
 
         public string Parse(int count)
         {
@@ -30,23 +31,26 @@ namespace BartMarket.Template
             {
                 return null;
             }
-            var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
-            if (text == null || text == "") { logger.Error("text == null"); return null; }
+            var used = new List<UploadedOzonId>();
 
-
-            XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog2));
-            YmlCatalog2 catalog = new YmlCatalog2();
-
-            using (StringReader reader = new StringReader(text))
+            using (var db = new UserContext())
             {
-                var text2 = serializer.Deserialize(reader);
-                catalog = (YmlCatalog2)text2;
+                used = db.UploadedOzonIds.ToList();
             }
-           
-            logger.Info($"zaro list.count " + catalog.Shop.Offers.Offer);
 
-            Program.list = catalog.Shop.Offers.Offer;
+            var list = new List<Offer2>();
+            foreach (var item in Program.list)
+            {
+                if (used.FirstOrDefault(m => m.OzonId == item.Id) != null)
+                {
+                    continue;
+                }
 
+                list.Add(item);
+            }
+            logger.Info($"second list.count " + list.Count);
+            this.NeededOffers = list.Where(m => m.Name.ToLower().Contains(KeyWords[0].ToLower())).ToList();
+            
             return "ok";
         }
 
@@ -82,7 +86,7 @@ namespace BartMarket.Template
 
                 var link_to_full = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.link_ozon_full;
  
-                var list = new List<Offer2>();
+              //  var list = new List<Offer2>();
 
                 if (Program.list == null) { logger.Error("catalog == null"); return null; }
 
@@ -129,27 +133,11 @@ namespace BartMarket.Template
                 GC.Collect();
 
 
-                var used = new List<UploadedOzonId>();
-
-                using (var db = new UserContext())
-                {
-                    used = db.UploadedOzonIds.ToList();
-                }
 
 
-                foreach (var item in Program.list)
-                {
-                    if (used.FirstOrDefault(m => m.OzonId == item.Id) != null)
-                    {
-                        continue;
-                    }
 
-                    list.Add(item);
-                }
-                logger.Info($"second list.count " + list.Count);
-                list = list.Where(m => m.Name.ToLower().Contains(KeyWords[0].ToLower())).ToList();
-
-                foreach (var item in list)
+                logger.Info("offers fiiiii = " + this.NeededOffers.Count);
+                foreach (var item in this.NeededOffers)
                 {
                     sheet["A" + x].Value = y;
                     sheet["B" + x].Value = item.Id;
