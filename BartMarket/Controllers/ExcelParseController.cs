@@ -86,7 +86,6 @@ namespace BartMarket.Controllers
             }
             logger.Info(" go to index = " + tempate.PathToTemplate);
             return Redirect("excel?temp_path=" + tempate.PathToTemplate);
-           // return RedirectToAction("Index", new { temp_path = tempate.PathToTemplate });
         }
     }
 }

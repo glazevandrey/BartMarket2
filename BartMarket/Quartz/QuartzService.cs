@@ -164,23 +164,6 @@ namespace BartMarket.Quartz
                     var text2 = serializer.Deserialize(reader);
                     catalog2 = (YmlCatalog)text2;
                 }
-
-
-                //var text = File.ReadAllText($"Example1.xml");
-                //using (StringReader reader = new StringReader(text))
-                //{
-                //    var text2 = serializer.Deserialize(reader);
-                //    catalog = (YmlCatalog)text2;
-                //}
-
-
-
-                //var text22 = File.ReadAllText($"Example22.xml");
-                //using (StringReader reader = new StringReader(text22))
-                //{
-                //    var text2 = serializer.Deserialize(reader);
-                //    catalog2 = (YmlCatalog)text2;
-                //}
             }
             catch (Exception ex)
             {

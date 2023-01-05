@@ -60,15 +60,14 @@ namespace BartMarket.Template
                 XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog2));
                 YmlCatalog2 catalog = new YmlCatalog2();
 
-                var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
-                if (text == null || text == "") { logger.Error("text == null"); return null; }
+                //var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
+                //if (text == null || text == "") { logger.Error("text == null"); return null; }
 
-                using (StringReader reader = new StringReader(text))
+                using (StringReader reader = new StringReader(Program.fullozon_text.ToString()))
                 {
                     var text2 = serializer.Deserialize(reader);
                     catalog = (YmlCatalog2)text2;
                 }
-                text = null;
 
                 var used = new List<UploadedOzonId>();
 

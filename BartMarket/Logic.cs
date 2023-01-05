@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 
@@ -231,8 +232,6 @@ namespace BartMarket
 
                 var name = CreateAndSetElement(docNew, "name", item.Name);
 
-
-
                 var nameback = CreateAndSetElement(docNew, "name_back", Reverse(item.Name));
 
                 var oldPrice = CreateAndSetElement(docNew, "oldprice", QuartzService.MakePrice(Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 1)).ToString()).ToString());
@@ -418,7 +417,6 @@ namespace BartMarket
 
             if (type == "full")
             {
-
                 var _1 = Program.link_ozon_full.TrimStart('/').Split("/")[0];
                 if (_1.Contains(".xml"))
                 {
@@ -462,6 +460,9 @@ namespace BartMarket
                     }
                 }
 
+                var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
+                Program.fullozon_text = new StringBuilder(text);
+                text = null;
             }
             else
             {
