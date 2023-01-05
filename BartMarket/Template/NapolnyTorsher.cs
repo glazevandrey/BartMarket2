@@ -44,10 +44,13 @@ namespace BartMarket.Template
             {
                 used = db.UploadedOzonIds.ToList();
             }
+
             var list = new List<Offer2>();
+
+            logger.Info($"zaro list.count " + catalog.Shop.Offers.Offer);
+
             foreach (var item in catalog.Shop.Offers.Offer)
             {
-                logger.Info(item.Id);
                 if (used.FirstOrDefault(m => m.OzonId == item.Id) != null)
                 {
                     continue;
@@ -55,7 +58,10 @@ namespace BartMarket.Template
 
                 list.Add(item);
             }
+            logger.Info($"first list.count " + list.Count);
             Program.list = list.Where(m=>m.Name.ToLower().Contains(KeyWords[0].ToLower())).ToList();
+            logger.Info($"second list.count " + list.Count);
+
             return "ok";
         }
 
