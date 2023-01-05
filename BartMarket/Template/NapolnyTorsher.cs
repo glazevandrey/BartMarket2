@@ -90,7 +90,6 @@ namespace BartMarket.Template
 
                 }
 
-                logger.Info(PathToTemplate);
                 if (workbook == null) { logger.Error("workbook == null"); return null; }
                 var sheets = workbook.WorkSheets;
                 var sheet = sheets.First(m => m.Name == "Шаблон для поставщика");
@@ -138,16 +137,15 @@ namespace BartMarket.Template
                 "темно-синий","фиолетовый","фуксия","черный","шоколадный"
             };
 
-                if (list == null)
-                {
-                    logger.Error("list == null");
-                    return null;
-                }
+               
                 logger.Info("start foreach");
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
                 GC.Collect();
-                foreach (var item in list)
+
+                logger.Info($"final list.count " + Program.list.Count);
+
+                foreach (var item in Program.list)
                 {
                     if (!item.Name.ToLower().Contains(KeyWords[0].ToLower()))
                     {
