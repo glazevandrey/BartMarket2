@@ -39,8 +39,6 @@ namespace BartMarket.Template
 
             try
             {
-
-
                 if (Program.inAir)
                 {
                     return null;

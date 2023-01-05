@@ -1,6 +1,8 @@
 ﻿using BartMarket.Template;
 using Microsoft.AspNetCore.Mvc;
 using NLog;
+using System;
+using System.Threading;
 
 namespace BartMarket.Controllers
 {
@@ -63,9 +65,16 @@ namespace BartMarket.Controllers
         }
 
         [HttpPost]
-        public IActionResult Parse([FromForm] string temp, [FromForm] int count, [FromForm] string step)
+        public IActionResult Parse([FromForm] string temp, [FromForm] int count, [FromForm] string step, [FromForm] bool reset)
         {
-            
+            if (reset)
+            {
+                Program.fullozon_text = null;
+                Thread.Sleep(1000);
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                return Redirect("excel");
+            }
             IBaseOzonTemplate tempate = null;
 
             switch (temp)
@@ -105,7 +114,6 @@ namespace BartMarket.Controllers
                 logger.Info(" go to index = " + tempate.PathToTemplate);
                 return Redirect("excel?temp_path=" + tempate.PathToTemplate + "&stage=go");
             }
-            return null;
            
         }
     }
