@@ -84,9 +84,31 @@ namespace BartMarket.Controllers
             if(step == "ready")
             {
                 Program.ExcelAir = true;
-                tempate.Prepare();
+                string res = "";
+                try
+                {
+                    res = tempate.Prepare();
+                    if(res == null)
+                    {
+                        return RedirectToAction("Index", new { error = "error" });
+
+                    }else if (res == "ok")
+                    {
+                        return Redirect("excel?stage=ready");
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", new { error = res });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return RedirectToAction("Index", new { error = res });
+
+                }
+
                 Program.ExcelAir = false;
-                return Redirect("excel?stage=ready");
 
             }
             else

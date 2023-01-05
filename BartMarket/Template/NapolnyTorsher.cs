@@ -26,6 +26,10 @@ namespace BartMarket.Template
 
         public string Prepare()
         {
+            if (Program.inAir)
+            {
+                return null;
+            }
             var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
             if (text == null || text == "") { logger.Error("text == null"); return null; }
 
