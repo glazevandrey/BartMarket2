@@ -61,20 +61,15 @@ namespace BartMarket.Controllers
             {
                 logger.Error(ex.Message);
             }
+
             return View();
         }
 
         [HttpPost]
-        public IActionResult Parse([FromForm] string temp, [FromForm] int count, [FromForm] string step, [FromForm] bool reset)
+        public IActionResult Parse([FromForm] string temp, [FromForm] int count, [FromForm] string step)
         {
-            if (reset)
-            {
-                Program.list = null;
-                Thread.Sleep(1000);
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                return Redirect("excel");
-            }
+           
+           
             IBaseOzonTemplate tempate = null;
 
             switch (temp)
@@ -89,7 +84,7 @@ namespace BartMarket.Controllers
             if(step == "ready")
             {
                 Program.ExcelAir = true;
-                var res = tempate.Prepare();
+                tempate.Prepare();
                 Program.ExcelAir = false;
                 return Redirect("excel?stage=ready");
 

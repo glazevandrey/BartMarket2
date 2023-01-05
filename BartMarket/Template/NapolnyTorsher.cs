@@ -38,29 +38,10 @@ namespace BartMarket.Template
                 var text2 = serializer.Deserialize(reader);
                 catalog = (YmlCatalog2)text2;
             }
-            var used = new List<UploadedOzonId>();
-
-            using (var db = new UserContext())
-            {
-                used = db.UploadedOzonIds.ToList();
-            }
-
-            var list = new List<Offer2>();
-
+           
             logger.Info($"zaro list.count " + catalog.Shop.Offers.Offer);
 
-            foreach (var item in catalog.Shop.Offers.Offer)
-            {
-                if (used.FirstOrDefault(m => m.OzonId == item.Id) != null)
-                {
-                    continue;
-                }
-
-                list.Add(item);
-            }
-            logger.Info($"first list.count " + list.Count);
-            Program.list = list.Where(m=>m.Name.ToLower().Contains(KeyWords[0].ToLower())).ToList();
-            logger.Info($"second list.count " + list.Count);
+            Program.list = catalog.Shop.Offers.Offer;
 
             return "ok";
         }
@@ -143,15 +124,29 @@ namespace BartMarket.Template
                 GC.WaitForPendingFinalizers();
                 GC.Collect();
 
-                logger.Info($"final list.count " + Program.list.Count);
+
+                var used = new List<UploadedOzonId>();
+
+                using (var db = new UserContext())
+                {
+                    used = db.UploadedOzonIds.ToList();
+                }
+
 
                 foreach (var item in Program.list)
                 {
-                    if (!item.Name.ToLower().Contains(KeyWords[0].ToLower()))
+                    if (used.FirstOrDefault(m => m.OzonId == item.Id) != null)
                     {
                         continue;
                     }
 
+                    list.Add(item);
+                }
+                logger.Info($"second list.count " + list.Count);
+                list = list.Where(m => m.Name.ToLower().Contains(KeyWords[0].ToLower())).ToList();
+
+                foreach (var item in list)
+                {
                     sheet["A" + x].Value = y;
                     sheet["B" + x].Value = item.Id;
                     sheet["C" + x].Value = item.NameBack;
