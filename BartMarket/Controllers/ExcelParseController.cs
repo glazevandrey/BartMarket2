@@ -67,10 +67,8 @@ namespace BartMarket.Controllers
         }
 
         [HttpPost]
-        public IActionResult Parse([FromForm] string temp, [FromForm] int count, [FromForm] string step)
-        {
-           
-           
+        public IActionResult Parse([FromForm] string temp, [FromForm] int count, [FromForm] string step, [FromForm] bool ostatok)
+        {  
             if(step == "ready")
             {
                 IBaseOzonTemplate tempate = null;
@@ -117,7 +115,7 @@ namespace BartMarket.Controllers
             else
             {
                 Program.ExcelAir = true;
-                var res = Program.lastTemplate.Parse(count);
+                var res = Program.lastTemplate.Parse(count, ostatok);
                 Program.ExcelAir = false;
 
                 logger.Info(" res = " + res);

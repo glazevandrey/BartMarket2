@@ -1,5 +1,6 @@
 ﻿using BartMarket.Data;
 using IronXL;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,9 @@ namespace BartMarket.Template
         public List<string> KeyWords { get; set; } = new List<string>() { "Торшер" };
         public List<Offer2> NeededOffers { get; set; } = new List<Offer2>();
 
-        public string Parse(int count)
+        public string Parse(int count, bool ostatok)
         {
-            return GetExcel(count);
+            return GetExcel(count,ostatok);
         }
 
         public string Prepare()
@@ -36,6 +37,28 @@ namespace BartMarket.Template
             using (var db = new UserContext())
             {
                 used = db.UploadedOzonIds.ToList();
+            }
+            try
+            {
+                var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
+
+
+                XmlSerializer serializer2 = new XmlSerializer(typeof(YmlCatalog2));
+                YmlCatalog2 catalog3 = new YmlCatalog2();
+
+                using (StringReader reader = new StringReader(text))
+                {
+                    var text2 = serializer2.Deserialize(reader);
+                    catalog3 = (YmlCatalog2)text2;
+                }
+
+                logger.Info($"zaro list.count " + catalog3.Shop.Offers.Offer);
+
+                Program.list = catalog3.Shop.Offers.Offer;
+            }
+            catch (Exception ex5)
+            {
+                logger.Error(ex5.Message);
             }
 
             var list = new List<Offer2>();
@@ -56,7 +79,7 @@ namespace BartMarket.Template
             return "ok";
         }
 
-        private string GetExcel(int count)
+        private string GetExcel(int count, bool ostatok)
         {
             string path = "wwwroot/" + PathToTemplate + "_ready.xlsx";
 
@@ -136,9 +159,32 @@ namespace BartMarket.Template
 
 
 
+                if (ostatok)
+                {
+                    var r_list = new List<Offer2>();
+                    foreach (var item in this.NeededOffers)
+                    {
+                        List<bool> f = new List<bool>();
+                        foreach (var w in item.Outlets.Outlet)
+                        {
+                            if(w.Instock == 0)
+                            {
+                                f.Add(true);
+                            }
+                            else
+                            {
+                                f.Add(false);
+                            }
+                        }
+                        if(f.Where(m=>m == true).ToList().Count < f.Count)
+                        {
+                            r_list.Add(item);
+                        }
+                    }
 
+                    this.NeededOffers = r_list;
+                }
 
-                logger.Info("offers fiiiii = " + this.NeededOffers.Count);
                 foreach (var item in this.NeededOffers)
                 {
                     sheet["A" + x].Value = y;
@@ -411,9 +457,13 @@ namespace BartMarket.Template
                     y++;
                     z++;
                     list_id.Add(item.Id);
-                    if (z == count)
+                    if(count != 0)
                     {
-                        break;
+                        if (z == count)
+                        {
+                            break;
+                        }
+
                     }
 
                 }

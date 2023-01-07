@@ -1,4 +1,20 @@
 ﻿@using BartMarket.Template;
+
+<script>
+
+        function getget(){
+
+        var msg = document.getElementById("ostatok");
+        msg.value = 'true';
+    }
+     function setset(){
+
+        var msg = document.getElementById("ostatok");
+        msg.value = 'false';
+    }
+   // document.getElementById("btn1").addEventListener("click", getget);
+
+</script>
 <div>
  
     <br/>
@@ -44,10 +60,27 @@
 
                 <label>Кол-во необхходимых записей на выходе:</label>
                 <input id ="count" name="count" value="1" />
-                @if(ViewData["stage"]?.ToString() != "go"){
-                <input type="submit" disabled="disabled" value="Заполнить" />
+                @if (ViewData["stage"]?.ToString() != "go")
+                {
+                    <input type="submit" disabled="disabled" value="Заполнить" />
 
-                }else{                <input type="submit" value="Заполнить" />
+                }
+                else
+                {
+                    <input type="submit" onclick="setset()" value="Заполнить" />
+                }
+
+                @if (ViewData["stage"]?.ToString() != "go")
+                {
+
+                    <input type="submit" disabled="disabled" value="Заполнить" />
+
+                }
+                else
+                {
+                    <input id="ostatok" hidden="hidden" name="ostatok" value="false" />
+
+                                    <input type="submit" onclick="getget()" value="Заполнить с остатком" />
                 }
 
                 
