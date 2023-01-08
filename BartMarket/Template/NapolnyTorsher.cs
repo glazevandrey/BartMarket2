@@ -38,29 +38,7 @@ namespace BartMarket.Template
             {
                 used = db.UploadedOzonIds.ToList();
             }
-            //try
-            //{
-            //    var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
-
-
-            //    XmlSerializer serializer2 = new XmlSerializer(typeof(YmlCatalog2));
-            //    YmlCatalog2 catalog3 = new YmlCatalog2();
-
-            //    using (StringReader reader = new StringReader(text))
-            //    {
-            //        var text2 = serializer2.Deserialize(reader);
-            //        catalog3 = (YmlCatalog2)text2;
-            //    }
-
-            //    logger.Info($"zaro list.count " + catalog3.Shop.Offers.Offer);
-
-            //    Program.list = catalog3.Shop.Offers.Offer;
-            //}
-            //catch (Exception ex5)
-            //{
-            //    logger.Error(ex5.Message);
-            //}
-
+          
             var list = new List<Offer2>();
 
             foreach (var item in Program.list)

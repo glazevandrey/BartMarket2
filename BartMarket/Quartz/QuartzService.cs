@@ -396,7 +396,7 @@ namespace BartMarket.Quartz
                     catalog3 = (YmlCatalog2)text2;
                 }
 
-                logger.Info($"zaro list.count " + catalog3.Shop.Offers.Offer);
+                logger.Info($"zaro list.count " + catalog3.Shop.Offers.Offer.Count);
 
                 Program.list = catalog3.Shop.Offers.Offer;
             }
@@ -406,6 +406,9 @@ namespace BartMarket.Quartz
             }
             GC.Collect();
             GC.WaitForPendingFinalizers();
+
+            logger.Info($"progm list "  + Program.list.Count);
+
             Program.Last.Date = DateTime.Now;
             Program.inAir = false;
 
