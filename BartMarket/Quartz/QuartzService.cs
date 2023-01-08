@@ -375,10 +375,12 @@ namespace BartMarket.Quartz
    resultTime.Minutes,
    resultTime.Seconds,
    resultTime.Milliseconds);
+
             Program.Last.ElapsedFull = elapsedTime;
 
             logger.Info("-----SUCCESS ENDED FULL FORMATING FEED-----");
             logger.Info($"-----ELLAPSED: {elapsedTime}-----");
+
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
