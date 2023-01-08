@@ -86,10 +86,14 @@ namespace BartMarket.Controllers
                 Program.ExcelAir = true;
                 Program.lastTemplate = tempate;
                 string res = "";
+
                 try
                 {
                     res = tempate.Prepare();
-                    if(res == null)
+                    logger.Info("res2 = " + res);
+                    Program.ExcelAir = false;
+
+                    if (res == null)
                     {
                         return RedirectToAction("Index", new { error = "error" });
 
@@ -105,12 +109,12 @@ namespace BartMarket.Controllers
                 }
                 catch (Exception ex)
                 {
+                    logger.Error(ex.Message);
+                    Program.ExcelAir = false;
+
                     return RedirectToAction("Index", new { error = res });
 
                 }
-
-                Program.ExcelAir = false;
-
             }
             else
             {
