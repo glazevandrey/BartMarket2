@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace BartMarket.Data
 {
@@ -18,7 +19,13 @@ namespace BartMarket.Data
         {
             
             // optionsBuilder.UseSqlite("Filename=Data.db");
-            optionsBuilder.UseMySql("server=db4free.net;user=bartmarket;password=448agiAoi;database=bartmarket;");
+            optionsBuilder.UseMySql("server=db4free.net;user=bartmarket;password=448agiAoi;database=bartmarket;", builder => {
+                builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+
+            });
+
+            base.OnConfiguring(optionsBuilder);
+
             //optionsBuilder.UseSqlite("Filename=Data.db");
         }
     }

@@ -36,6 +36,7 @@ namespace BartMarket
         };
         public static void Main(string[] args)
         {
+  
             IronXL.License.LicenseKey = "IRONXL.ANDREIGLAZEV.6127-1437388117-BCLHSJ3L73OL3VJ-HXZNWRL5SQV5-XN3DONZDABSQ-4P5K3IVW22T2-NZNCZUGHI6HD-TXFJE3-TQN7K64XGTWIUA-DEPLOYMENT.TRIAL-2ZETOW.TRIAL.EXPIRES.01.FEB.2023";
 
             ozonTemplates.Add(new NapolnyTorsher());
@@ -141,30 +142,6 @@ namespace BartMarket
                 warehouses.Add(n);
 
             }
-            //warehouses.Add(new Warehouse()
-            //{
-            //    Name = "DPN",
-            //    Condition = null
-
-            //});
-            //warehouses.Add(new Warehouse()
-            //{
-            //    Name = "DPN2",
-            //    Condition = new List<string>()
-            //    {
-            //        "weight < 30.0",
-            //        "price > 3000",
-            //        "price < 50000"
-            //    }
-
-            //});
-            //warehouses.Add(new Warehouse()
-            //{
-            //    Name = "DPN3",
-            //    Condition = null
-
-            //});
-
 
             CreateHostBuilder(args).Build().Run();
         }
