@@ -118,22 +118,33 @@ namespace BartMarket.Controllers
             }
             else
             {
-                Program.ExcelAir = true;
-                var res = Program.lastTemplate.Parse(count, ostatok);
-                Program.ExcelAir = false;
-
-                logger.Info(" res = " + res);
-
-                if (res == null)
+                try
                 {
-                    return RedirectToAction("Index", new { error = "error" });
+                    Program.ExcelAir = true;
+                    var res = Program.lastTemplate.Parse(count, ostatok);
+                    Program.ExcelAir = false;
+
+                    logger.Info(" res = " + res);
+
+                    if (res == null)
+                    {
+                        return RedirectToAction("Index", new { error = "error" });
+                    }
+                    else if (res.StartsWith("err"))
+                    {
+                        return RedirectToAction("Index", new { error = res });
+
+                    }
+                    logger.Info(" go to index = " + Program.lastTemplate.PathToTemplate);
+
                 }
-                else if (res.StartsWith("err"))
+                catch (Exception ex)
                 {
+                    logger.Error(ex.Message);
+                    Program.ExcelAir = false;
                     return RedirectToAction("Index", new { error = res });
 
                 }
-                logger.Info(" go to index = " + Program.lastTemplate.PathToTemplate);
                 return Redirect("excel?temp_path=" + Program.lastTemplate.PathToTemplate + "&stage=go");
             }
            

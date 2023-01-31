@@ -89,8 +89,10 @@ namespace BartMarket.Quartz
         {
             if (Program.ExcelAir)
             {
+                logger.Error("EXCEL IN AIR");
                 return;
             }
+
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
 
@@ -102,6 +104,7 @@ namespace BartMarket.Quartz
                 Program.list = null;
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
+
                 if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
                 {
                     File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
