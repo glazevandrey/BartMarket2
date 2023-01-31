@@ -91,22 +91,36 @@ namespace BartMarket.Quartz
             {
                 return;
             }
-            Program.inAir = true;
-            Program.Last.Success = true;
-            Program.list.Clear();
-            Program.list = null;
             XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
             YmlCatalog catalog = new YmlCatalog();
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
+
+            try
             {
-                File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
+                Program.inAir = true;
+                Program.Last.Success = true;
+                Program.list.Clear();
+                Program.list = null;
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
+                {
+                    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
+                }
+                if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
+                {
+                    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
+                }
             }
-            if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
+            catch (Exception ex)
             {
-                File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
+                logger.Error("from litle " + ex.Message);
+                Program.Last.Success = false;
+                Program.Last.Error = ex.Message;
+                Program.inAir = false;
+                return;
             }
+         
+            
             try
             {
                 using (var client = new HttpClient())
