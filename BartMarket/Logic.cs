@@ -216,7 +216,10 @@ namespace BartMarket
 
             if (Program.Last.Count > catalog.Shop.Offers.Offer.Count)
             {
+                try
+                {
 
+              
                 var split  = Program.lastIds.ToString().TrimEnd(';').Split(";");
                 List<string> ids = new List<string>(); 
                 foreach (var item in split)
@@ -264,7 +267,12 @@ namespace BartMarket
 
                 text = null;
                 old = null;
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message);
 
+                }
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
 
