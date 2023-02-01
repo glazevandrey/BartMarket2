@@ -120,10 +120,10 @@ namespace BartMarket.Quartz
                     System.IO.File.Copy($"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml", $"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
 
                 }
-                //if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
-                //{
-                //    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
-                //}
+                if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
+                {
+                    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
+                }
             }
             catch (Exception ex)
             {
@@ -137,31 +137,31 @@ namespace BartMarket.Quartz
             
             try
             {
-                //using (var client = new HttpClient())
-                //{
-                //    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
-                //    {
-                //        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", FileMode.OpenOrCreate))
-                //        {
-                //            s.Result.CopyTo(fs);
-                //            logger.Info("success");
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
+                    {
+                        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", FileMode.OpenOrCreate))
+                        {
+                            s.Result.CopyTo(fs);
+                            logger.Info("success");
 
-                //        }
-                //    }
-                //}
-                
-                //using (var client = new HttpClient())
-                //{
-                //    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
-                //    {
-                //        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml", FileMode.OpenOrCreate))
-                //        {
-                //            s.Result.CopyTo(fs);
-                //            logger.Info("success");
+                        }
+                    }
+                }
 
-                //        }
-                //    }
-                //}
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
+                    {
+                        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml", FileMode.OpenOrCreate))
+                        {
+                            s.Result.CopyTo(fs);
+                            logger.Info("success");
+
+                        }
+                    }
+                }
 
             }
             catch (Exception ex)
