@@ -23,7 +23,6 @@ namespace BartMarket
         public static string link_ozon_full = "/content/fullozon.xml";
         public static StatModel Last = new StatModel();
         public static bool inAir = false;
-        private static Logger logger = LogManager.GetCurrentClassLogger();
         public static List<Offer2> list = new List<Offer2>();
         public static List<Offer> deleted = new List<Offer>();
         public static List<Offer2> need_add = new List<Offer2>();
