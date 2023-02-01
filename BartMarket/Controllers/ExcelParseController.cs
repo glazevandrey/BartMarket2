@@ -118,10 +118,11 @@ namespace BartMarket.Controllers
             }
             else
             {
+                string res = "";
                 try
                 {
                     Program.ExcelAir = true;
-                    var res = Program.lastTemplate.Parse(count, ostatok);
+                    res = Program.lastTemplate.Parse(count, ostatok);
                     Program.ExcelAir = false;
 
                     logger.Info(" res = " + res);

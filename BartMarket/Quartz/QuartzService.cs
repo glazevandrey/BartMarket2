@@ -100,19 +100,30 @@ namespace BartMarket.Quartz
             {
                 Program.inAir = true;
                 Program.Last.Success = true;
-                Program.list.Clear();
-                Program.list = null;
+                if(Program.list != null)
+                {
+                    Program.list.Clear();
+                    Program.list = null;
+                }
+
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
 
                 if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
                 {
-                    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
+                    if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml"))
+                    {
+                        File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml");
+                    }
+
+                    System.IO.File.Move($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", $"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml");
+                    System.IO.File.Copy($"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml", $"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
+
                 }
-                if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
-                {
-                    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
-                }
+                //if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
+                //{
+                //    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
+                //}
             }
             catch (Exception ex)
             {
@@ -126,31 +137,31 @@ namespace BartMarket.Quartz
             
             try
             {
-                using (var client = new HttpClient())
-                {
-                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
-                    {
-                        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", FileMode.OpenOrCreate))
-                        {
-                            s.Result.CopyTo(fs);
-                            logger.Info("success");
+                //using (var client = new HttpClient())
+                //{
+                //    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
+                //    {
+                //        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", FileMode.OpenOrCreate))
+                //        {
+                //            s.Result.CopyTo(fs);
+                //            logger.Info("success");
 
-                        }
-                    }
-                }
+                //        }
+                //    }
+                //}
+                
+                //using (var client = new HttpClient())
+                //{
+                //    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
+                //    {
+                //        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml", FileMode.OpenOrCreate))
+                //        {
+                //            s.Result.CopyTo(fs);
+                //            logger.Info("success");
 
-                using (var client = new HttpClient())
-                {
-                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
-                    {
-                        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml", FileMode.OpenOrCreate))
-                        {
-                            s.Result.CopyTo(fs);
-                            logger.Info("success");
-
-                        }
-                    }
-                }
+                //        }
+                //    }
+                //}
 
             }
             catch (Exception ex)
@@ -343,9 +354,12 @@ namespace BartMarket.Quartz
 
             }
 
-
-
+         
             catalog.Shop.Offers.Offer = ofrs;
+            
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
 
             XmlDocument docNew = new XmlDocument();
             XmlElement newRoot = docNew.CreateElement("yml_catalog");
@@ -415,7 +429,6 @@ namespace BartMarket.Quartz
                     catalog3 = (YmlCatalog2)text2;
                 }
 
-                logger.Info($"zaro list.count " + catalog3.Shop.Offers.Offer.Count);
 
                 Program.list = catalog3.Shop.Offers.Offer;
             }

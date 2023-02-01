@@ -145,7 +145,6 @@ namespace BartMarket
                 raw = item.Param.FirstOrDefault(m => m.Name == "Коробка вес гр");
                 if (raw == null)
                 {
-                    //logger.Warn("No weight ITEM-" + item.Name);
                     return 0.0;
                 }
 
@@ -214,7 +213,65 @@ namespace BartMarket
         {
             int x = 1;
             int y = catalog.Shop.Offers.Offer.Count;
+
+            if (Program.Last.Count > catalog.Shop.Offers.Offer.Count)
+            {
+
+                var split  = Program.lastIds.ToString().TrimEnd(';').Split(";");
+                List<string> ids = new List<string>(); 
+                foreach (var item in split)
+                {
+                    if (catalog.Shop.Offers.Offer.FirstOrDefault(m => m.Id.ToString() == item) != null)
+                    {
+                        continue;
+                    }
+
+                    ids.Add(item);
+                }
+
+                var old = new YmlCatalog();
+
+                var text = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml");
+                using (StringReader reader = new StringReader(text))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(YmlCatalog));
+                    var text2 = serializer.Deserialize(reader);
+                    old = (YmlCatalog)text2;
+                }
+                foreach (var item in ids)
+                {
+                    var curr = old.Shop.Offers.Offer.FirstOrDefault(m => m.Id.ToString() == item);
+                    if (curr == null)
+                    {
+                        curr = Program.deleted.FirstOrDefault(m => m.Id.ToString() == item);
+                        if(curr == null)
+                        {
+                            logger.Warn("why null " + item);
+                            continue;
+                        }
+                    }
+                    
+                    if(catalog.Shop.Offers.Offer.FirstOrDefault(m=>m.Id == curr.Id) == null)
+                    {
+                        if(Program.deleted.FirstOrDefault(m=>m.Id== curr.Id) == null)
+                        {
+                            Program.deleted.Add(curr);
+                        }
+                     
+                        catalog.Shop.Offers.Offer.Add(curr);
+                    }
+                }
+
+                text = null;
+                old = null;
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+            }
+
             Program.Last.Count = catalog.Shop.Offers.Offer.Count;
+
             foreach (var item in catalog.Shop.Offers.Offer)
             {
                 if (CheckBrand(item) == false)
@@ -228,7 +285,10 @@ namespace BartMarket
                 XmlAttribute idAttr = docNew.CreateAttribute("id");
                 offer.Attributes.Append(idAttr);
                 offer.Attributes.Item(0).Value = item.Id.ToString() + "_DPN";
-
+                if (!Program.lastIds.ToString().Contains(item.Id.ToString()))
+                {
+                    Program.lastIds.Append(item.Id.ToString() + ";");
+                }
                 var price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 0)).ToString()).ToString());
 
                 var name = CreateAndSetElement(docNew, "name", item.Name);
