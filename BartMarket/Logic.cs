@@ -293,10 +293,10 @@ namespace BartMarket
                 XmlAttribute idAttr = docNew.CreateAttribute("id");
                 offer.Attributes.Append(idAttr);
                 offer.Attributes.Item(0).Value = item.Id.ToString() + "_DPN";
-                if (!Program.lastIds.ToString().Contains(item.Id.ToString()))
-                {
-                    Program.lastIds.Append(item.Id.ToString() + ";");
-                }
+                //if (!Program.lastIds.ToString().Contains(item.Id.ToString()))
+                //{
+                //    Program.lastIds.Append(item.Id.ToString() + ";");
+                //}
                 var price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 0)).ToString()).ToString());
 
                 var name = CreateAndSetElement(docNew, "name", item.Name);
@@ -307,7 +307,7 @@ namespace BartMarket
 
                 var minPrice = CreateAndSetElement(docNew, "min_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 2)).ToString()).ToString());
 
-                var formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1.Replace("x", mainPrice.ToString())};{Program.formula2.Replace("x", mainPrice.ToString())};{Program.formula3.Replace("x", mainPrice.ToString())};");
+                var formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1.Replace("x", mainPrice.ToString())};{Program.formula2.Replacfe("x", mainPrice.ToString())};{Program.formula3.Replace("x", mainPrice.ToString())};");
 
                 if (type == "full")
                 {
