@@ -307,7 +307,7 @@ namespace BartMarket
 
                 var minPrice = CreateAndSetElement(docNew, "min_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePrice(Convert.ToInt32(mainPrice), 2)).ToString()).ToString());
 
-                var formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1.Replace("x", mainPrice.ToString())};{Program.formula2.Replacfe("x", mainPrice.ToString())};{Program.formula3.Replace("x", mainPrice.ToString())};");
+                var formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1.Replace("x", mainPrice.ToString())};{Program.formula2.Replace("x", mainPrice.ToString())};{Program.formula3.Replace("x", mainPrice.ToString())};");
 
                 if (type == "full")
                 {
