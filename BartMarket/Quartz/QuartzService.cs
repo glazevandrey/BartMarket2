@@ -144,12 +144,25 @@ namespace BartMarket.Quartz
                 {
                     using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
                     {
-                        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", FileMode.OpenOrCreate))
+                        try
                         {
-                            s.Result.CopyTo(fs);
-                            logger.Info("success");
+                            using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", FileMode.OpenOrCreate))
+                            {
+                                s.Result.CopyTo(fs);
+                                logger.Info("success");
 
+                            }
                         }
+                        catch (Exception ex)
+                        {
+                            logger.Error("from download inside " + ex.Message);
+                            Program.Last.Success = false;
+                            Program.Last.Error = ex.Message;
+                            Program.inAir = false;
+
+                            return;
+                        }
+                       
                     }
                 }
 
@@ -157,12 +170,25 @@ namespace BartMarket.Quartz
                 {
                     using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
                     {
-                        using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml", FileMode.OpenOrCreate))
+                        try
                         {
-                            s.Result.CopyTo(fs);
-                            logger.Info("success");
+                            using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml", FileMode.OpenOrCreate))
+                            {
+                                s.Result.CopyTo(fs);
+                                logger.Info("success");
 
+                            }
                         }
+                        catch (Exception ex)
+                        {
+                            logger.Error("from download inside " + ex.Message);
+                            Program.Last.Success = false;
+                            Program.Last.Error = ex.Message;
+                            Program.inAir = false;
+
+                            return;
+                        }
+                    
                     }
                 }
 
