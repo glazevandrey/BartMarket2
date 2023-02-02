@@ -216,10 +216,9 @@ namespace BartMarket
 
             if (Program.Last.Count > catalog.Shop.Offers.Offer.Count)
             {
+                logger.Info("COUNT LESS. GO TO DELETED");
                 try
                 {
-
-
                     var split = Program.lastIds.ToString().TrimEnd(';').Split(";");
                     List<string> ids = new List<string>();
                     foreach (var item in split)
@@ -230,6 +229,7 @@ namespace BartMarket
                         }
 
                         ids.Add(item);
+                        logger.Info("deleted id: " + item);
                     }
 
                     var old = new YmlCatalog();
@@ -241,6 +241,7 @@ namespace BartMarket
                         var text2 = serializer.Deserialize(reader);
                         old = (YmlCatalog)text2;
                     }
+
                     foreach (var item in ids)
                     {
                         var curr = old.Shop.Offers.Offer.FirstOrDefault(m => m.Id.ToString() == item);
@@ -262,8 +263,11 @@ namespace BartMarket
                             }
 
                             catalog.Shop.Offers.Offer.Add(curr);
+
                         }
                     }
+
+                    logger.Info("added to this parse : " +  ids.Count + " штук");
 
                     text = null;
                     old = null;

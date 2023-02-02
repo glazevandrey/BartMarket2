@@ -117,7 +117,6 @@ namespace BartMarket.Quartz
                     }
 
                     System.IO.File.Move($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", $"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml");
-                    System.IO.File.Copy($"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml", $"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
 
                 }
                 if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
