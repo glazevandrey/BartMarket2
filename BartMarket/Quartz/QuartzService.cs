@@ -118,6 +118,10 @@ namespace BartMarket.Quartz
 
                     System.IO.File.Move($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", $"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml");
 
+                    if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
+                    {
+                        File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
+                    }
                 }
                 if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
                 {
@@ -204,6 +208,10 @@ namespace BartMarket.Quartz
             }
             var ofrs = new List<Offer>();
 
+            logger.Info("DATE OF NEW ONLINE 1 FID IS: " + catalog.Date);
+            logger.Info("DATE OF NEW ONLINE  2 FID IS: " + catalog2.Date);
+            
+
             try
             {
                 foreach (var item in catalog.Shop.Offers.Offer)
@@ -231,7 +239,6 @@ namespace BartMarket.Quartz
                 Program.Last.Error = ex.Message;
                 Program.inAir = false;
                 return;
-
             }
 
 
@@ -252,8 +259,6 @@ namespace BartMarket.Quartz
                 Program.Last.Error = ex.Message;
                 Program.inAir = false;
                 return;
-
-
             }
 
             try

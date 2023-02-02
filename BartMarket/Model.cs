@@ -135,6 +135,10 @@ namespace BartMarket
     public class YmlCatalog
     {
 
+        [XmlAttribute(AttributeName = "date")]
+        public string Date { get; set; }
+
+
         [XmlElement(ElementName = "shop")]
         public Shop Shop { get; set; }
 
@@ -142,6 +146,9 @@ namespace BartMarket
     [XmlRoot(ElementName = "yml_catalog")]
     public class YmlCatalog2
     {
+
+        [XmlAttribute(AttributeName = "date")]
+        public string Date { get; set; }
 
         [XmlElement(ElementName = "shop")]
         public Shop2 Shop { get; set; }
