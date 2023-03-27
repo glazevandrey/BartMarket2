@@ -417,6 +417,11 @@ namespace BartMarket
 
                     foreach (var ware in Program.warehouses)
                     {
+                        if (!ware.Name.Contains("DPN"))
+                        {
+                            continue;
+                        }
+
                         var outlet = docNew.CreateElement("outlet");
 
                         var instInt = GetInst(catalog2.Shop.Offers.Offer, item.Id).ToString();
