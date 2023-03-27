@@ -131,6 +131,7 @@ namespace BartMarket
         [XmlElement(ElementName = "offers")]
         public Offers2 Offers { get; set; }
     }
+    
     [XmlRoot(ElementName = "yml_catalog")]
     public class YmlCatalog
     {
@@ -141,6 +142,7 @@ namespace BartMarket
 
         [XmlElement(ElementName = "shop")]
         public Shop Shop { get; set; }
+
 
     }
     [XmlRoot(ElementName = "yml_catalog")]

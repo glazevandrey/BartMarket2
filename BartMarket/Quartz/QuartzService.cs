@@ -1,10 +1,12 @@
 ﻿using BartMarket.Data;
+using Microsoft.AspNetCore.Mvc;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
@@ -20,7 +22,14 @@ namespace BartMarket.Quartz
         }
         public async Task MainParse()
         {
-            await StartLite();
+            await StartDonplafon();
+
+            Thread.Sleep(10000);
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            Thread.Sleep(10000);
+
+            await StartArnika();
         }
         public static int MakePrice(string s1)
         {
@@ -65,7 +74,15 @@ namespace BartMarket.Quartz
                 }
                 catch (Exception)
                 {
-                    x2 = Convert.ToInt32(new string(hh));
+                    try
+                    {
+                        x2 = Convert.ToInt32(new string(hh));
+
+                    }
+                    catch (Exception exx)
+                    {
+                        throw exx;
+                    }
 
                 }
 
@@ -85,7 +102,7 @@ namespace BartMarket.Quartz
             }
             return x2;
         }
-        public async static Task StartLite()
+        public async static Task StartDonplafon()
         {
             if (Program.ExcelAir)
             {
@@ -470,6 +487,334 @@ namespace BartMarket.Quartz
             GC.WaitForPendingFinalizers();
 
             logger.Info($"progm list "  + Program.list.Count);
+
+            Program.Last.Date = DateTime.Now;
+            Program.inAir = false;
+
+        }
+        public async static Task StartArnika()
+        {
+            if (Program.ExcelAir)
+            {
+                logger.Error("EXCEL IN AIR");
+                return;
+            }
+
+            XmlSerializer serializer = new XmlSerializer(typeof(Export));
+            Export catalog = new Export();
+
+            try
+            {
+                Program.inAir = true;
+                Program.Last.Success = true;
+                if (Program.list != null)
+                {
+                    Program.list.Clear();
+                    Program.list = null;
+                }
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+                if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/arnikafid.xml"))
+                {
+                    if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/arnikafid_old.xml"))
+                    {
+                        File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/arnikafid_old.xml");
+                    }
+
+                    System.IO.File.Move($"{Environment.CurrentDirectory}/wwwroot/content/arnikafid.xml", $"{Environment.CurrentDirectory}/wwwroot/content/arnikafid_old.xml");
+
+                    if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/arnikafid.xml"))
+                    {
+                        File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/arnikafid.xml");
+                    }
+                }
+    
+            }
+            catch (Exception ex)
+            {
+                logger.Error("from litle " + ex.Message);
+                Program.Last.Success = false;
+                Program.Last.Error = ex.Message;
+                Program.inAir = false;
+                return;
+            }
+
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync("https://td-arnika.ru/upload/acrit.exportproplus/arnika_agent.xml?1678614659"))
+                    {
+                        try
+                        {
+                            using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/arnikafid.xml", FileMode.OpenOrCreate))
+                            {
+                                s.Result.CopyTo(fs);
+                                logger.Info("success");
+
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error("from download inside " + ex.Message);
+                            Program.Last.Success = false;
+                            Program.Last.Error = ex.Message;
+                            Program.inAir = false;
+
+                            return;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("from download " + ex.Message);
+                Program.Last.Success = false;
+                Program.Last.Error = ex.Message;
+                Program.inAir = false;
+
+                return;
+            }
+
+            Export catalog2 = new Export();
+
+
+            try
+            {
+                var text = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/arnikafid.xml");
+                using (StringReader reader = new StringReader(text))
+                {
+                    var text2 = serializer.Deserialize(reader);
+                    catalog = (Export)text2;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("from upload to disk " + ex.Message);
+                Program.Last.Success = false;
+                Program.Last.Error = ex.Message;
+                Program.inAir = false;
+                return;
+            }
+            var ofrs = new List<OfferArnika>();
+
+      
+            try
+            {
+                foreach (var item in catalog.Offers.Offer)
+                {
+                    if (item.Price == 0)
+                    {
+                        if (Convert.ToInt32(item.OldPrice) > 1000)
+                        {
+                            ofrs.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        if (Convert.ToInt32(item.Price) > 1000)
+                        {
+                            ofrs.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("offers " + ex.Message);
+                Program.Last.Success = false;
+                Program.Last.Error = ex.Message;
+                Program.inAir = false;
+                return;
+            }
+
+
+
+            try
+            {
+                using (var db = new UserContext())
+                {
+                    var l = db.LinkModels.ToList();
+                    Program.link_ozon_full = l.FirstOrDefault(m => m.Type == "Full").Link;
+                    Program.link_ozon_lite = l.FirstOrDefault(m => m.Type == "Lite").Link;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("from link " + ex.Message);
+                Program.Last.Success = false;
+                Program.Last.Error = ex.Message;
+                Program.inAir = false;
+                return;
+            }
+
+
+
+            catalog.Offers.Offer = ofrs;
+
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            XmlDocument docNew = new XmlDocument();
+            XmlElement newRoot = docNew.CreateElement("yml_catalog");
+
+            var attr = docNew.CreateAttribute("date");
+            var date = docNew.CreateTextNode(catalog.Date);
+            attr.AppendChild(date);
+
+            newRoot.Attributes.Append(attr);
+            docNew.AppendChild(newRoot);
+
+
+            var cat = docNew.CreateElement("categories");
+
+            foreach (var item in catalog.Categories.Category)
+            {
+                var catt = docNew.CreateElement("category");
+                catt.InnerText = item.Text;
+                var attrCatt = docNew.CreateAttribute("id");
+                var text2 = docNew.CreateTextNode(item.Id.ToString());
+                attrCatt.AppendChild(text2);
+
+                if(item.ParentId != 0)
+                {
+                    var attrCatt2 = docNew.CreateAttribute("parentId");
+                    var text3 = docNew.CreateTextNode(item.ParentId.ToString());
+                    attrCatt2.AppendChild(text3);
+                    catt.Attributes.Append(attrCatt2);
+
+                }
+
+
+                catt.Attributes.Append(attrCatt);
+
+                cat.AppendChild(catt);
+
+            }
+            newRoot.AppendChild(cat);
+
+            var shop = docNew.CreateElement("shop");
+            var offers = docNew.CreateElement("offers");
+            newRoot.AppendChild(shop);
+            shop.AppendChild(offers);
+            var startTime = System.Diagnostics.Stopwatch.StartNew();
+
+
+
+            try
+            {
+                Logic.StartParse(catalog, docNew, offers, "lite");
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+
+            startTime.Stop();
+            var resultTime = startTime.Elapsed;
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+    resultTime.Hours,
+    resultTime.Minutes,
+    resultTime.Seconds,
+    resultTime.Milliseconds);
+
+            Program.Last.ElapsedLite = elapsedTime;
+            logger.Info("-----SUCCESS ENDED LITE FORMATING FEED-----");
+            logger.Info($"-----ELLAPSED: {elapsedTime}-----");
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            docNew = new XmlDocument();
+            newRoot = docNew.CreateElement("yml_catalog");
+            attr = docNew.CreateAttribute("date");
+            date = docNew.CreateTextNode(catalog.Date);
+            attr.AppendChild(date);
+
+            newRoot.Attributes.Append(attr);
+            docNew.AppendChild(newRoot);
+
+
+             cat = docNew.CreateElement("categories");
+
+            foreach (var item in catalog.Categories.Category)
+            {
+                var catt = docNew.CreateElement("category");
+                catt.InnerText = item.Text;
+                var attrCatt = docNew.CreateAttribute("id");
+                var text2 = docNew.CreateTextNode(item.Id.ToString());
+                attrCatt.AppendChild(text2);
+
+                if (item.ParentId != 0)
+                {
+                    var attrCatt2 = docNew.CreateAttribute("parentId");
+                    var text3 = docNew.CreateTextNode(item.ParentId.ToString());
+                    attrCatt2.AppendChild(text3);
+                    catt.Attributes.Append(attrCatt2);
+
+                }
+
+
+                catt.Attributes.Append(attrCatt);
+
+                cat.AppendChild(catt);
+
+            }
+            newRoot.AppendChild(cat);
+
+            docNew.AppendChild(newRoot);
+            shop = docNew.CreateElement("shop");
+            offers = docNew.CreateElement("offers");
+            newRoot.AppendChild(shop);
+            shop.AppendChild(offers);
+
+            startTime = System.Diagnostics.Stopwatch.StartNew();
+            Logic.StartParse(catalog, docNew, offers, "full");
+            startTime.Stop();
+            resultTime = startTime.Elapsed;
+            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+   resultTime.Hours,
+   resultTime.Minutes,
+   resultTime.Seconds,
+   resultTime.Milliseconds);
+
+            Program.Last.ElapsedFull = elapsedTime;
+
+            logger.Info("-----SUCCESS ENDED FULL FORMATING FEED-----");
+            logger.Info($"-----ELLAPSED: {elapsedTime}-----");
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            try
+            {
+                var text = File.ReadAllText("wwwroot" + Program.link_ozon_full);
+
+
+                XmlSerializer serializer2 = new XmlSerializer(typeof(YmlCatalog2));
+                YmlCatalog2 catalog3 = new YmlCatalog2();
+
+                using (StringReader reader = new StringReader(text))
+                {
+                    var text2 = serializer2.Deserialize(reader);
+                    catalog3 = (YmlCatalog2)text2;
+                }
+
+
+                Program.list = catalog3.Shop.Offers.Offer;
+            }
+            catch (Exception ex5)
+            {
+                logger.Error(ex5.Message);
+            }
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
 
             Program.Last.Date = DateTime.Now;
             Program.inAir = false;

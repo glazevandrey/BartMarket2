@@ -1,0 +1,137 @@
+﻿
+<style>
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+</style>
+<div align="left">
+    <label style="font-size:medium"><b>Лайт фид:</b></label>
+    <br />
+    <br />
+
+    <form method="post" action="savelink">
+        <label>http://ovz1.j34469996.pxlzp.vps.myjino.ru</label><input size="40" name="link_lite" value="@ViewData["URL1"]" /> <br />
+        <button type="submit">Сохранить ссылку</button>
+    </form>
+    <br />
+    <br />
+    <a href="@ViewData["URL1F"]">Просмотреть фид</a>
+    <br />
+    <br />
+
+    <br />
+    <a href="@ViewData["URL1"]" download="@ViewData["URL1"].ToString().Split("/").Last()">Скачать фид</a>
+    <br />
+    <br />
+    <div align="right">
+        @if ((bool)ViewData["AIR"] == true)
+        {
+            <label style="color:red">Сейчас идет обработка...</label>
+            <br />
+            <br />
+        }
+        <label>Дата последней обработки: @ViewData["DATE"]</label>
+        <br />
+        <label>Затрачено времени на лайт версию: @ViewData["TIMELITE"]</label>
+        <br />
+
+        <label>Затрачено времени на полную версию: @ViewData["TIMEFULL"]</label>
+        <br />
+
+        <label>Успех: @ViewData["SUCCESS2"]</label>
+        <br />
+
+        @if (ViewData["SUCCESS2"] != null && (bool)ViewData["SUCCESS2"] == false)
+        {
+            <label>Ошибка: @ViewData["ERROR"]</label>
+
+        }
+        <br />
+
+        <label>Всего офферов обработано: @ViewData["COUNT"]</label>
+
+    </div>
+
+    <hr />
+    <br />
+    <br />
+
+    <label style="font-size:medium"><b>Полный фид:</b></label>
+    <br />
+    <br />
+
+    <form method="post" action="savelink">
+        <label>http://ovz1.j34469996.pxlzp.vps.myjino.ru</label><input size="40" name="link_full" value="@ViewData["URL2"]" /> <br />
+        <button type="submit">Сохранить ссылку</button>
+    </form>
+    <br />
+    <br />
+    <a href="@ViewData["URL2F"]">Просмотреть фид</a>
+    <br />
+    <br />
+
+    <br />
+    <a href="@ViewData["URL2"]" download="@ViewData["URL2"].ToString().Split("/").Last()">Скачать фид</a>
+    <br />
+    <br />
+ 
+
+    <hr />
+    <br />
+    <div align="right">
+        @Html.ActionLink("Редактор складов", "index","warehouses")
+
+    </div>
+    <br />
+    <label style="font-size:medium"><b>Ссылка для копирования первого онлайн фида :</b></label>
+    <br />
+    <br />
+
+    <a href="@ViewData["URL3"]">@ViewData["URL3"]</a>
+
+    <br />
+    <br />
+
+    <label style="font-size:medium"><b>Ссылка для скачивания онлайн фида:</b></label>
+    <br />
+    <a href="~/content/arnikafid.xml" download="arnikafid.xml">Скачать</a>
+    <br />
+    <br />
+
+    <hr />
+    <br />
+    <br />
+    
+    <hr />
+
+    @if (ViewData["SUCCESS"] != null)
+    {
+        <script>alert("Формулы успешно сохранены");</script>
+    }
+
+    <form method="post" action="Arnika_Ozon">
+        <label>Главная формула</label>
+        <input hidden="hidden" name="type" id="type" value="main"/>
+        <input type="text" size="42" id="formula" name="formula" value="@ViewData["FORMULA"]" />
+        <br />
+        <button type="submit">Сохранить формулы</button>
+
+
+    </form>
+
+    <form method="post" action="Arnika_Ozon">
+        <label>Доп. формула</label>
+        <input hidden="hidden" name="type" id="type" value="dop" />
+        <input type="text" size="42" id="formula" name="formula" value="@ViewData["FORMULADOP"]" />
+        <br />
+        <button type="submit">Сохранить формулы</button>
+
+
+    </form>
+</div>
+
