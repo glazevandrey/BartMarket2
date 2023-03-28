@@ -32,8 +32,7 @@ namespace BartMarket
         public static string link_ozon_full = "/content/fullozon.xml";
         public static string link_ozon_arnika_lite = "/content/liteozon_arnika.xml";
         public static string link_ozon_arnika_full = "/content/fullozon_arnika.xml";
-
-        public static StatModel Last = new StatModel();
+        public static Dictionary<string, StatModel> Last = new Dictionary<string, StatModel>() { {"arnika", new StatModel() },{"donplafon", new StatModel() }   }; 
         public static bool inAir = false;
         public static List<Offer2> list = new List<Offer2>();
         public static List<Offer> deleted = new List<Offer>();
@@ -50,6 +49,7 @@ namespace BartMarket
             { "ym", new List<string>(){ ""} },
 
         };
+        
         public static void Main(string[] args)
         {
 

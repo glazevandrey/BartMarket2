@@ -116,7 +116,7 @@ namespace BartMarket.Quartz
             try
             {
                 Program.inAir = true;
-                Program.Last.Success = true;
+                Program.Last["donplafon"].Success = true;
                 if(Program.list != null)
                 {
                     Program.list.Clear();
@@ -148,8 +148,8 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
                 logger.Error("from litle " + ex.Message);
-                Program.Last.Success = false;
-                Program.Last.Error = ex.Message;
+                Program.Last["donplafon"].Success = false;
+                Program.Last["donplafon"].Error = ex.Message;
                 Program.inAir = false;
                 return;
             }
@@ -173,8 +173,8 @@ namespace BartMarket.Quartz
                         catch (Exception ex)
                         {
                             logger.Error("from download inside " + ex.Message);
-                            Program.Last.Success = false;
-                            Program.Last.Error = ex.Message;
+                            Program.Last["donplafon"].Success = false;
+                            Program.Last["donplafon"].Error = ex.Message;
                             Program.inAir = false;
 
                             return;
@@ -199,8 +199,8 @@ namespace BartMarket.Quartz
                         catch (Exception ex)
                         {
                             logger.Error("from download inside " + ex.Message);
-                            Program.Last.Success = false;
-                            Program.Last.Error = ex.Message;
+                            Program.Last["donplafon"].Success = false;
+                            Program.Last["donplafon"].Error = ex.Message;
                             Program.inAir = false;
 
                             return;
@@ -213,8 +213,8 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
                 logger.Error("from download " + ex.Message);
-                Program.Last.Success = false;
-                Program.Last.Error = ex.Message;
+                Program.Last["donplafon"].Success = false;
+                Program.Last["donplafon"].Error = ex.Message;
                 Program.inAir = false;
 
                 return;
@@ -244,8 +244,8 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
                 logger.Error("from upload to disk " + ex.Message);
-                Program.Last.Success = false;
-                Program.Last.Error = ex.Message;
+                Program.Last["donplafon"].Success = false;
+                Program.Last["donplafon"].Error = ex.Message;
                 Program.inAir = false;
                 return;
             }
@@ -278,8 +278,8 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
                 logger.Error("offers " + ex.Message);
-                Program.Last.Success = false;
-                Program.Last.Error = ex.Message;
+                Program.Last["donplafon"].Success = false;
+                Program.Last["donplafon"].Error = ex.Message;
                 Program.inAir = false;
                 return;
             }
@@ -298,8 +298,8 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
                 logger.Error("from link " + ex.Message);
-                Program.Last.Success = false;
-                Program.Last.Error = ex.Message;
+                Program.Last["donplafon"].Success = false;
+                Program.Last["donplafon"].Error = ex.Message;
                 Program.inAir = false;
                 return;
             }
@@ -353,8 +353,8 @@ namespace BartMarket.Quartz
             {
 
                 logger.Error("from warehouse " + ex.Message);
-                Program.Last.Success = false;
-                Program.Last.Error = ex.Message;
+                Program.Last["donplafon"].Success = false;
+                Program.Last["donplafon"].Error = ex.Message;
                 Program.inAir = false;
                 return;
 
@@ -410,6 +410,13 @@ namespace BartMarket.Quartz
 
             XmlDocument docNew = new XmlDocument();
             XmlElement newRoot = docNew.CreateElement("yml_catalog");
+
+
+            var attr = docNew.CreateAttribute("date");
+            var date = docNew.CreateTextNode(catalog.Date);
+            attr.AppendChild(date);
+
+            newRoot.Attributes.Append(attr);
             docNew.AppendChild(newRoot);
             var shop = docNew.CreateElement("shop");
             var offers = docNew.CreateElement("offers");
@@ -431,7 +438,7 @@ namespace BartMarket.Quartz
     resultTime.Seconds,
     resultTime.Milliseconds);
 
-            Program.Last.ElapsedLite = elapsedTime;
+            Program.Last["donplafon"].ElapsedLite = elapsedTime;
             logger.Info("-----SUCCESS ENDED LITE FORMATING FEED-----");
             logger.Info($"-----ELLAPSED: {elapsedTime}-----");
             GC.Collect();
@@ -454,7 +461,7 @@ namespace BartMarket.Quartz
    resultTime.Seconds,
    resultTime.Milliseconds);
 
-            Program.Last.ElapsedFull = elapsedTime;
+            Program.Last["donplafon"].ElapsedFull = elapsedTime;
 
             logger.Info("-----SUCCESS ENDED FULL FORMATING FEED-----");
             logger.Info($"-----ELLAPSED: {elapsedTime}-----");
@@ -488,7 +495,7 @@ namespace BartMarket.Quartz
 
             logger.Info($"progm list "  + Program.list.Count);
 
-            Program.Last.Date = DateTime.Now;
+            Program.Last["donplafon"].Date = DateTime.Now;
             Program.inAir = false;
 
         }
@@ -506,7 +513,7 @@ namespace BartMarket.Quartz
             try
             {
                 Program.inAir = true;
-                Program.Last.Success = true;
+                Program.Last["arnika"].Success = true;
                 if (Program.list != null)
                 {
                     Program.list.Clear();
@@ -535,8 +542,8 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
                 logger.Error("from litle " + ex.Message);
-                Program.Last.Success = false;
-                Program.Last.Error = ex.Message;
+                Program.Last["arnika"].Success = false;
+                Program.Last["arnika"].Error = ex.Message;
                 Program.inAir = false;
                 return;
             }
@@ -560,8 +567,8 @@ namespace BartMarket.Quartz
                         catch (Exception ex)
                         {
                             logger.Error("from download inside " + ex.Message);
-                            Program.Last.Success = false;
-                            Program.Last.Error = ex.Message;
+                            Program.Last["arnika"].Success = false;
+                            Program.Last["arnika"].Error = ex.Message;
                             Program.inAir = false;
 
                             return;
@@ -573,8 +580,8 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
                 logger.Error("from download " + ex.Message);
-                Program.Last.Success = false;
-                Program.Last.Error = ex.Message;
+                Program.Last["arnika"].Success = false;
+                Program.Last["arnika"].Error = ex.Message;
                 Program.inAir = false;
 
                 return;
@@ -595,8 +602,8 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
                 logger.Error("from upload to disk " + ex.Message);
-                Program.Last.Success = false;
-                Program.Last.Error = ex.Message;
+                Program.Last["arnika"].Success = false;
+                Program.Last["arnika"].Error = ex.Message;
                 Program.inAir = false;
                 return;
             }
@@ -626,8 +633,8 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
                 logger.Error("offers " + ex.Message);
-                Program.Last.Success = false;
-                Program.Last.Error = ex.Message;
+                Program.Last["arnika"].Success = false;
+                Program.Last["arnika"].Error = ex.Message;
                 Program.inAir = false;
                 return;
             }
@@ -646,8 +653,8 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
                 logger.Error("from link " + ex.Message);
-                Program.Last.Success = false;
-                Program.Last.Error = ex.Message;
+                Program.Last["arnika"].Success = false;
+                Program.Last["arnika"].Error = ex.Message;
                 Program.inAir = false;
                 return;
             }
@@ -725,7 +732,7 @@ namespace BartMarket.Quartz
     resultTime.Seconds,
     resultTime.Milliseconds);
 
-            Program.Last.ElapsedLite = elapsedTime;
+            Program.Last["arnika"].ElapsedLite = elapsedTime;
             logger.Info("-----SUCCESS ENDED LITE FORMATING FEED-----");
             logger.Info($"-----ELLAPSED: {elapsedTime}-----");
             GC.Collect();
@@ -783,7 +790,7 @@ namespace BartMarket.Quartz
    resultTime.Seconds,
    resultTime.Milliseconds);
 
-            Program.Last.ElapsedFull = elapsedTime;
+            Program.Last["arnika"].ElapsedFull = elapsedTime;
 
             logger.Info("-----SUCCESS ENDED FULL FORMATING FEED-----");
             logger.Info($"-----ELLAPSED: {elapsedTime}-----");
@@ -816,7 +823,7 @@ namespace BartMarket.Quartz
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-            Program.Last.Date = DateTime.Now;
+            Program.Last["arnika"].Date = DateTime.Now;
             Program.inAir = false;
 
         }

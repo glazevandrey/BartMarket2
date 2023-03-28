@@ -355,7 +355,7 @@ namespace BartMarket
 
             }
 
-            Program.Last.Count = catalog.Shop.Offers.Offer.Count;
+            Program.Last["donplafon"].Count = catalog.Shop.Offers.Offer.Count;
 
             foreach (var item in catalog.Shop.Offers.Offer)
             {
@@ -552,8 +552,8 @@ namespace BartMarket
                 {
                     logger.Error("Неверно задан фильтр у одного из складов. Нужна проверка");
                     Program.inAir = false;
-                    Program.Last.Success = false;
-                    Program.Last.Error = "Неверно задан фильтр у одного из складов. Нужна проверка";
+                    Program.Last["donplafon"].Success = false;
+                    Program.Last["donplafon"].Error = "Неверно задан фильтр у одного из складов. Нужна проверка";
                     return;
                 }
                 offer.AppendChild(outlets);
@@ -604,8 +604,8 @@ namespace BartMarket
                         logger.Error("from full:" + ex.Message);
                         logger.Error(docNew.InnerXml);
 
-                        Program.Last.Success = false;
-                        Program.Last.Error = ex.Message;
+                        Program.Last["donplafon"].Success = false;
+                        Program.Last["donplafon"].Error = ex.Message;
                         return;
 
                     }
@@ -649,8 +649,8 @@ namespace BartMarket
                         logger.Error("from full:" + ex.Message);
                         logger.Error(docNew.InnerXml);
 
-                        Program.Last.Success = false;
-                        Program.Last.Error = ex.Message;
+                        Program.Last["donplafon"].Success = false;
+                        Program.Last["donplafon"].Error = ex.Message;
                         return;
                     }
                 }
@@ -729,7 +729,7 @@ namespace BartMarket
 
             }
 
-            Program.Last.Count = export.Offers.Offer.Count;
+            Program.Last["arnika"].Count = export.Offers.Offer.Count;
 
             foreach (var item in export.Offers.Offer)
             {
@@ -839,8 +839,8 @@ namespace BartMarket
                 {
                     logger.Error("Неверно задан фильтр у одного из складов. Нужна проверка");
                     Program.inAir = false;
-                    Program.Last.Success = false;
-                    Program.Last.Error = "Неверно задан фильтр у одного из складов. Нужна проверка";
+                    Program.Last["arnika"].Success = false;
+                    Program.Last["arnika"].Error = "Неверно задан фильтр у одного из складов. Нужна проверка";
                     return;
                 }
                 offer.AppendChild(outlets);
@@ -891,8 +891,8 @@ namespace BartMarket
                         logger.Error("from full:" + ex.Message);
                         logger.Error(docNew.InnerXml);
 
-                        Program.Last.Success = false;
-                        Program.Last.Error = ex.Message;
+                        Program.Last["arnika"].Success = false;
+                        Program.Last["arnika"].Error = ex.Message;
                         return;
 
                     }
@@ -936,8 +936,8 @@ namespace BartMarket
                         logger.Error("from full:" + ex.Message);
                         logger.Error(docNew.InnerXml);
 
-                        Program.Last.Success = false;
-                        Program.Last.Error = ex.Message;
+                        Program.Last["arnika"].Success = false;
+                        Program.Last["arnika"].Error = ex.Message;
                         return;
                     }
                 }
