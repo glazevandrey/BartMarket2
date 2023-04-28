@@ -17,33 +17,69 @@ namespace BartMarket
         public static Logger logger = LogManager.GetCurrentClassLogger();
 
         
-        public static double CalculatePriceArnika(int x,  int type )
+        public static double CalculatePriceArnika(int x,  int type, bool _default)
         {
-            switch (type)
+            if (_default)
             {
-                case 0:
-                    return Convert.ToDouble(new DataTable().Compute(Program.formula1_ar.Replace("x", x.ToString()), null));
-                case 1:
-                    return Convert.ToDouble(new DataTable().Compute(Program.formula2_ar.Replace("x", x.ToString()), null));
-                case 2:
-                    return Convert.ToDouble(new DataTable().Compute(Program.formula3_ar.Replace("x", x.ToString()), null));
-                default:
-                    return 0;
+                switch (type)
+                {
+                    case 0:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula1_ar.Replace("x", x.ToString()), null));
+                    case 1:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula2_ar.Replace("x", x.ToString()), null));
+                    case 2:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula3_ar.Replace("x", x.ToString()), null));
+                    default:
+                        return 0;
+                }
             }
+            else
+            {
+                switch (type)
+                {
+                    case 0:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula1_ar1.Replace("x", x.ToString()), null));
+                    case 1:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula2_ar1.Replace("x", x.ToString()), null));
+                    case 2:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula3_ar1.Replace("x", x.ToString()), null));
+                    default:
+                        return 0;
+                }
+            }
+          
         }
-        public static double CalculatePriceDopArnika(int x, int type )
+        public static double CalculatePriceDopArnika(int x, int type, bool _default )
         {
-            switch (type)
+            if (_default)
             {
-                case 0:
-                    return Convert.ToDouble(new DataTable().Compute(Program.formula1_ar_dop.Replace("x", x.ToString()), null));
-                case 1:
-                    return Convert.ToDouble(new DataTable().Compute(Program.formula2_ar_dop.Replace("x", x.ToString()), null));
-                case 2:
-                    return Convert.ToDouble(new DataTable().Compute(Program.formula3_ar_dop.Replace("x", x.ToString()), null));
-                default:
-                    return 0;
+                switch (type)
+                {
+                    case 0:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula1_ar_dop.Replace("x", x.ToString()), null));
+                    case 1:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula2_ar_dop.Replace("x", x.ToString()), null));
+                    case 2:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula3_ar_dop.Replace("x", x.ToString()), null));
+                    default:
+                        return 0;
+                }
             }
+            else
+            {
+                switch (type)
+                {
+                    case 0:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula1_ar1_dop.Replace("x", x.ToString()), null));
+                    case 1:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula2_ar1_dop.Replace("x", x.ToString()), null));
+                    case 2:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula3_ar1_dop.Replace("x", x.ToString()), null));
+                    default:
+                        return 0;
+                }
+            }
+           
         }
         public static double CalculatePrice(int x, int type)
         {
@@ -767,19 +803,43 @@ namespace BartMarket
                 XmlElement minPrice;
 
                 XmlElement formula;
+                bool _default = true;
+                if(type == "lite1")
+                {
+                    _default = false;
+                }
                 if(weight > 20 && (main_cat == 1644 || main_cat == 1625))
                 {
-                    price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDopArnika(Convert.ToInt32(mainPrice), 0)).ToString()).ToString());
-                    oldPrice = CreateAndSetElement(docNew, "oldprice", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDopArnika(Convert.ToInt32(mainPrice), 1)).ToString()).ToString());
-                    minPrice = CreateAndSetElement(docNew, "min_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDopArnika(Convert.ToInt32(mainPrice), 2)).ToString()).ToString());
-                    formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1_ar_dop.Replace("x", mainPrice.ToString())};{Program.formula2_ar_dop.Replace("x", mainPrice.ToString())};{Program.formula3_ar_dop.Replace("x", mainPrice.ToString())};");
+                    price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDopArnika(Convert.ToInt32(mainPrice), 0, _default)).ToString()).ToString());
+                    oldPrice = CreateAndSetElement(docNew, "oldprice", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDopArnika(Convert.ToInt32(mainPrice), 1, _default)).ToString()).ToString());
+                    minPrice = CreateAndSetElement(docNew, "min_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDopArnika(Convert.ToInt32(mainPrice), 2, _default)).ToString()).ToString());
+
+                    if (_default)
+                    {
+                        formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1_ar_dop.Replace("x", mainPrice.ToString())};{Program.formula2_ar_dop.Replace("x", mainPrice.ToString())};{Program.formula3_ar_dop.Replace("x", mainPrice.ToString())};");
+
+                    }
+                    else
+                    {
+                        formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1_ar1_dop.Replace("x", mainPrice.ToString())};{Program.formula2_ar1_dop.Replace("x", mainPrice.ToString())};{Program.formula3_ar1_dop.Replace("x", mainPrice.ToString())};");
+
+                    }
                 }
                 else
                 {
-                    price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnika(Convert.ToInt32(mainPrice), 0)).ToString()).ToString());
-                    oldPrice = CreateAndSetElement(docNew, "oldprice", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnika(Convert.ToInt32(mainPrice), 1)).ToString()).ToString());
-                    minPrice = CreateAndSetElement(docNew, "min_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnika(Convert.ToInt32(mainPrice), 2)).ToString()).ToString());
-                    formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1_ar.Replace("x", mainPrice.ToString())};{Program.formula2_ar.Replace("x", mainPrice.ToString())};{Program.formula3_ar.Replace("x", mainPrice.ToString())};");
+                    price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnika(Convert.ToInt32(mainPrice), 0, _default)).ToString()).ToString());
+                    oldPrice = CreateAndSetElement(docNew, "oldprice", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnika(Convert.ToInt32(mainPrice), 1, _default)).ToString()).ToString());
+                    minPrice = CreateAndSetElement(docNew, "min_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnika(Convert.ToInt32(mainPrice), 2, _default)).ToString()).ToString());
+                    if (_default)
+                    {
+                        formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1_ar.Replace("x", mainPrice.ToString())};{Program.formula2_ar.Replace("x", mainPrice.ToString())};{Program.formula3_ar.Replace("x", mainPrice.ToString())};");
+
+                    }
+                    else
+                    {
+                        formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1_ar1.Replace("x", mainPrice.ToString())};{Program.formula2_ar1.Replace("x", mainPrice.ToString())};{Program.formula3_ar1.Replace("x", mainPrice.ToString())};");
+
+                    }
                 }
 
 
@@ -895,6 +955,50 @@ namespace BartMarket
                         Program.Last["arnika"].Error = ex.Message;
                         return;
 
+                    }
+                }
+            }
+            else if (type == "lite1")
+            {
+                var _1 = Program.link_ozon_arnika_lite1.TrimStart('/').Split("/")[0];
+                if (_1.Contains(".xml"))
+                {
+                    docNew.Save("wwwroot" + Program.link_ozon_arnika_lite1);
+                }
+                else
+                {
+                    string path = "wwwroot/" + _1;
+                    string subpath = "";
+                    for (int i = 1; i < Program.link_ozon_arnika_lite1.TrimStart('/').Split("/").Length; i++)
+                    {
+                        if (Program.link_ozon_arnika_lite1.TrimStart('/').Split("/")[i].Contains(".xml"))
+                        {
+                            break;
+                        }
+                        subpath += Program.link_ozon_arnika_lite1.TrimStart('/').Split("/")[i] + "/";
+
+                    }
+                    subpath.TrimEnd('/');
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    Directory.CreateDirectory($"{path}/{subpath}");
+                    try
+                    {
+                        docNew.Save("wwwroot" + Program.link_ozon_arnika_lite1);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error("from full:" + ex.Message);
+                        logger.Error(docNew.InnerXml);
+
+                        Program.Last["arnika"].Success = false;
+                        Program.Last["arnika"].Error = ex.Message;
+                        return;
                     }
                 }
             }

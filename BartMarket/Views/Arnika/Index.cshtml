@@ -79,6 +79,43 @@
     <a href="@ViewData["URL2"]" download="@ViewData["URL2"].ToString().Split("/").Last()">Скачать фид</a>
     <br />
     <br />
+
+
+
+
+
+
+
+
+     <hr />
+    <br />
+    <br />
+
+    <label style="font-size:medium"><b>Лайт1 фид:</b></label>
+    <br />
+    <br />
+
+    <form method="post" action="savelink">
+        <label>http://ovz1.j34469996.pxlzp.vps.myjino.ru</label><input size="40" name="link_full" value="@ViewData["URL4"]" /> <br />
+        <button type="submit">Сохранить ссылку</button>
+    </form>
+    <br />
+    <br />
+    <a href="@ViewData["URL4F"]">Просмотреть фид</a>
+    <br />
+    <br />
+
+    <br />
+    <a href="@ViewData["URL4"]" download="@ViewData["URL4"].ToString().Split("/").Last()">Скачать фид</a>
+    <br />
+    <br />
+
+
+
+
+
+
+
  
 
     <hr />
@@ -117,6 +154,8 @@
     <form method="post" action="Arnika_Ozon">
         <label>Главная формула</label>
         <input hidden="hidden" name="type" id="type" value="main"/>
+        <input hidden="hidden" name="type1" id="type1" value="lite" />
+
         <input type="text" size="42" id="formula" name="formula" value="@ViewData["FORMULA"]" />
         <br />
         <button type="submit">Сохранить формулы</button>
@@ -127,7 +166,34 @@
     <form method="post" action="Arnika_Ozon">
         <label>Доп. формула</label>
         <input hidden="hidden" name="type" id="type" value="dop" />
+        <input hidden="hidden" name="type1" id="type1" value="lite" />
+
         <input type="text" size="42" id="formula" name="formula" value="@ViewData["FORMULADOP"]" />
+        <br />
+        <button type="submit">Сохранить формулы</button>
+
+
+    </form>
+
+
+    <form method="post" action="Arnika_Ozon">
+        <label>Главная формула лайт1</label>
+        <input hidden="hidden" name="type" id="type" value="main" />
+        <input hidden="hidden" name="type1" id="type1" value="lite1" />
+
+        <input type="text" size="42" id="formula" name="formula" value="@ViewData["FORMULA1"]" />
+        <br />
+        <button type="submit">Сохранить формулы</button>
+
+
+    </form>
+
+    <form method="post" action="Arnika_Ozon">
+        <label>Доп. формула лайт1</label>
+        <input hidden="hidden" name="type" id="type" value="dop" />
+        <input hidden="hidden" name="type1" id="type1" value="lite1" />
+
+        <input type="text" size="42" id="formula" name="formula" value="@ViewData["FORMULADOP1"]" />
         <br />
         <button type="submit">Сохранить формулы</button>
 

@@ -22,7 +22,7 @@ namespace BartMarket.Quartz
         }
         public async Task MainParse()
         {
-            await StartDonplafon();
+           await StartDonplafon();
 
             Thread.Sleep(10000);
             GC.Collect();
@@ -639,28 +639,6 @@ namespace BartMarket.Quartz
                 return;
             }
 
-
-
-            try
-            {
-                using (var db = new UserContext())
-                {
-                    var l = db.LinkModels.ToList();
-                    Program.link_ozon_full = l.FirstOrDefault(m => m.Type == "Full").Link;
-                    Program.link_ozon_lite = l.FirstOrDefault(m => m.Type == "Lite").Link;
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error("from link " + ex.Message);
-                Program.Last["arnika"].Success = false;
-                Program.Last["arnika"].Error = ex.Message;
-                Program.inAir = false;
-                return;
-            }
-
-
-
             catalog.Offers.Offer = ofrs;
 
 
@@ -737,6 +715,84 @@ namespace BartMarket.Quartz
             logger.Info($"-----ELLAPSED: {elapsedTime}-----");
             GC.Collect();
             GC.WaitForPendingFinalizers();
+
+
+
+
+
+
+
+
+
+
+            docNew = new XmlDocument();
+            newRoot = docNew.CreateElement("yml_catalog");
+            attr = docNew.CreateAttribute("date");
+            date = docNew.CreateTextNode(catalog.Date);
+            attr.AppendChild(date);
+
+            newRoot.Attributes.Append(attr);
+            docNew.AppendChild(newRoot);
+
+
+            cat = docNew.CreateElement("categories");
+
+            foreach (var item in catalog.Categories.Category)
+            {
+                var catt = docNew.CreateElement("category");
+                catt.InnerText = item.Text;
+                var attrCatt = docNew.CreateAttribute("id");
+                var text2 = docNew.CreateTextNode(item.Id.ToString());
+                attrCatt.AppendChild(text2);
+
+                if (item.ParentId != 0)
+                {
+                    var attrCatt2 = docNew.CreateAttribute("parentId");
+                    var text3 = docNew.CreateTextNode(item.ParentId.ToString());
+                    attrCatt2.AppendChild(text3);
+                    catt.Attributes.Append(attrCatt2);
+
+                }
+
+
+                catt.Attributes.Append(attrCatt);
+
+                cat.AppendChild(catt);
+
+            }
+            newRoot.AppendChild(cat);
+
+            docNew.AppendChild(newRoot);
+            shop = docNew.CreateElement("shop");
+            offers = docNew.CreateElement("offers");
+            newRoot.AppendChild(shop);
+            shop.AppendChild(offers);
+
+            startTime = System.Diagnostics.Stopwatch.StartNew();
+            Logic.StartParse(catalog, docNew, offers, "lite1");
+            startTime.Stop();
+            resultTime = startTime.Elapsed;
+            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+   resultTime.Hours,
+   resultTime.Minutes,
+   resultTime.Seconds,
+   resultTime.Milliseconds);
+
+            Program.Last["arnika"].ElapsedFull = elapsedTime;
+
+            logger.Info("-----SUCCESS ENDED LITE1 FORMATING FEED-----");
+            logger.Info($"-----ELLAPSED: {elapsedTime}-----");
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+
+
+
+
+
+
+
             docNew = new XmlDocument();
             newRoot = docNew.CreateElement("yml_catalog");
             attr = docNew.CreateAttribute("date");

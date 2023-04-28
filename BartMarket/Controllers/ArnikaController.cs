@@ -26,46 +26,92 @@ namespace BartMarket.Controllers
             }
 
             ViewData["URL1"] = Program.link_ozon_arnika_lite;
-            ViewData["URL2"] = Program.link_ozon_arnika_full;
             ViewData["URL1F"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.link_ozon_arnika_lite;
 
+            ViewData["URL2"] = Program.link_ozon_arnika_full;
+
             ViewData["URL2F"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.link_ozon_arnika_lite;
+
+
+            ViewData["URL4"] = Program.link_ozon_arnika_lite1;
+
+            ViewData["URL4F"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.link_ozon_arnika_lite1;
+
+
+
+
 
             ViewData["URL3"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/content/arnikafid.xml";
             ViewData["FORMULA"] = $"{Program.formula1_ar};{Program.formula2_ar};{Program.formula3_ar};";
             ViewData["FORMULADOP"] = $"{Program.formula1_ar_dop};{Program.formula2_ar_dop};{Program.formula3_ar_dop};";
+           
+            ViewData["FORMULA1"] = $"{Program.formula1_ar1};{Program.formula2_ar1};{Program.formula3_ar1};";
+            ViewData["FORMULADOP1"] = $"{Program.formula1_ar1_dop};{Program.formula2_ar1_dop};{Program.formula3_ar1_dop};";
 
             return View();
         }
         [HttpPost]
-        public IActionResult UpdateFormula([FromForm] string formula, [FromForm] string type)
+        public IActionResult UpdateFormula([FromForm] string formula, [FromForm] string type, [FromForm] string type1)
         {
             if (formula == null)
             {
                 return Redirect("arnika_ozon");
             }
-            if (type == "dop")
+
+            if(type1 != "lite1")
             {
-                var data = formula.Split(";");
-                if (data.Length < 3)
+                if (type == "dop")
                 {
-                    return Redirect("arnika_ozon");
+                    var data = formula.Split(";");
+                    if (data.Length < 3)
+                    {
+                        return Redirect("arnika_ozon");
+                    }
+
+                    Program.formula1_ar_dop = data[0];
+                    Program.formula2_ar_dop = data[1];
+                    Program.formula3_ar_dop = data[2];
+                }
+                else
+                {
+                    var data = formula.Split(";");
+                    if (data.Length < 3)
+                    {
+                        return Redirect("arnika_ozon");
+                    }
+                    Program.formula1_ar = data[0];
+                    Program.formula2_ar = data[1];
+                    Program.formula3_ar = data[2];
+
                 }
 
-                Program.formula1_ar_dop = data[0];
-                Program.formula2_ar_dop = data[1];
-                Program.formula3_ar_dop = data[2];
             }
             else
             {
-                var data = formula.Split(";");
-                if (data.Length < 3)
+                if (type == "dop")
                 {
-                    return Redirect("arnika_ozon");
+                    var data = formula.Split(";");
+                    if (data.Length < 3)
+                    {
+                        return Redirect("arnika_ozon");
+                    }
+
+                    Program.formula1_ar1_dop = data[0];
+                    Program.formula2_ar1_dop = data[1];
+                    Program.formula3_ar1_dop = data[2];
                 }
-                Program.formula1_ar= data[0];
-                Program.formula2_ar = data[1];
-                Program.formula3_ar = data[2];
+                else
+                {
+                    var data = formula.Split(";");
+                    if (data.Length < 3)
+                    {
+                        return Redirect("arnika_ozon");
+                    }
+                    Program.formula1_ar1 = data[0];
+                    Program.formula2_ar1 = data[1];
+                    Program.formula3_ar1 = data[2];
+
+                }
 
             }
 

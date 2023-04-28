@@ -19,6 +19,15 @@ namespace BartMarket
         public static string formula2 = "(x + 1500) * 1.5";
         public static string formula3 = "(x + 1500) * 1.15";
 
+        public static string formula1_ar1 = "(x + 2200) * 1.15";
+        public static string formula2_ar1 = "(x + 2200) * 1.5";
+        public static string formula3_ar1 = "(x + 2200) * 1.1";
+
+
+        public static string formula1_ar1_dop = "(x + 3500) * 1.25";
+        public static string formula2_ar1_dop = "(x + 3500) * 1.5";
+        public static string formula3_ar1_dop = "(x + 3500) * 1.2";
+
         public static string formula1_ar = "(x + 2200) * 1.15";
         public static string formula2_ar = "(x + 2200) * 1.5";
         public static string formula3_ar = "(x + 2200) * 1.1";
@@ -31,7 +40,10 @@ namespace BartMarket
         public static string link_ozon_lite = "/content/liteozon.xml";
         public static string link_ozon_full = "/content/fullozon.xml";
         public static string link_ozon_arnika_lite = "/content/liteozon_arnika.xml";
+        public static string link_ozon_arnika_lite1 = "/content/liteozon1_arnika.xml";
+
         public static string link_ozon_arnika_full = "/content/fullozon_arnika.xml";
+
         public static Dictionary<string, StatModel> Last = new Dictionary<string, StatModel>() { {"arnika", new StatModel() },{"donplafon", new StatModel() }   }; 
         public static bool inAir = false;
         public static List<Offer2> list = new List<Offer2>();
