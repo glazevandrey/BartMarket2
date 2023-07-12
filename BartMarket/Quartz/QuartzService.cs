@@ -22,19 +22,18 @@ namespace BartMarket.Quartz
         }
         public async Task MainParse()
         {
-            //await StartDonplafon();
+            await StartDonplafon();
 
-            //Thread.Sleep(10000);
-            //GC.Collect();
-            //GC.WaitForPendingFinalizers();
-            //Thread.Sleep(10000);
+            Thread.Sleep(10000);
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            Thread.Sleep(10000);
 
             await StartArnika();
 
             Thread.Sleep(10000);
             GC.Collect();
             GC.WaitForPendingFinalizers();
-            Thread.Sleep(10000);
         }
         public static int MakePrice(string s1)
         {
