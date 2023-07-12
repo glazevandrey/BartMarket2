@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Logger = NLog.Logger;
 
 namespace BartMarket
@@ -36,6 +37,13 @@ namespace BartMarket
         public static string formula2_ar_dop = "(x + 3500) * 1.5";
         public static string formula3_ar_dop = "(x + 3500) * 1.2";
 
+        public static string formula1_ar_ali = "(x + 2200) * 1.15";
+        public static string formula2_ar_ali = "(x + 2200) * 1.1";
+        public static string formula5_ar_ali = "(x + 2200) * 1.15";
+        public static string formula6_ar_ali = "(x + 2200) * 1.1";
+        public static string formula3_ar_ali = "(x + 3500) * 1.15";
+        public static string formula4_ar_ali = "(x + 3500) * 1.1";
+
         public static List<Warehouse> warehouses = new List<Warehouse>();
         public static string link_ozon_lite = "/content/liteozon.xml";
         public static string link_ozon_full = "/content/fullozon.xml";
@@ -43,6 +51,9 @@ namespace BartMarket
         public static string link_ozon_arnika_lite1 = "/content/liteozon1_arnika.xml";
 
         public static string link_ozon_arnika_full = "/content/fullozon_arnika.xml";
+
+        public static string link_aliexpress_arnika = "/content/ali_arnika.xml";
+
 
         public static Dictionary<string, StatModel> Last = new Dictionary<string, StatModel>() { {"arnika", new StatModel() },{"donplafon", new StatModel() }   }; 
         public static bool inAir = false;
@@ -57,16 +68,13 @@ namespace BartMarket
         public static Dictionary<string, List<string>> Providers = new Dictionary<string, List<string>>()
         {
             { "ozon", new List<string>(){ "donplafon", "arnika"} } ,
-            { "wb", new List<string>(){ ""} },
+            { "aliexpress", new List<string>(){ "donplafon", "arnika" } },
             { "ym", new List<string>(){ ""} },
 
         };
-        
+
         public static void Main(string[] args)
         {
-
-            //IronXL.License.LicenseKey = "IRONXL.ANDREIGLAZEV.6127-1437388117-BCLHSJ3L73OL3VJ-HXZNWRL5SQV5-XN3DONZDABSQ-4P5K3IVW22T2-NZNCZUGHI6HD-TXFJE3-TQN7K64XGTWIUA-DEPLOYMENT.TRIAL-2ZETOW.TRIAL.EXPIRES.01.FEB.2023";
-            //NEXT
             IronXL.License.LicenseKey = "IRONXL.TONI70020.25513-B58A105DFA-E5J5E2-KN5QIEVOS6QV-25KF2LLZS664-ZUPCPC43GEYK-LNIVESSFL4KX-CPN2OAJ5HCAT-YQA6BE-THDZ3GN3FCOJEA-DEPLOYMENT.TRIAL-T6FH55.TRIAL.EXPIRES.02.MAR.2023"; 
             ozonTemplates.Add(new NapolnyTorsher());
 

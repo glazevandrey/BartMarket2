@@ -14,7 +14,7 @@
         var str = $"{item}_{ViewData["type"]}";
 
         <div>
-            <form action="@str" method="post">
+            <form action="@str" method="get">
                 <input type="submit" value=@item />
             </form>
         </div>

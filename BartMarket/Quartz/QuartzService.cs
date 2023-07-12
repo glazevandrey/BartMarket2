@@ -22,14 +22,19 @@ namespace BartMarket.Quartz
         }
         public async Task MainParse()
         {
-           await StartDonplafon();
+            //await StartDonplafon();
+
+            //Thread.Sleep(10000);
+            //GC.Collect();
+            //GC.WaitForPendingFinalizers();
+            //Thread.Sleep(10000);
+
+            await StartArnika();
 
             Thread.Sleep(10000);
             GC.Collect();
             GC.WaitForPendingFinalizers();
             Thread.Sleep(10000);
-
-            await StartArnika();
         }
         public static int MakePrice(string s1)
         {
@@ -716,15 +721,6 @@ namespace BartMarket.Quartz
             GC.Collect();
             GC.WaitForPendingFinalizers();
 
-
-
-
-
-
-
-
-
-
             docNew = new XmlDocument();
             newRoot = docNew.CreateElement("yml_catalog");
             attr = docNew.CreateAttribute("date");
@@ -853,6 +849,114 @@ namespace BartMarket.Quartz
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
+
+
+
+            try
+            {
+                var text = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/arnikafid.xml");
+                using (StringReader reader = new StringReader(text))
+                {
+                    var text2 = serializer.Deserialize(reader);
+                    catalog = (Export)text2;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("from upload to disk " + ex.Message);
+                Program.Last["arnika"].Success = false;
+                Program.Last["arnika"].Error = ex.Message;
+                Program.inAir = false;
+                return;
+            }
+
+             docNew = new XmlDocument();
+             newRoot = docNew.CreateElement("yml_catalog");
+
+
+             attr = docNew.CreateAttribute("date");
+             date = docNew.CreateTextNode(catalog.Date);
+            attr.AppendChild(date);
+
+            newRoot.Attributes.Append(attr);
+
+            cat = docNew.CreateElement("categories");
+
+            foreach (var item in catalog.Categories.Category)
+            {
+                var catt = docNew.CreateElement("category");
+                catt.InnerText = item.Text;
+                var attrCatt = docNew.CreateAttribute("id");
+                var text2 = docNew.CreateTextNode(item.Id.ToString());
+                attrCatt.AppendChild(text2);
+
+                if (item.ParentId != 0)
+                {
+                    var attrCatt2 = docNew.CreateAttribute("parentId");
+                    var text3 = docNew.CreateTextNode(item.ParentId.ToString());
+                    attrCatt2.AppendChild(text3);
+                    catt.Attributes.Append(attrCatt2);
+
+                }
+
+
+                catt.Attributes.Append(attrCatt);
+
+                cat.AppendChild(catt);
+
+            }
+            newRoot.AppendChild(cat);
+
+            docNew.AppendChild(newRoot);
+             shop = docNew.CreateElement("shop");
+             offers = docNew.CreateElement("offers");
+            newRoot.AppendChild(shop);
+            shop.AppendChild(offers);
+            //docNew = new XmlDocument();
+            //newRoot = docNew.CreateElement("yml_catalog");
+            //attr = docNew.CreateAttribute("date");
+            //date = docNew.CreateTextNode(catalog.Date);
+            //attr.AppendChild(date);
+
+            //newRoot.Attributes.Append(attr);
+            //docNew.AppendChild(newRoot);
+
+            startTime = System.Diagnostics.Stopwatch.StartNew();
+            
+                Logic.StartParseAli(catalog, docNew, offers, "ali");
+            
+            startTime.Stop();
+            resultTime = startTime.Elapsed;
+            elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
+   resultTime.Hours,
+   resultTime.Minutes,
+   resultTime.Seconds,
+   resultTime.Milliseconds);
+
+            Program.Last["arnika"].ElapsedAli = elapsedTime;
+
+            logger.Info("-----SUCCESS ENDED FULL FORMATING FEED-----");
+            logger.Info($"-----ELLAPSED: {elapsedTime}-----");
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             try
             {

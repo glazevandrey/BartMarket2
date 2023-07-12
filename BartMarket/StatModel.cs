@@ -7,6 +7,7 @@ namespace BartMarket
         public DateTime Date { get; set; }
         public string ElapsedLite { get; set; }
         public string ElapsedFull { get; set; }
+        public string ElapsedAli { get; set; }
 
         public bool Success { get; set; } = true;
         public string Error { get; set; }

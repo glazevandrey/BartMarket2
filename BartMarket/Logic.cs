@@ -49,6 +49,29 @@ namespace BartMarket
             }
           
         }
+
+        public static double CalculatePriceArnikaAli(int x, int type)
+        {           
+                switch (type)
+                {
+                    case 0:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula1_ar_ali.Replace("x", x.ToString()), null));
+                    case 1:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula2_ar_ali.Replace("x", x.ToString()), null));
+                    case 2:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula3_ar_ali.Replace("x", x.ToString()), null));
+                    case 3:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula4_ar_ali.Replace("x", x.ToString()), null));
+                    case 4:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula5_ar_ali.Replace("x", x.ToString()), null));
+                    case 5:
+                        return Convert.ToDouble(new DataTable().Compute(Program.formula6_ar_ali.Replace("x", x.ToString()), null));
+
+                    default:
+                            return 0;
+                }
+        }
+
         public static double CalculatePriceDopArnika(int x, int type, bool _default )
         {
             if (_default)
@@ -693,6 +716,7 @@ namespace BartMarket
             }
         }
 
+
         public static void StartParse(Export export, XmlDocument docNew, XmlElement offers, string type)
         {
             int x = 1;
@@ -1038,6 +1062,358 @@ namespace BartMarket
                     catch (Exception ex)
                     {
                         logger.Error("from full:" + ex.Message);
+                        logger.Error(docNew.InnerXml);
+
+                        Program.Last["arnika"].Success = false;
+                        Program.Last["arnika"].Error = ex.Message;
+                        return;
+                    }
+                }
+            }
+        }
+
+
+
+
+        public static void StartParseAli(Export export, XmlDocument docNew, XmlElement offers, string type)
+        {
+            int x = 1;
+            int y = export.Offers.Offer.Count;
+
+            if (Program.Last.Count > export.Offers.Offer.Count)
+            {
+                try
+                {
+                    var split = Program.lastIds.ToString().TrimEnd(';').Split(";");
+                    List<string> ids = new List<string>();
+                    foreach (var item in split)
+                    {
+                        if (export.Offers.Offer.FirstOrDefault(m => m.Id.ToString() == item) != null)
+                        {
+                            continue;
+                        }
+
+                        ids.Add(item);
+                        logger.Info("deleted id: " + item);
+                    }
+
+                    var old = new Export();
+
+                    var text = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/arnikafid_old.xml");
+                    using (StringReader reader = new StringReader(text))
+                    {
+                        XmlSerializer serializer = new XmlSerializer(typeof(Export));
+                        var text2 = serializer.Deserialize(reader);
+                        old = (Export)text2;
+                    }
+
+                    foreach (var item in ids)
+                    {
+                        var curr = old.Offers.Offer.FirstOrDefault(m => m.Id.ToString() == item);
+                        if (curr == null)
+                        {
+                            curr = Program.deletedAr.FirstOrDefault(m => m.Id.ToString() == item);
+                            if (curr == null)
+                            {
+                                logger.Warn("why null " + item);
+                                continue;
+                            }
+                        }
+
+                        if (export.Offers.Offer.FirstOrDefault(m => m.Id == curr.Id) == null)
+                        {
+                            if (Program.deletedAr.FirstOrDefault(m => m.Id == curr.Id) == null)
+                            {
+                                Program.deletedAr.Add(curr);
+                            }
+
+                            export.Offers.Offer.Add(curr);
+
+                        }
+                    }
+
+                    logger.Info("added to this parse : " + ids.Count + " штук");
+
+                    text = null;
+                    old = null;
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message);
+
+                }
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+            }
+
+            Program.Last["arnika"].Count = export.Offers.Offer.Count;
+
+            foreach (var item in export.Offers.Offer)
+            {
+                var mainPrice = CheckMainPrise(null, item);
+
+                var offer = docNew.CreateElement("offer");
+                XmlAttribute idAttr = docNew.CreateAttribute("id");
+                offer.Attributes.Append(idAttr);
+                offer.Attributes.Item(0).Value = item.Id.ToString();
+                if (!Program.lastIds.ToString().Contains(item.Id.ToString()))
+                {
+                    Program.lastIds.Append(item.Id.ToString() + ";");
+                }
+
+                var name = CreateAndSetElement(docNew, "name", item.Name);
+
+                var sku_code = CreateAndSetElement(docNew, "sku_code", item.Id.ToString() + "_ARN");
+
+                var deskr = item.Description + ", ";
+
+                foreach (var oo in item.Param)
+                {
+                    var name2 = oo.Name.ToLower();
+
+                    if (name2 == "цвет для сайта" || name2 == "описание для анонса" || name2 == "id элемента" || name2 == "статус"
+                        || name2 == "category" || name2 == "main_category" || name2 == "chain_category" || name2 == "акция"
+                        || name2 == "входит в комплект")
+                    {
+                        continue;
+                    }
+
+
+                    deskr += oo.Name + ": " + oo.Text + ", ";
+
+                }
+
+                deskr = deskr.Trim().TrimEnd(',');
+                string cat = "";
+
+                try
+                {
+                    cat = item.Category[0].ToString();
+                }
+                catch (Exception ex)
+                {
+                    cat = item.MainCategory.ToString();
+                }
+                var catId= CreateAndSetElement(docNew, "categoryId", cat);
+                var desk = CreateAndSetElement(docNew, "description", deskr);
+                var vendor = CreateAndSetElement(docNew, "vendor_B", item.Vendor);
+
+
+                var weight = CheckWeight(null, item);
+                if(weight == 0)
+                {
+                    weight = 50;
+                }
+                else
+                {
+                    try
+                    {
+                        weight = Convert.ToInt32(weight);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        int xd = 2;
+                    }
+                } 
+
+                var weight_el = CreateAndSetElement(docNew, "weight", weight.ToString());
+
+                var l = item.Param.FirstOrDefault(m => m.Name.ToLower() == "глубина");
+                var l_text = "";
+                if(l == null)
+                {
+                    l = new Param() { Text = "100" };
+                }
+                else
+                {
+                    try
+                    {
+                        l_text = ((int)Convert.ToDouble(l.Text)).ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        try
+                        {
+                            l_text = ((int)Convert.ToDouble(l.Text.Replace('.', ','))).ToString();
+
+                        }
+                        catch (Exception ee)
+                        {
+                            l_text = l.Text;
+                            int x12 = 2;
+                        }
+
+                        int x23 = 2;
+                    }
+                }
+
+                var length_el = CreateAndSetElement(docNew, "length", l_text);
+
+                var w = item.Param.FirstOrDefault(m => m.Name.ToLower() == "ширина");
+                var w_text = "";
+                if (w == null)
+                {
+                    w = new Param() { Text = "100" };
+                }
+                else
+                {
+                    try
+                    {
+                        w_text = ((int)Convert.ToDouble(w.Text)).ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        try
+                        {
+                            w_text = ((int)Convert.ToDouble(w.Text.Replace('.', ','))).ToString();
+
+
+                        }
+                        catch (Exception exx)
+                        {
+                            w_text = w.Text;
+                        }
+                    }
+                }
+                var width_el = CreateAndSetElement(docNew, "width", w_text);
+
+                var h = item.Param.FirstOrDefault(m => m.Name.ToLower() == "высота");
+                var h_text = "";
+                if (h == null)
+                {
+                    h = new Param() { Text = "100" };
+                }
+                else
+                {
+                    try
+                    {
+                        h_text = ((int)(Convert.ToDouble(h.Text))).ToString();
+                    }
+                    catch (Exception ex)
+                    {
+                        try
+                        {
+                            h_text = ((int)(Convert.ToDouble(h.Text.Replace('.', ',')))).ToString();
+
+                        }
+                        catch (Exception exxx)
+                        {
+                            h_text = h.Text;
+                            int xx = 2;
+                        }
+                    }
+                }
+                var height_el = CreateAndSetElement(docNew, "height", h_text);
+
+                var main_cat = item.MainCategory;
+                var qua = CreateAndSetElement(docNew, "quantity", item.Count.ToString());
+
+                XmlElement price = null;
+                XmlElement discount_price = null;
+
+                XmlElement formula = null;
+
+                if (mainPrice >= 1000)
+                {
+                    price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnikaAli(Convert.ToInt32(mainPrice), 0)).ToString()).ToString());
+                    discount_price = CreateAndSetElement(docNew, "discount_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnikaAli(Convert.ToInt32(mainPrice), 1)).ToString()).ToString());
+
+                    formula = CreateAndSetElement(docNew, "formula", $"{Program.formula1_ar_ali.Replace("x", mainPrice.ToString())};{Program.formula2_ar_ali.Replace("x", mainPrice.ToString())}");
+                }
+                else if (mainPrice <= 999)
+                {
+                    price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnikaAli(Convert.ToInt32(mainPrice), 4)).ToString()).ToString());
+                    discount_price = CreateAndSetElement(docNew, "discount_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnikaAli(Convert.ToInt32(mainPrice), 5)).ToString()).ToString());
+
+                    formula = CreateAndSetElement(docNew, "formula", $"{Program.formula5_ar_ali.Replace("x", mainPrice.ToString())};{Program.formula6_ar_ali.Replace("x", mainPrice.ToString())}");
+
+                }
+                else if (weight > 20 && (item.Name.ToLower().Contains("диван") || item.Name.ToLower().Contains("кресло")))
+                {
+                    price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnikaAli(Convert.ToInt32(mainPrice), 2)).ToString()).ToString());
+                    discount_price = CreateAndSetElement(docNew, "discount_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnikaAli(Convert.ToInt32(mainPrice), 3)).ToString()).ToString());
+
+                    formula = CreateAndSetElement(docNew, "formula", $"{Program.formula3_ar_ali.Replace("x", mainPrice.ToString())};{Program.formula4_ar_ali.Replace("x", mainPrice.ToString())}");
+
+                }
+
+             
+
+                offer.AppendChild(name);
+                offer.AppendChild(sku_code);
+
+                foreach (var pic in item.Pictures)
+                {
+                    var pEl = CreateAndSetElement(docNew, "picture", pic.Trim());
+                    offer.AppendChild(pEl);
+                }
+                offer.AppendChild(qua);
+
+                offer.AppendChild(weight_el);
+                offer.AppendChild(height_el);
+                offer.AppendChild(width_el);
+                offer.AppendChild(length_el);
+
+                offer.AppendChild(catId);
+
+                
+                offer.AppendChild(vendor);
+
+                offer.AppendChild(desk);
+                offer.AppendChild(price);
+                offer.AppendChild(discount_price);
+
+                offer.AppendChild(formula);
+
+                var outlets = docNew.CreateElement("outlets");
+
+                offers.AppendChild(offer);
+                if (x % 1000 == 0)
+                {
+                    logger.Info($"({x}/{y})");
+                }
+                x++;
+
+            }
+
+            if (type == "ali")
+            {
+                var _1 = Program.link_aliexpress_arnika.TrimStart('/').Split("/")[0];
+                if (_1.Contains(".xml"))
+                {
+                    docNew.Save("wwwroot" + Program.link_aliexpress_arnika);
+                }
+                else
+                {
+                    string path = "wwwroot/" + _1;
+                    string subpath = "";
+                    for (int i = 1; i < Program.link_aliexpress_arnika.TrimStart('/').Split("/").Length; i++)
+                    {
+                        if (Program.link_aliexpress_arnika.TrimStart('/').Split("/")[i].Contains(".xml"))
+                        {
+                            break;
+                        }
+                        subpath += Program.link_aliexpress_arnika.TrimStart('/').Split("/")[i] + "/";
+
+                    }
+                    subpath.TrimEnd('/');
+
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    Directory.CreateDirectory($"{path}/{subpath}");
+                    try
+                    {
+                        docNew.Save("wwwroot" + Program.link_aliexpress_arnika);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error("from ali:" + ex.Message);
                         logger.Error(docNew.InnerXml);
 
                         Program.Last["arnika"].Success = false;

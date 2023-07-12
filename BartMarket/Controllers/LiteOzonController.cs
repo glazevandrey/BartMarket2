@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BartMarket.Data;
+using Microsoft.AspNetCore.Mvc;
 using NLog;
+using System;
+using System.Linq;
 
 namespace BartMarket.Controllers
 {
@@ -54,10 +57,11 @@ namespace BartMarket.Controllers
             {
                 return Redirect("donplafon_ozon");
             }
+
             Program.formula1 = data[0];
             Program.formula2 = data[1];
             Program.formula3 = data[2];
-
+           
             return Redirect("donplafon_ozon?success=true");
         }
     }
