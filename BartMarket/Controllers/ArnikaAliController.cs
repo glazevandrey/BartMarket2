@@ -35,19 +35,20 @@ namespace BartMarket.Controllers
 
 
             ViewData["URL2"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/content/arnikafid.xml";
-            ViewData["FORMULA"] = $"{Program.formula1_ar_ali};{Program.formula2_ar_ali};{Program.formula5_ar_ali};{Program.formula6_ar_ali};{Program.formula3_ar_ali};{Program.formula4_ar_ali}";
+            ViewData["FORMULA1"] = $"{Program.formula1_ar_ali};{Program.formula2_ar_ali}";
+            ViewData["FORMULA2"] = $"{Program.formula5_ar_ali};{Program.formula6_ar_ali}";
+            ViewData["FORMULA3"] = $"{Program.formula3_ar_ali};{Program.formula4_ar_ali}";
             return View();
         }
         [HttpPost]
-        public IActionResult UpdateFormula([FromForm] string formula, [FromForm] string type, [FromForm] string type1)
+        public IActionResult UpdateFormula([FromForm] string formula1, [FromForm] string formula2, [FromForm] string formula3, [FromForm] string type, [FromForm] string type1)
         {
+            string formula = formula1+";" + formula2 +";"+ formula3;
             if (formula == null)
             {
                 return Redirect("arnika_aliexpress");
             }
-
-           
-                
+      
             var data = formula.Split(";");
             if (data.Length < 3)
             {

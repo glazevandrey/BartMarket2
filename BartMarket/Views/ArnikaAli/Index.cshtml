@@ -87,13 +87,17 @@
     }
 
     <form method="post" action="arnika_aliexpress">
-        <label>Главная формула</label>
+        <label>Первая формула в паре - обычная цена. Вторая - дискаунт</label>
         <input hidden="hidden" name="type" id="type" value="main"/>
         <input hidden="hidden" name="type1" id="type1" value="lite" />
-
-        <input type="text" size="42" id="formula" name="formula" value="@ViewData["FORMULA"]" />
         <br/>
-        <label>Первая формула в паре - обычная цена. Вторая - дискаунт. Первые две формулы - цена от 1000, две вторые формулы - товар до 999, две третьи формулы - В названии слово «диван» или «кресло» и вес более 20кг</label>
+        <label>Цена товара от 1000</label><input type="text" size="42" id="formula1" name="formula1" value="@ViewData["FORMULA1"]" />
+        <br />
+        <label>Цена товара до 999</label><input type="text" size="42" id="formula2" name="formula2" value="@ViewData["FORMULA2"]" />
+        <br />
+        <label>Цена товара в названии которого слово «диван» или «кресло» и вес более 20кг</label><input type="text" size="42" id="formula3" name="formula3" value="@ViewData["FORMULA3"]" />
+        <br />
+        <br/>
         <br />
         <button type="submit">Сохранить формулы</button>
 
