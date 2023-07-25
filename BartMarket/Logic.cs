@@ -254,6 +254,10 @@ namespace BartMarket
             if(item_ar != null)
             {
                 var raw_w = item_ar.Param.FirstOrDefault(m => m.Name == "Вес");
+                if (item.Id == 45108)
+                {
+                    logger.Info("id = 45108" + " " + raw_w) ;
+                }
                 if (raw_w == null)
                 {
                     return 0.0;
@@ -261,11 +265,14 @@ namespace BartMarket
                 try
                 {
                     var w = Convert.ToDouble(raw_w.Text.Replace('.',','));
+                    logger.Info("READY" + " " + w);
                     return w;
                 }
                 catch (Exception ex)
                 {
                     var w = Convert.ToDouble(raw_w.Text);
+                    logger.Info("NOT READY" + " " + w);
+
                     return w;
                 }
                
@@ -1201,12 +1208,13 @@ namespace BartMarket
 
 
                 var weight = CheckWeight(null, item);
-                if(weight == 0)
+                if(weight == 0 || weight == 0.0)
                 {
                     weight = 50;
                 }
                 else
                 {
+                   
                     try
                     {
                         weight = Convert.ToInt32(weight);
@@ -1214,9 +1222,16 @@ namespace BartMarket
                     }
                     catch (Exception ex)
                     {
+                        logger.Error("id " + item.Id + " w: " + weight + " " + ex.Message);
                         int xd = 2;
                     }
                 } 
+
+
+                if(weight > 500)
+                {
+                    weight = 500;
+                }
 
                 var weight_el = CreateAndSetElement(docNew, "weight", weight.ToString());
 
@@ -1224,7 +1239,7 @@ namespace BartMarket
                 var l_text = "";
                 if(l == null)
                 {
-                    l = new Param() { Text = "100" };
+                    l_text = "100" ;
                 }
                 else
                 {
@@ -1249,13 +1264,18 @@ namespace BartMarket
                     }
                 }
 
+                var ii = Convert.ToInt32(l_text);
+                if(ii > 700)
+                {
+                    l_text = "700";
+                }
                 var length_el = CreateAndSetElement(docNew, "length", l_text);
 
                 var w = item.Param.FirstOrDefault(m => m.Name.ToLower() == "ширина");
                 var w_text = "";
                 if (w == null)
                 {
-                    w = new Param() { Text = "100" };
+                    w_text = "100" ;
                 }
                 else
                 {
@@ -1277,13 +1297,19 @@ namespace BartMarket
                         }
                     }
                 }
+
+                ii = Convert.ToInt32(w_text);
+                if (ii > 700)
+                {
+                    w_text = "700";
+                }
                 var width_el = CreateAndSetElement(docNew, "width", w_text);
 
                 var h = item.Param.FirstOrDefault(m => m.Name.ToLower() == "высота");
                 var h_text = "";
                 if (h == null)
                 {
-                    h = new Param() { Text = "100" };
+                    h_text = "100" ;
                 }
                 else
                 {
@@ -1304,6 +1330,13 @@ namespace BartMarket
                             int xx = 2;
                         }
                     }
+                }
+
+
+                ii = Convert.ToInt32(h_text);
+                if (ii > 700)
+                {
+                    h_text = "700";
                 }
                 var height_el = CreateAndSetElement(docNew, "height", h_text);
 
@@ -1344,11 +1377,17 @@ namespace BartMarket
                 offer.AppendChild(name);
                 offer.AppendChild(sku_code);
 
-                foreach (var pic in item.Pictures)
+                for (int z = 0; z < item.Pictures.Count; z++)
                 {
-                    var pEl = CreateAndSetElement(docNew, "picture", pic.Trim());
+                    var pEl = CreateAndSetElement(docNew, "picture", item.Pictures[z].Trim());
                     offer.AppendChild(pEl);
+
+                    if (z == 5)
+                    {
+                        break;
+                    }
                 }
+              
                 offer.AppendChild(qua);
 
                 offer.AppendChild(weight_el);
