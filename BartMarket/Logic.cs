@@ -254,7 +254,7 @@ namespace BartMarket
             if(item_ar != null)
             {
                 var raw_w = item_ar.Param.FirstOrDefault(m => m.Name == "Вес");
-                if (item.Id == 45108)
+                if (item_ar.Id == 45108)
                 {
                     logger.Info("id = 45108" + " " + raw_w) ;
                 }

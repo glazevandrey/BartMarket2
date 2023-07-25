@@ -22,7 +22,7 @@ namespace BartMarket.Quartz
         }
         public async Task MainParse()
         {
-            await StartDonplafon();
+          //  await StartDonplafon();
 
             Thread.Sleep(10000);
             GC.Collect();
