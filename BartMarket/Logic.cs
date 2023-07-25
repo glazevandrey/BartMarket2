@@ -264,14 +264,16 @@ namespace BartMarket
                 }
                 try
                 {
-                    var w = Convert.ToDouble(raw_w.Text.Replace('.',','));
-                    logger.Info("READY" + " " + w);
+                    var w = Convert.ToDouble(raw_w.Text);
+                    logger.Info("NOT READY" + " " + w);
+
                     return w;
                 }
                 catch (Exception ex)
                 {
-                    var w = Convert.ToDouble(raw_w.Text);
-                    logger.Info("NOT READY" + " " + w);
+                    var w = Convert.ToDouble(raw_w.Text.Replace('.', ','));
+                    logger.Info("READY" + " " + w);
+                   
 
                     return w;
                 }
