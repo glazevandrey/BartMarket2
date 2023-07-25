@@ -254,10 +254,7 @@ namespace BartMarket
             if(item_ar != null)
             {
                 var raw_w = item_ar.Param.FirstOrDefault(m => m.Name == "Вес");
-                if (item_ar.Id == 45108)
-                {
-                    logger.Info("id = 45108" + " " + raw_w.Text) ;
-                }
+                
                 if (raw_w == null)
                 {
                     return 0.0;
@@ -265,14 +262,12 @@ namespace BartMarket
                 try
                 {
                     var w = Convert.ToDouble(raw_w.Text);
-                    logger.Info("NOT READY" + " " + w);
 
                     return w;
                 }
                 catch (Exception ex)
                 {
                     var w = Convert.ToDouble(raw_w.Text.Replace('.', ','));
-                    logger.Info("READY" + " " + w);
                    
 
                     return w;
