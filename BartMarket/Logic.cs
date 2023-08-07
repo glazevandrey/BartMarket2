@@ -1202,8 +1202,10 @@ namespace BartMarket
                 var catId= CreateAndSetElement(docNew, "categoryId", cat);
                 var desk = CreateAndSetElement(docNew, "description", deskr);
                 var vendor = CreateAndSetElement(docNew, "vendor_B", item.Vendor);
-
-
+                if(item.Id == 34279)
+                {
+                    int xdfdf = 2;
+                }
                 var weight = CheckWeight(null, item);
                 if(weight == 0 || weight == 0.0)
                 {
@@ -1211,7 +1213,7 @@ namespace BartMarket
                 }
                 else
                 {
-                   
+                   if (weight > 0 && weight < 1) { weight = 1; }
                     try
                     {
                         weight = Convert.ToInt32(weight);
@@ -1234,7 +1236,7 @@ namespace BartMarket
 
                 var l = item.Param.FirstOrDefault(m => m.Name.ToLower() == "глубина");
                 var l_text = "";
-                if(l == null)
+                if(l == null || l.Text == "0")
                 {
                     l_text = "100" ;
                 }
@@ -1242,22 +1244,30 @@ namespace BartMarket
                 {
                     try
                     {
-                        l_text = ((int)Convert.ToDouble(l.Text)).ToString();
+                        var d = (Convert.ToDouble(l.Text));
+                        if (d > 0 && d < 1)
+                        {
+                            d = 1;
+                        }
+                        l_text = ((int)d).ToString();
                     }
                     catch (Exception ex)
                     {
                         try
                         {
-                            l_text = ((int)Convert.ToDouble(l.Text.Replace('.', ','))).ToString();
+                            var d = (Convert.ToDouble(l.Text.Replace('.', ',')));
+                            if (d > 0 && d < 1)
+                            {
+                                d = 1;
+                            }
+                            l_text = ((int)d).ToString();
 
                         }
                         catch (Exception ee)
                         {
                             l_text = l.Text;
-                            int x12 = 2;
                         }
 
-                        int x23 = 2;
                     }
                 }
 
@@ -1270,7 +1280,7 @@ namespace BartMarket
 
                 var w = item.Param.FirstOrDefault(m => m.Name.ToLower() == "ширина");
                 var w_text = "";
-                if (w == null)
+                if (w == null || w.Text == "0")
                 {
                     w_text = "100" ;
                 }
@@ -1278,13 +1288,23 @@ namespace BartMarket
                 {
                     try
                     {
-                        w_text = ((int)Convert.ToDouble(w.Text)).ToString();
+                        var d = (Convert.ToDouble(w.Text));
+                        if (d > 0 && d < 1)
+                        {
+                            d = 1;
+                        }
+                        w_text = ((int)d).ToString();
                     }
                     catch (Exception ex)
                     {
                         try
                         {
-                            w_text = ((int)Convert.ToDouble(w.Text.Replace('.', ','))).ToString();
+                            var d = (Convert.ToDouble(w.Text.Replace('.', ',')));
+                            if (d > 0 && d < 1)
+                            {
+                                d = 1;
+                            }
+                            w_text = ((int)d).ToString();
 
 
                         }
@@ -1304,7 +1324,7 @@ namespace BartMarket
 
                 var h = item.Param.FirstOrDefault(m => m.Name.ToLower() == "высота");
                 var h_text = "";
-                if (h == null)
+                if (h == null || h.Text == "0")
                 {
                     h_text = "100" ;
                 }
@@ -1312,13 +1332,23 @@ namespace BartMarket
                 {
                     try
                     {
-                        h_text = ((int)(Convert.ToDouble(h.Text))).ToString();
+                        var d = ((Convert.ToDouble(h.Text)));
+                        if(d > 0 && d < 1)
+                        {
+                            d = 1;
+                        }
+                        h_text = ((int)d).ToString();
                     }
                     catch (Exception ex)
                     {
                         try
                         {
-                            h_text = ((int)(Convert.ToDouble(h.Text.Replace('.', ',')))).ToString();
+                            var d = ((Convert.ToDouble(h.Text.Replace('.', ','))));
+                            if (d > 0 && d < 1)
+                            {
+                                d = 1;
+                            }
+                            h_text = ((int)d).ToString();
 
                         }
                         catch (Exception exxx)
@@ -1334,6 +1364,10 @@ namespace BartMarket
                 if (ii > 700)
                 {
                     h_text = "700";
+                }
+                if(h_text == "0")
+                {
+                    int xdf = 2;
                 }
                 var height_el = CreateAndSetElement(docNew, "height", h_text);
 
