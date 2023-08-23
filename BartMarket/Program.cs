@@ -15,6 +15,8 @@ namespace BartMarket
 {
     public class Program
     {
+
+        public static List<string> ZeroVendors = new List<string>();
         public static bool ExcelAir = false;
         public static string formula1 = "(x + 1500) * 1.2";
         public static string formula2 = "(x + 1500) * 1.5";
@@ -44,6 +46,14 @@ namespace BartMarket
         public static string formula3_ar_ali = "(x + 3500) * 1.15";
         public static string formula4_ar_ali = "(x + 3500) * 1.1";
 
+
+        public static string formula1_dp_ali = "(x + 1500) * 1.25";
+        public static string formula2_dp_ali = "(x + 1500) * 1.15";
+        public static string formula3_dp_ali = "(x + 500) * 1.25";
+        public static string formula4_dp_ali = "(x + 500) * 1.15";
+        
+
+
         public static List<Warehouse> warehouses = new List<Warehouse>();
         public static string link_ozon_lite = "/content/liteozon.xml";
         public static string link_ozon_full = "/content/fullozon.xml";
@@ -53,6 +63,7 @@ namespace BartMarket
         public static string link_ozon_arnika_full = "/content/fullozon_arnika.xml";
 
         public static string link_aliexpress_arnika = "/content/ali_arnika.xml";
+        public static string link_aliexpress_donplafon = "/content/ali_donplafon.xml";
 
 
         public static Dictionary<string, StatModel> Last = new Dictionary<string, StatModel>() { {"arnika", new StatModel() },{"donplafon", new StatModel() }   }; 

@@ -23,6 +23,10 @@ namespace BartMarket
     [XmlRoot(ElementName = "offer")]
     public class Offer
     {
+        
+
+        [XmlElement(ElementName = "categoryId")]
+        public string CategoryId { get; set; }
         [XmlElement(ElementName = "quantity")]
         public int Quanity { get; set; }
 
@@ -45,6 +49,10 @@ namespace BartMarket
 
         [XmlAttribute(AttributeName = "id")]
         public int Id { get; set; }
+
+
+        [XmlAttribute(AttributeName = "vendor")]
+        public string Vendor { get; set; }
 
         [XmlAttribute(AttributeName = "available")]
         public bool Available { get; set; }
@@ -122,6 +130,8 @@ namespace BartMarket
     [XmlRoot(ElementName = "shop")]
     public class Shop
     {
+        [XmlElement(ElementName = "categories")]
+        public Categories Categories { get; set; }
         [XmlElement(ElementName = "offers")]
         public Offers Offers { get; set; }
     }
@@ -135,6 +145,8 @@ namespace BartMarket
     [XmlRoot(ElementName = "yml_catalog")]
     public class YmlCatalog
     {
+       
+
 
         [XmlAttribute(AttributeName = "date")]
         public string Date { get; set; }

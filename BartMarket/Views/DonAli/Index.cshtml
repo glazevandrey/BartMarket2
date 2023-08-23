@@ -1,0 +1,115 @@
+﻿
+<style>
+    hr {
+        display: block;
+        height: 1px;
+        border: 0;
+        border-top: 1px solid #ccc;
+        margin: 1em 0;
+        padding: 0;
+    }
+</style>
+<div align="left">
+    <label style="font-size:medium"><b>Фид:</b></label>
+    <br />
+    <br />
+
+    <form method="post" action="savelink">
+        <label>http://ovz1.j34469996.pxlzp.vps.myjino.ru</label><input size="40" name="link_lite" value="@ViewData["URL1"]" /> <br />
+        <button type="submit">Сохранить ссылку</button>
+    </form>
+    <br />
+    <br />
+    <a href="@ViewData["URL1F"]">Просмотреть фид</a>
+    <br />
+    <br />
+
+    <br />
+    <a href="@ViewData["URL1"]" download="@ViewData["URL1"].ToString().Split("/").Last()">Скачать фид</a>
+    <br />
+    <br />
+    <div align="right">
+        @if ((bool)ViewData["AIR"] == true)
+        {
+            <label style="color:red">Сейчас идет обработка...</label>
+            <br />
+            <br />
+        }
+        <label>Дата последней обработки: @ViewData["DATE"]</label>
+        <br />
+        <label>Затрачено времени: @ViewData["TIMELITE"]</label>
+        <br />
+        <label>Успех: @ViewData["SUCCESS2"]</label>
+        <br />
+
+        @if (ViewData["SUCCESS2"] != null && (bool)ViewData["SUCCESS2"] == false)
+        {
+            <label>Ошибка: @ViewData["ERROR"]</label>
+
+        }
+        <br />
+
+        <label>Всего офферов обработано: @ViewData["COUNT"]</label>
+
+    </div>
+
+    <hr />
+    <br />
+    <br />
+
+
+    <br />
+    <br />
+    <label style="font-size:medium"><b>Ссылка для копирования онлайн фида :</b></label>
+    <br />
+    <br />
+
+    <a href="@ViewData["URL2"]">@ViewData["URL2"]</a>
+
+    <br />
+    <br />
+
+    <label style="font-size:medium"><b>Ссылка для скачивания онлайн фида:</b></label>
+    <br />
+    <a href="~/content/arnikafid.xml" download="arnikafid.xml">Скачать</a>
+    <br />
+    <br />
+
+    <hr />
+    <br />
+    <br />
+    
+    <hr />
+
+    @if (ViewData["SUCCESS"] != null)
+    {
+        <script>alert("Формулы успешно сохранены");</script>
+    }
+
+    <form method="post" action="donplafon_aliexpress">
+        <label>Первая формула в паре - обычная цена. Вторая - дискаунт</label>
+        <input hidden="hidden" name="type" id="type" value="main"/>
+        <input hidden="hidden" name="type1" id="type1" value="lite" />
+        <br/>
+        <label>Цена товара от 1000</label><input type="text" size="42" id="formula1" name="formula1" value="@ViewData["FORMULA1"]" />
+        <br />
+        <label>Цена товара до 999</label><input type="text" size="42" id="formula2" name="formula2" value="@ViewData["FORMULA2"]" />
+        <br />
+
+        
+        <br/>
+        <label>Через точку с запятой производителей ,которым нужно занулить остатки</label>
+        <input name="vendors" id="vendors" value="@ViewData["Vendors"]" />
+
+        <br />
+        <br />
+
+        <button type="submit">Сохранить формулы и производителей</button>
+
+
+    </form>
+
+   
+
+</div>
+
