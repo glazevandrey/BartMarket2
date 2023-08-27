@@ -22,21 +22,21 @@ namespace BartMarket
         public static string formula2 = "(x + 1500) * 1.5";
         public static string formula3 = "(x + 1500) * 1.15";
 
-        public static string formula1_ar1 = "(x + 2200) * 1.15";
-        public static string formula2_ar1 = "(x + 2200) * 1.5";
-        public static string formula3_ar1 = "(x + 2200) * 1.1";
+        public static string formula1_ar1 = "(x + 2200) * 4.2";
+        public static string formula2_ar1 = "(x + 2200) * 6.3";
+        public static string formula3_ar1 = "(x + 2200) * 2.6";
 
 
-        public static string formula1_ar1_dop = "(x + 3500) * 1.25";
-        public static string formula2_ar1_dop = "(x + 3500) * 1.5";
-        public static string formula3_ar1_dop = "(x + 3500) * 1.2";
+        public static string formula1_ar1_dop = "(x + 3500) * 4.2";
+        public static string formula2_ar1_dop = "(x + 3500) * 6.3";
+        public static string formula3_ar1_dop = "(x + 3500) * 2.6";
 
-        public static string formula1_ar = "(x + 2200) * 1.15";
-        public static string formula2_ar = "(x + 2200) * 1.5";
-        public static string formula3_ar = "(x + 2200) * 1.1";
+        public static string formula1_ar = "(x + 2200) * 1.17";
+        public static string formula2_ar = "(x + 2200) * 1.8";
+        public static string formula3_ar = "(x + 2200) * 1.14";
 
         public static string formula1_ar_dop = "(x + 3500) * 1.25";
-        public static string formula2_ar_dop = "(x + 3500) * 1.5";
+        public static string formula2_ar_dop = "(x + 3500) * 1.8";
         public static string formula3_ar_dop = "(x + 3500) * 1.2";
 
         public static string formula1_ar_ali = "(x + 2200) * 1.15";
