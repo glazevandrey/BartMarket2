@@ -48,19 +48,23 @@ namespace BartMarket.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateFormula([FromForm] string formula1, [FromForm] string formula2, [FromForm] string type, [FromForm] string type1, [FromForm] string vendors)
+        public IActionResult UpdateFormula([FromForm] string formula1, [FromForm] string formula2,[FromForm] string vendors)
         {
-            var split = vendors.Split(";");
-            if (split.Length == 0)
+            if (!string.IsNullOrEmpty(vendors))
             {
-            }
+                var split = vendors.Split(";");
+                if (split.Length == 0)
+                {
+                }
 
 
-            Program.ZeroVendors.Clear();
+                Program.ZeroVendors.Clear();
 
-            foreach (var item in split)
-            {
-                Program.ZeroVendors.Add(item);
+                foreach (var item in split)
+                {
+                    Program.ZeroVendors.Add(item);
+                }
+
             }
 
 
@@ -75,10 +79,10 @@ namespace BartMarket.Controllers
             {
                 return Redirect("donplafon_aliexpress");
             }
-            Program.formula1_ar_ali = data[0];
-            Program.formula2_ar_ali = data[1];
-            Program.formula3_ar_ali = data[2];
-            Program.formula4_ar_ali = data[3];
+            Program.formula1_dp_ali = data[0];
+            Program.formula2_dp_ali = data[1];
+            Program.formula3_dp_ali = data[2];
+            Program.formula4_dp_ali = data[3];
     
 
             return Redirect("donplafon_aliexpress?success=true");
