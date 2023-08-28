@@ -22,18 +22,29 @@ namespace BartMarket.Quartz
         }
         public async Task MainParse()
         {
-            await StartDonplafon();
+            try
+            {
+                logger.Info("start don");
+                await StartDonplafon();
 
-            Thread.Sleep(10000);
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            Thread.Sleep(10000);
+                Thread.Sleep(10000);
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                Thread.Sleep(10000);
+                logger.Info("start arnika");
 
-            await StartArnika();
+                await StartArnika();
 
-            Thread.Sleep(10000);
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
+                Thread.Sleep(10000);
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
         }
         public static int MakePrice(string s1)
         {
@@ -429,6 +440,7 @@ namespace BartMarket.Quartz
             var startTime = System.Diagnostics.Stopwatch.StartNew();
 
 
+            logger.Info("start don lite ozon");
 
 
             Logic.StartParse(catalog, catalog2, docNew, offers, "lite");
@@ -443,7 +455,7 @@ namespace BartMarket.Quartz
     resultTime.Milliseconds);
 
             Program.Last["donplafon"].ElapsedLite = elapsedTime;
-            logger.Info("-----SUCCESS ENDED LITE FORMATING FEED-----");
+            logger.Info("-----SUCCESS ENDED LITE don 446 ozon FORMATING FEED-----");
             logger.Info($"-----ELLAPSED: {elapsedTime}-----");
             GC.Collect();
             GC.WaitForPendingFinalizers();
@@ -456,6 +468,8 @@ namespace BartMarket.Quartz
             shop.AppendChild(offers);
 
             startTime = System.Diagnostics.Stopwatch.StartNew();
+            logger.Info("start don full ozon");
+
             Logic.StartParse(catalog, catalog2, docNew, offers, "full");
             startTime.Stop();
             resultTime = startTime.Elapsed;
@@ -467,7 +481,7 @@ namespace BartMarket.Quartz
 
             Program.Last["donplafon"].ElapsedFull = elapsedTime;
 
-            logger.Info("-----SUCCESS ENDED FULL FORMATING FEED-----");
+            logger.Info("-----SUCCESS ENDED FULL don 470 ozon FORMATING FEED-----");
             logger.Info($"-----ELLAPSED: {elapsedTime}-----");
 
             GC.Collect();
@@ -507,10 +521,7 @@ namespace BartMarket.Quartz
             }
             ofrs = new List<Offer>();
 
-            logger.Info("DATE OF NEW ONLINE 1 FID IS: " + catalog.Date);
-            logger.Info("DATE OF NEW ONLINE  2 FID IS: " + catalog2.Date);
-
-
+          
             docNew = new XmlDocument();
             newRoot = docNew.CreateElement("yml_catalog");
 
@@ -563,16 +574,27 @@ namespace BartMarket.Quartz
             //docNew.AppendChild(newRoot);
 
             startTime = System.Diagnostics.Stopwatch.StartNew();
+            logger.Info("start don ali");
 
 
-         
-            Logic.StartParseAli(catalog, catalog2, docNew, offers, "ali");
+            try
+            {
+                Logic.StartParseAli(catalog, catalog2, docNew, offers, "ali");
+
+            }
+            catch (Exception ex)
+            {
+
+                logger.Error(ex.Message);
+            }
 
             
             startTime.Stop();
             resultTime = startTime.Elapsed;
             try
             {
+                logger.Info("-----SUCCESS ENDED don 577 ali FORMATING FEED-----");
+
                 elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:000}",
  resultTime.Hours,
  resultTime.Minutes,
@@ -581,6 +603,7 @@ namespace BartMarket.Quartz
             }
             catch (Exception ex)
             {
+                logger.Error(ex.Message);
             }
           
 
@@ -815,15 +838,11 @@ namespace BartMarket.Quartz
 
 
 
-            try
-            {
-                Logic.StartParse(catalog, docNew, offers, "lite");
+            logger.Info("start arn lite ozon");
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            Logic.StartParse(catalog, docNew, offers, "lite");
+
+          
 
 
             startTime.Stop();
@@ -884,6 +903,8 @@ namespace BartMarket.Quartz
             shop.AppendChild(offers);
 
             startTime = System.Diagnostics.Stopwatch.StartNew();
+            logger.Info("start arn lite 1 ozon");
+
             Logic.StartParse(catalog, docNew, offers, "lite1");
             startTime.Stop();
             resultTime = startTime.Elapsed;
@@ -952,6 +973,8 @@ namespace BartMarket.Quartz
             shop.AppendChild(offers);
 
             startTime = System.Diagnostics.Stopwatch.StartNew();
+            logger.Info("start arn full ozon");
+
             Logic.StartParse(catalog, docNew, offers, "full");
             startTime.Stop();
             resultTime = startTime.Elapsed;
@@ -1041,8 +1064,9 @@ namespace BartMarket.Quartz
             //docNew.AppendChild(newRoot);
 
             startTime = System.Diagnostics.Stopwatch.StartNew();
-            
-                Logic.StartParseAli(catalog, docNew, offers, "ali");
+            logger.Info("start arn ali ozon");
+
+            Logic.StartParseAli(catalog, docNew, offers, "ali");
             
             startTime.Stop();
             resultTime = startTime.Elapsed;
