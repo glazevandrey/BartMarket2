@@ -142,24 +142,24 @@ namespace BartMarket.Quartz
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
 
-                //if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
-                //{
-                //    if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml"))
-                //    {
-                //        File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml");
-                //    }
+                if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
+                {
+                    if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml"))
+                    {
+                        File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml");
+                    }
 
-                //    System.IO.File.Move($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", $"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml");
+                    System.IO.File.Move($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", $"{Environment.CurrentDirectory}/wwwroot/content/exmp2_old.xml");
 
-                //    if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
-                //    {
-                //        File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
-                //    }
-                //}
-                //if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
-                //{
-                //    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
-                //}
+                    if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml"))
+                    {
+                        File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
+                    }
+                }
+                if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
+                {
+                    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
+                }
             }
             catch (Exception ex)
             {
@@ -171,70 +171,70 @@ namespace BartMarket.Quartz
             }
 
 
-            //try
-            //{
-            //    using (var client = new HttpClient())
-            //    {
-            //        using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
-            //        {
-            //            try
-            //            {
-            //                using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", FileMode.OpenOrCreate))
-            //                {
-            //                    s.Result.CopyTo(fs);
-            //                    logger.Info("success");
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_CONTENT/"))
+                    {
+                        try
+                        {
+                            using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml", FileMode.OpenOrCreate))
+                            {
+                                s.Result.CopyTo(fs);
+                                logger.Info("success");
 
-            //                }
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                logger.Error("from download inside " + ex.Message);
-            //                Program.Last["donplafon"].Success = false;
-            //                Program.Last["donplafon"].Error = ex.Message;
-            //                Program.inAir = false;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error("from download inside " + ex.Message);
+                            Program.Last["donplafon"].Success = false;
+                            Program.Last["donplafon"].Error = ex.Message;
+                            Program.inAir = false;
 
-            //                return;
-            //            }
+                            return;
+                        }
 
-            //        }
-            //    }
+                    }
+                }
 
-            //    using (var client = new HttpClient())
-            //    {
-            //        using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
-            //        {
-            //            try
-            //            {
-            //                using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml", FileMode.OpenOrCreate))
-            //                {
-            //                    s.Result.CopyTo(fs);
-            //                    logger.Info("success");
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_XML_PRICES/"))
+                    {
+                        try
+                        {
+                            using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml", FileMode.OpenOrCreate))
+                            {
+                                s.Result.CopyTo(fs);
+                                logger.Info("success");
 
-            //                }
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                logger.Error("from download inside " + ex.Message);
-            //                Program.Last["donplafon"].Success = false;
-            //                Program.Last["donplafon"].Error = ex.Message;
-            //                Program.inAir = false;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error("from download inside " + ex.Message);
+                            Program.Last["donplafon"].Success = false;
+                            Program.Last["donplafon"].Error = ex.Message;
+                            Program.inAir = false;
 
-            //                return;
-            //            }
+                            return;
+                        }
 
-            //        }
-            //    }
+                    }
+                }
 
-            //}
-            //catch (Exception ex)
-            //{
-            //    logger.Error("from download " + ex.Message);
-            //    Program.Last["donplafon"].Success = false;
-            //    Program.Last["donplafon"].Error = ex.Message;
-            //    Program.inAir = false;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("from download " + ex.Message);
+                Program.Last["donplafon"].Success = false;
+                Program.Last["donplafon"].Error = ex.Message;
+                Program.inAir = false;
 
-            //    return;
-            //}
+                return;
+            }
 
             YmlCatalog catalog2 = new YmlCatalog();
 
