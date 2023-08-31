@@ -536,7 +536,36 @@ namespace BartMarket.Quartz
             }
             ofrs = new List<Offer>();
 
-          
+
+            try
+            {
+                foreach (var item in catalog.Shop.Offers.Offer)
+                {
+                    if (item.Price == null)
+                    {
+                        if (Convert.ToInt32(item.OldPrice) > 1000)
+                        {
+                            ofrs.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        if (Convert.ToInt32(item.Price) > 1000)
+                        {
+                            ofrs.Add(item);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("offers " + ex.Message);
+                Program.Last["donplafon"].Success = false;
+                Program.Last["donplafon"].Error = ex.Message;
+                Program.inAir = false;
+                return;
+            }
+
             docNew = new XmlDocument();
             newRoot = docNew.CreateElement("yml_catalog");
 
