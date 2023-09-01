@@ -1829,10 +1829,11 @@ namespace BartMarket
                 }
                 else if (mainPrice <= 999)
                 {
-                    price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDonAli(Convert.ToInt32(mainPrice), 2)).ToString()).ToString());
-                    discount_price = CreateAndSetElement(docNew, "discount_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDonAli(Convert.ToInt32(mainPrice), 3)).ToString()).ToString());
+                    continue;
+                    //price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDonAli(Convert.ToInt32(mainPrice), 2)).ToString()).ToString());
+                    //discount_price = CreateAndSetElement(docNew, "discount_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDonAli(Convert.ToInt32(mainPrice), 3)).ToString()).ToString());
 
-                    formula = CreateAndSetElement(docNew, "formula", $"{Program.formula3_dp_ali.Replace("x", mainPrice.ToString())};{Program.formula4_dp_ali.Replace("x", mainPrice.ToString())}");
+                    //formula = CreateAndSetElement(docNew, "formula", $"{Program.formula3_dp_ali.Replace("x", mainPrice.ToString())};{Program.formula4_dp_ali.Replace("x", mainPrice.ToString())}");
 
                 }
               
