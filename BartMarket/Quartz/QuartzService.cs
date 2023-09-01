@@ -566,6 +566,8 @@ namespace BartMarket.Quartz
                 return;
             }
 
+            catalog.Shop.Offers.Offer = ofrs;
+
             docNew = new XmlDocument();
             newRoot = docNew.CreateElement("yml_catalog");
 
