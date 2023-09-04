@@ -1829,7 +1829,8 @@ namespace BartMarket
                 }
                 else if (mainPrice <= 999)
                 {
-                    continue;
+
+                   // continue;
                     //price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDonAli(Convert.ToInt32(mainPrice), 2)).ToString()).ToString());
                     //discount_price = CreateAndSetElement(docNew, "discount_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDonAli(Convert.ToInt32(mainPrice), 3)).ToString()).ToString());
 
@@ -1884,6 +1885,7 @@ namespace BartMarket
 
             if (type == "ali")
             {
+                logger.Info("SAVE");
                 var _1 = Program.link_aliexpress_donplafon.TrimStart('/').Split("/")[0];
                 if (_1.Contains(".xml"))
                 {
@@ -1913,12 +1915,11 @@ namespace BartMarket
                     {
                         docNew.Save("wwwroot" + Program.link_aliexpress_donplafon);
 
-
+                        logger.Info("SAVED");
                     }
                     catch (Exception ex)
                     {
                         logger.Error("from ali:" + ex.Message);
-                        logger.Error(docNew.InnerXml);
 
                         Program.Last["donplafon"].Success = false;
                         Program.Last["donplafon"].Error = ex.Message;

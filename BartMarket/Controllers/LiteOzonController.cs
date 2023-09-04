@@ -15,32 +15,40 @@ namespace BartMarket.Controllers
         [HttpGet]
         public IActionResult Index(bool success)
         {
-
-            var date = Program.Last["donplafon"].Date.AddHours(3);
-
-            ViewData["SUCCESS2"] = Program.Last["donplafon"].Success;
-            ViewData["ERROR"] = Program.Last["donplafon"].Error;
-            ViewData["COUNT"] = Program.Last["donplafon"].Count;
-            ViewData["DATE"] = date;
-            ViewData["TIMELITE"] = Program.Last["donplafon"].ElapsedLite;
-            ViewData["TIMEFULL"] = Program.Last["donplafon"].ElapsedFull;
-            ViewData["AIR"] = Program.inAir;
-
-
-            if (success)
+            try
             {
-                ViewData["SUCCESS"] = true;
+                var date = Program.Last["donplafon"].Date.AddHours(3);
+
+                ViewData["SUCCESS2"] = Program.Last["donplafon"].Success;
+                ViewData["ERROR"] = Program.Last["donplafon"].Error;
+                ViewData["COUNT"] = Program.Last["donplafon"].Count;
+                ViewData["DATE"] = date;
+                ViewData["TIMELITE"] = Program.Last["donplafon"].ElapsedLite;
+                ViewData["TIMEFULL"] = Program.Last["donplafon"].ElapsedFull;
+                ViewData["AIR"] = Program.inAir;
+
+
+                if (success)
+                {
+                    ViewData["SUCCESS"] = true;
+                }
+                ViewData["URL1"] = Program.link_ozon_lite;
+                ViewData["URL2"] = Program.link_ozon_full;
+                ViewData["URL1F"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.link_ozon_lite;
+
+                ViewData["URL2F"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.link_ozon_lite;
+
+                ViewData["URL3"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/content/exmp2.xml";
+                ViewData["URL4"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/content/exmp3.xml";
+
+                ViewData["FORMULA"] = $"{Program.formula1};{Program.formula2};{Program.formula3};";
             }
-            ViewData["URL1"] = Program.link_ozon_lite;
-            ViewData["URL2"] = Program.link_ozon_full;
-            ViewData["URL1F"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.link_ozon_lite;
+            catch (Exception ex)
+            {
 
-            ViewData["URL2F"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.link_ozon_lite;
-
-            ViewData["URL3"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/content/exmp2.xml";
-            ViewData["URL4"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/content/exmp3.xml";
-
-            ViewData["FORMULA"] = $"{Program.formula1};{Program.formula2};{Program.formula3};";
+                throw ex;
+            }
+          
 
             return View();
         }

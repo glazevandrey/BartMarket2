@@ -634,7 +634,7 @@ namespace BartMarket.Quartz
             {
 
                 logger.Error(ex.Message);
-                return;
+                throw ex;
             }
 
             logger.Info("start don 608");

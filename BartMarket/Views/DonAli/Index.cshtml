@@ -73,7 +73,7 @@
 
     <label style="font-size:medium"><b>Ссылка для скачивания онлайн фида:</b></label>
     <br />
-    <a href="~/content/arnikafid.xml" download="arnikafid.xml">Скачать</a>
+    <a href="@ViewData["URL2"]" download="@ViewData["URL2"].ToString().Split("/").Last()">Скачать фид</a>
     <br />
     <br />
 
