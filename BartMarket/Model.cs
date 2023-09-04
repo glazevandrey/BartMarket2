@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace BartMarket
@@ -45,7 +46,7 @@ namespace BartMarket
 
 
         [XmlElement(ElementName = "param")]
-        public List<Param> Param { get; set; }
+        public Param[] Param { get; set; }
 
         [XmlAttribute(AttributeName = "id")]
         public int Id { get; set; }
@@ -66,7 +67,7 @@ namespace BartMarket
         public List<string> Pictures { get; set; }
 
         [XmlElement(ElementName = "param")]
-        public List<Param> Param { get; set; }
+        public Param[] Param { get; set; }
 
         [XmlElement(ElementName = "name")]
         public string Name { get; set; }

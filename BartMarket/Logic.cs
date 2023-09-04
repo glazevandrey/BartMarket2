@@ -347,7 +347,7 @@ namespace BartMarket
 
             return weight;
         }
-        public static int GetInst(List<Offer> item, int id)
+        public static int GetInst(IList<Offer> item, int id)
         {
             var inst = item.FirstOrDefault(m => m.Id == id);
             int instInt = 0;
@@ -368,9 +368,9 @@ namespace BartMarket
         public static void StartParse(YmlCatalog catalog, YmlCatalog catalog2, XmlDocument docNew, XmlElement offers, string type)
         {
             int x = 1;
-            int y = catalog.Shop.Offers.Offer.Count;
+            int y = catalog.Shop.Offers.Offer.Count();
 
-            if (Program.Last.Count > catalog.Shop.Offers.Offer.Count)
+            if (Program.Last.Count > catalog.Shop.Offers.Offer.Count())
             {
                 try
                 {
@@ -437,7 +437,7 @@ namespace BartMarket
 
             }
 
-            Program.Last["donplafon"].Count = catalog.Shop.Offers.Offer.Count;
+            Program.Last["donplafon"].Count = catalog.Shop.Offers.Offer.Count();
 
             foreach (var item in catalog.Shop.Offers.Offer)
             {
@@ -611,7 +611,7 @@ namespace BartMarket
                                 }
 
                             }
-                            if (bools.Where(m => m == true).ToList().Count == ware.Condition.Count)
+                            if (bools.Where(m => m == true).ToList().Count == ware.Condition.Count())
                             {
                                 var instock = CreateAndSetAttr(docNew, "instock", instInt);
                                 outlet.Attributes.Append(instock);
@@ -1513,9 +1513,9 @@ namespace BartMarket
         public static void StartParseAli(YmlCatalog catalog, YmlCatalog catalog2, XmlDocument docNew, XmlElement offers, string type)
         {
             int x = 1;
-            int y = catalog.Shop.Offers.Offer.Count;
+            int y = catalog.Shop.Offers.Offer.Count();
 
-            if (Program.Last.Count > catalog.Shop.Offers.Offer.Count)
+            if (Program.Last.Count > catalog.Shop.Offers.Offer.Count())
             {
                 try
                 {
@@ -1582,7 +1582,7 @@ namespace BartMarket
 
             }
 
-            Program.Last["donplafon"].Count = catalog.Shop.Offers.Offer.Count;
+            Program.Last["donplafon"].Count = catalog.Shop.Offers.Offer.Count();
 
             foreach (var item in catalog.Shop.Offers.Offer)
             {

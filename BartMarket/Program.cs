@@ -68,7 +68,7 @@ namespace BartMarket
 
         public static Dictionary<string, StatModel> Last = new Dictionary<string, StatModel>() { {"arnika", new StatModel() },{"donplafon", new StatModel() }   }; 
         public static bool inAir = false;
-        public static List<Offer2> list = new List<Offer2>();
+        public static IEnumerable<Offer2> list;
         public static List<Offer> deleted = new List<Offer>();
         public static List<OfferArnika> deletedAr = new List<OfferArnika>();
 
