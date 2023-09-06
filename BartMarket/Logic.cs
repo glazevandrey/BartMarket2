@@ -1587,7 +1587,10 @@ namespace BartMarket
             foreach (var item in catalog.Shop.Offers.Offer)
             {
                 var mainPrice = CheckMainPrise(item,null);
-
+                if(mainPrice < 1000)
+                {
+                    continue;
+                }
                 var offer = docNew.CreateElement("offer");
                 XmlAttribute idAttr = docNew.CreateAttribute("id");
                 offer.Attributes.Append(idAttr);
@@ -1830,7 +1833,7 @@ namespace BartMarket
                 else if (mainPrice <= 999)
                 {
 
-                   // continue;
+                    continue;
                     //price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDonAli(Convert.ToInt32(mainPrice), 2)).ToString()).ToString());
                     //discount_price = CreateAndSetElement(docNew, "discount_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceDonAli(Convert.ToInt32(mainPrice), 3)).ToString()).ToString());
 
