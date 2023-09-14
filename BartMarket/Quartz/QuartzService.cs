@@ -43,6 +43,8 @@ namespace BartMarket.Quartz
             {
                 logger.Error("BAD");
                 logger.Error(ex.Message);
+                logger.Error(ex.StackTrace);
+                logger.Error(ex.InnerException);
                 throw ex;
             }
            
