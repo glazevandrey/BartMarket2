@@ -501,7 +501,6 @@ namespace BartMarket.Quartz
             }
             catch (Exception ex)
             {
-
                 throw;
             }
             startTime.Stop();
