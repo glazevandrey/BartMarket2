@@ -19,12 +19,17 @@ namespace BartMarket.Controllers
         {
             using (var db = new UserContext())
             {
-                var l = db.LinkModels.FirstOrDefault(m => m.Type == "Full");
-                l.Link = link_full;
-
-                l = db.LinkModels.FirstOrDefault(m => m.Type == "Lite");
-                l.Link = link_lite;
-
+                if(link_full == null)
+                {
+                    var l = db.LinkModels.FirstOrDefault(m => m.Type == "Lite");
+                    l.Link = link_lite;
+                }
+                else
+                {
+                    var l = db.LinkModels.FirstOrDefault(m => m.Type == "Full");
+                    l.Link = link_full;
+                }
+          
                 db.SaveChanges();
             }
 
