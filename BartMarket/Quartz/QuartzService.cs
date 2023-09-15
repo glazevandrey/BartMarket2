@@ -502,7 +502,7 @@ namespace BartMarket.Quartz
             catch (Exception ex)
             {
 
-                throw ex;
+                throw;
             }
             startTime.Stop();
             resultTime = startTime.Elapsed;
