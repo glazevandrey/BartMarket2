@@ -528,16 +528,23 @@ namespace BartMarket.Quartz
 
             try
             {
+                logger.Info("start don 531");
+
                 var text = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp2.xml");
+                logger.Info("start don 534");
+
                 using (StringReader reader = new StringReader(text))
                 {
                     var text2 = serializer.Deserialize(reader);
                     catalog = (YmlCatalog)text2;
                 }
 
+                logger.Info("start don 542");
 
 
                 var text22 = File.ReadAllText($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
+                logger.Info("start don 546");
+
                 using (StringReader reader = new StringReader(text22))
                 {
                     var text2 = serializer.Deserialize(reader);
@@ -550,7 +557,7 @@ namespace BartMarket.Quartz
                 Program.Last["donplafon"].Success = false;
                 Program.Last["donplafon"].Error = ex.Message;
                 Program.inAir = false;
-                return;
+                throw;
             }
 
             docNew = new XmlDocument();
