@@ -3,6 +3,7 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -1586,6 +1587,10 @@ namespace BartMarket
 
             foreach (var item in catalog.Shop.Offers.Offer)
             {
+                var m  =GC.GetGCMemoryInfo();
+                logger.Info("total = "  +m.TotalAvailableMemoryBytes + " / " + System.Diagnostics.Process.GetCurrentProcess().WorkingSet64);
+                logger.Info("ss = " + GC.GetTotalMemory(true));
+
                 var mainPrice = CheckMainPrise(item,null);
                 if(mainPrice < 1000)
                 {

@@ -629,7 +629,7 @@ namespace BartMarket.Quartz
                 logger.Error("IN " + ex.InnerException);
                 logger.Error("ST " + ex.StackTrace);
 
-                throw ex;
+                throw;
             }
 
             logger.Info("start don 608");
