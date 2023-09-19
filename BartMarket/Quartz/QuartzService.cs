@@ -460,7 +460,7 @@ namespace BartMarket.Quartz
 
             try
             {
-              //  Logic.StartParse(catalog, catalog2, docNew, offers, "lite");
+                Logic.StartParse(catalog, catalog2, docNew, offers, "lite");
 
 
             }
@@ -496,7 +496,7 @@ namespace BartMarket.Quartz
             logger.Info("start don full ozon");
             try
             {
-              //  Logic.StartParse(catalog, catalog2, docNew, offers, "full");
+                Logic.StartParse(catalog, catalog2, docNew, offers, "full");
 
             }
             catch (Exception ex)
