@@ -1588,9 +1588,7 @@ namespace BartMarket
             foreach (var item in catalog.Shop.Offers.Offer)
             {
                 var m  =GC.GetGCMemoryInfo();
-                logger.Info("total = "  +m.TotalAvailableMemoryBytes + " / " + System.Diagnostics.Process.GetCurrentProcess().WorkingSet64);
-                logger.Info("ss = " + GC.GetTotalMemory(true));
-
+        
                 var mainPrice = CheckMainPrise(item,null);
                 if(mainPrice < 1000)
                 {
@@ -1886,6 +1884,11 @@ namespace BartMarket
                 if (x % 1000 == 0)
                 {
                     logger.Info($"({x}/{y})");
+                }
+                if(x % 500 == 0)
+                {
+                    logger.Info("free = " + m.TotalAvailableMemoryBytes + " //// bussy = " + GC.GetTotalMemory(true));
+
                 }
                 x++;
 
