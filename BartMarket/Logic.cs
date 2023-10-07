@@ -948,7 +948,7 @@ namespace BartMarket
 
                     instInt = item.Count.ToString();
 
-                    if (instInt == "0" && status != null && (status.Text.ToUpper() == "ЗАКАЗНЫЕ" || status.Text.ToUpper() == "ПЕРЕВОД"))
+                    if (instInt == "0" && status != null && (status.Text.ToUpper() == "ЗАКАЗНОЙ" || status.Text.ToUpper() == "ПЕРЕВОД"))
                     {
                         instock = CreateAndSetAttr(docNew, "instock", "2");
                     }
