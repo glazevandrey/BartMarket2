@@ -745,7 +745,7 @@ namespace BartMarket.Quartz
             {
                 using (var client = new HttpClient())
                 {
-                    using (var s = client.GetStreamAsync("https://td-arnika.ru/upload/acrit.exportproplus/arnika_agent.xml?1678614659"))
+                    using (var s = client.GetStreamAsync("https://td-arnika.ru/upload/acrit.exportproplus/arnika_opt.xml?1678618641"))
                     {
                         try
                         {
