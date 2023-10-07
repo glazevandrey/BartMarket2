@@ -925,23 +925,86 @@ namespace BartMarket
                 var outlets = docNew.CreateElement("outlets");
 
 
-                
+
                 try
                 {
+                    var outlet = docNew.CreateElement("outlet");
 
-                    
-                        var outlet = docNew.CreateElement("outlet");
+                    var instInt = item.Count.ToString();
 
-                        var instInt = item.Count.ToString();
 
-                        
-                        var instock = CreateAndSetAttr(docNew, "instock", instInt);
-                        outlet.Attributes.Append(instock);
-                        
-                        var w_name = CreateAndSetAttr(docNew, "warehouse_name", "APH");
-                        outlet.Attributes.Append(w_name);
-                        outlets.AppendChild(outlet);
-                    
+                    var instock = CreateAndSetAttr(docNew, "instock", instInt);
+                    outlet.Attributes.Append(instock);
+
+
+
+                    var w_name = CreateAndSetAttr(docNew, "warehouse_name", "APH");
+                    outlet.Attributes.Append(w_name);
+                    outlets.AppendChild(outlet);
+
+
+                    var status = item.Param.FirstOrDefault(m => m.Name == "Статус");
+                    outlet = docNew.CreateElement("outlet");
+
+                    instInt = item.Count.ToString();
+
+                    if (instInt == "0" && status != null && (status.Text.ToUpper() == "ЗАКАЗНЫЕ" || status.Text.ToUpper() == "ПЕРЕВОД"))
+                    {
+                        instock = CreateAndSetAttr(docNew, "instock", "2");
+                    }
+                    else
+                    {
+                        instock = CreateAndSetAttr(docNew, "instock", "0");
+                    }
+                    outlet.Attributes.Append(instock);
+
+
+                    w_name = CreateAndSetAttr(docNew, "warehouse_name", "APH_ЗКЗН");
+                    outlet.Attributes.Append(w_name);
+                    outlets.AppendChild(outlet);
+
+
+
+
+                    var ost_tver = item.Param.FirstOrDefault(m => m.Name.ToUpper() == "ОСТАТОК ТВЕРЬ");
+
+
+                    outlet = docNew.CreateElement("outlet");
+
+                    instInt = item.Count.ToString();
+
+                    if(ost_tver != null)
+                    {
+                        instock = CreateAndSetAttr(docNew, "instock", ost_tver.Text);
+
+                    }
+                    else
+                    {
+                        instock = CreateAndSetAttr(docNew, "instock", "0");
+
+                    }
+                    outlet.Attributes.Append(instock);
+
+
+                    w_name = CreateAndSetAttr(docNew, "warehouse_name", "АРН_ТВЕРЬ");
+                    outlet.Attributes.Append(w_name);
+                    outlets.AppendChild(outlet);
+
+
+
+
+                    outlet = docNew.CreateElement("outlet");
+
+                    instInt = item.Count.ToString();
+
+
+                    instock = CreateAndSetAttr(docNew, "instock", instInt);
+                    outlet.Attributes.Append(instock);
+
+
+                    w_name = CreateAndSetAttr(docNew, "warehouse_name", "АРН_ТВЕРЬ_МСК");
+                    outlet.Attributes.Append(w_name);
+                    outlets.AppendChild(outlet);
                 }
                 catch (Exception ex)
                 {
@@ -951,6 +1014,7 @@ namespace BartMarket
                     Program.Last["arnika"].Error = "Неверно задан фильтр у одного из складов. Нужна проверка";
                     return;
                 }
+
                 offer.AppendChild(outlets);
                 offers.AppendChild(offer);
                 if (x % 1000 == 0)
