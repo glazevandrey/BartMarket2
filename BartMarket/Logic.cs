@@ -452,7 +452,7 @@ namespace BartMarket
                 var offer = docNew.CreateElement("offer");
                 XmlAttribute idAttr = docNew.CreateAttribute("id");
                 offer.Attributes.Append(idAttr);
-                offer.Attributes.Item(0).Value = item.Id.ToString() + "_DPN";
+                offer.Attributes.Item(0).Value = item.Id.ToString() + "_DONP";
                 if (!Program.lastIds.ToString().Contains(item.Id.ToString()))
                 {
                     Program.lastIds.Append(item.Id.ToString() + ";");
@@ -948,7 +948,7 @@ namespace BartMarket
 
                     instInt = item.Count.ToString();
 
-                    if (instInt == "0" && status != null && (status.Text.ToUpper() == "ЗАКАЗНОЙ" || status.Text.ToUpper() == "ПЕРЕВОД"))
+                    if (instInt == "0")
                     {
                         instock = CreateAndSetAttr(docNew, "instock", "2");
                     }
@@ -1671,7 +1671,7 @@ namespace BartMarket
 
                 var nameback = CreateAndSetElement(docNew, "name", Reverse(item.Name));
 
-                var sku_code = CreateAndSetElement(docNew, "sku_code", item.Id.ToString() + "_DPN");
+                var sku_code = CreateAndSetElement(docNew, "sku_code", item.Id.ToString() + "_DONP");
 
                 var deskr = ", ";
 
