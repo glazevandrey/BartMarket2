@@ -1671,7 +1671,7 @@ namespace BartMarket
 
                 var nameback = CreateAndSetElement(docNew, "name", Reverse(item.Name));
 
-                var sku_code = CreateAndSetElement(docNew, "sku_code", item.Id.ToString() + "_DONP");
+                var sku_code = CreateAndSetElement(docNew, "sku_code", item.Id.ToString() + "_DPN");
 
                 var deskr = ", ";
 
