@@ -77,7 +77,7 @@ namespace BartMarket
         public string CurrencyId { get; set; }
 
         [XmlElement(ElementName = "price")]
-        public long Price { get; set; }
+        public double Price { get; set; }
 
         [XmlElement(ElementName = "stock")]
         public int Stock { get; set; }
