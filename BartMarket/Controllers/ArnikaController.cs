@@ -1,5 +1,6 @@
 ﻿using BartMarket.Data;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace BartMarket.Controllers
 {
@@ -71,63 +72,99 @@ namespace BartMarket.Controllers
             {
                 return Redirect("arnika_ozon");
             }
-
-            if(type1 != "lite1")
+            using (var db = new UserContext())
             {
-                if (type == "dop")
+                if (type1 != "lite1")
                 {
-                    var data = formula.Split(";");
-                    if (data.Length < 3)
+                    if (type == "dop")
                     {
-                        return Redirect("arnika_ozon");
+                        var data = formula.Split(";");
+                        if (data.Length < 3)
+                        {
+                            return Redirect("arnika_ozon");
+                        }
+                        Program.formula1_ar_dop = data[0];
+                        Program.formula2_ar_dop = data[1];
+                        Program.formula3_ar_dop = data[2];
+
+                        var f1 = db.Formulas.FirstOrDefault(m=>m.Name == "formula1_ar_dop");
+                        f1.Value = data[0];
+                        var f2 = db.Formulas.FirstOrDefault(m => m.Name == "formula2_ar_dop");
+                        f2.Value = data[1];
+                        var f3 = db.Formulas.FirstOrDefault(m => m.Name == "formula3_ar_dop");
+                        f3.Value = data[2];
+                        db.SaveChanges();
+         
+                    }
+                    else
+                    {
+                        var data = formula.Split(";");
+                        if (data.Length < 3)
+                        {
+                            return Redirect("arnika_ozon");
+                        }
+
+                        Program.formula1_ar = data[0];
+                        Program.formula2_ar = data[1];
+                        Program.formula3_ar = data[2];
+
+                        var f1 = db.Formulas.FirstOrDefault(m => m.Name == "formula1_ar");
+                        f1.Value = data[0];
+                        var f2 = db.Formulas.FirstOrDefault(m => m.Name == "formula2_ar");
+                        f2.Value = data[1];
+                        var f3 = db.Formulas.FirstOrDefault(m => m.Name == "formula3_ar");
+                        f3.Value = data[2];
+                        db.SaveChanges();
+
+
                     }
 
-                    Program.formula1_ar_dop = data[0];
-                    Program.formula2_ar_dop = data[1];
-                    Program.formula3_ar_dop = data[2];
                 }
                 else
                 {
-                    var data = formula.Split(";");
-                    if (data.Length < 3)
+                    if (type == "dop")
                     {
-                        return Redirect("arnika_ozon");
+                        var data = formula.Split(";");
+                        if (data.Length < 3)
+                        {
+                            return Redirect("arnika_ozon");
+                        }
+                        Program.formula1_ar1_dop = data[0];
+                        Program.formula2_ar1_dop = data[1];
+                        Program.formula3_ar1_dop = data[2];
+                        var f1 = db.Formulas.FirstOrDefault(m => m.Name == "formula1_ar1_dop");
+                        f1.Value = data[0];
+                        var f2 = db.Formulas.FirstOrDefault(m => m.Name == "formula2_ar1_dop");
+                        f2.Value = data[1];
+                        var f3 = db.Formulas.FirstOrDefault(m => m.Name == "formula3_ar1_dop");
+                        f3.Value = data[2];
+                        db.SaveChanges();
+
                     }
-                    Program.formula1_ar = data[0];
-                    Program.formula2_ar = data[1];
-                    Program.formula3_ar = data[2];
+                    else
+                    {
+                        var data = formula.Split(";");
+                        if (data.Length < 3)
+                        {
+                            return Redirect("arnika_ozon");
+                        }
+                        Program.formula1_ar1 = data[0];
+                        Program.formula2_ar1 = data[1];
+                        Program.formula3_ar1 = data[2];
+                        var f1 = db.Formulas.FirstOrDefault(m => m.Name == "formula1_ar1");
+                        f1.Value = data[0];
+                        var f2 = db.Formulas.FirstOrDefault(m => m.Name == "formula2_ar1");
+                        f2.Value = data[1];
+                        var f3 = db.Formulas.FirstOrDefault(m => m.Name == "formula3_ar1");
+                        f3.Value = data[2];
+                        db.SaveChanges();
+
+
+                    }
 
                 }
-
             }
-            else
-            {
-                if (type == "dop")
-                {
-                    var data = formula.Split(";");
-                    if (data.Length < 3)
-                    {
-                        return Redirect("arnika_ozon");
-                    }
-
-                    Program.formula1_ar1_dop = data[0];
-                    Program.formula2_ar1_dop = data[1];
-                    Program.formula3_ar1_dop = data[2];
-                }
-                else
-                {
-                    var data = formula.Split(";");
-                    if (data.Length < 3)
-                    {
-                        return Redirect("arnika_ozon");
-                    }
-                    Program.formula1_ar1 = data[0];
-                    Program.formula2_ar1 = data[1];
-                    Program.formula3_ar1 = data[2];
-
-                }
-
-            }
+       
 
             return Redirect("arnika_ozon?success=true");
 

@@ -65,11 +65,24 @@ namespace BartMarket.Controllers
             {
                 return Redirect("donplafon_ozon");
             }
-
             Program.formula1 = data[0];
             Program.formula2 = data[1];
             Program.formula3 = data[2];
-           
+            using (var db = new UserContext())
+            {
+
+                var f1 = db.Formulas.FirstOrDefault(m => m.Name == "formula1");
+                f1.Value = data[0];
+
+                var f2 = db.Formulas.FirstOrDefault(m => m.Name == "formula2");
+                f2.Value = data[1];
+
+                var f3 = db.Formulas.FirstOrDefault(m => m.Name == "formula3");
+                f3.Value = data[2];
+
+                db.SaveChanges();
+            }
+
             return Redirect("donplafon_ozon?success=true");
         }
         

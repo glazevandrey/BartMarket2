@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BartMarket.Data;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -83,7 +84,19 @@ namespace BartMarket.Controllers
             Program.formula2_dp_ali = data[1];
             Program.formula3_dp_ali = data[2];
             Program.formula4_dp_ali = data[3];
-    
+            using (var db = new UserContext())
+            {
+                var f1 = db.Formulas.FirstOrDefault(m=>m.Name == "formula1_dp_ali");
+                f1.Value = data[0];
+                var f2 = db.Formulas.FirstOrDefault(m => m.Name == "formula2_dp_ali");
+                f2.Value = data[1];
+                var f3 = db.Formulas.FirstOrDefault(m => m.Name == "formula3_dp_ali");
+                f3.Value = data[2];
+                var f4 = db.Formulas.FirstOrDefault(m => m.Name == "formula4_dp_ali");
+                f4.Value = data[3];
+                db.SaveChanges();
+            }
+
 
             return Redirect("donplafon_aliexpress?success=true");
 

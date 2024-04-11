@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BartMarket.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,6 +55,30 @@ namespace BartMarket.Controllers
             if (data.Length < 3)
             {
                 return Redirect("arnika_aliexpress");
+            }
+
+            using (var db = new UserContext())
+            {
+                var f1  = db.Formulas.FirstOrDefault(m=>m.Name == "formula1_ar_ali");
+                f1.Value = data[0];
+
+                var f2 = db.Formulas.FirstOrDefault(m => m.Name == "formula2_ar_ali");
+                f2.Value = data[1];
+
+                var f3 = db.Formulas.FirstOrDefault(m => m.Name == "formula5_ar_ali");
+                f3.Value = data[2];
+
+                var f4 = db.Formulas.FirstOrDefault(m => m.Name == "formula6_ar_ali");
+                f4.Value = data[3];
+
+                var f5 = db.Formulas.FirstOrDefault(m => m.Name == "formula3_ar_ali");
+                f5.Value = data[4];
+
+                var f6 = db.Formulas.FirstOrDefault(m => m.Name == "formula4_ar_ali");
+                f6.Value = data[5];
+
+                db.SaveChanges();
+
             }
             Program.formula1_ar_ali = data[0];
             Program.formula2_ar_ali = data[1];

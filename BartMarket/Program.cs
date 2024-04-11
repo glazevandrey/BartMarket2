@@ -20,39 +20,39 @@ namespace BartMarket
 
         public static List<string> ZeroVendors = new List<string>();
         public static bool ExcelAir = false;
-        public static string formula1 = "(x + 1500) * 1.2";
-        public static string formula2 = "(x + 1500) * 1.5";
-        public static string formula3 = "(x + 1500) * 1.15";
+        public static string formula1 = "";
+        public static string formula2 = "";
+        public static string formula3 = "";
 
-        public static string formula1_ar1 = "(x + 2200) * 4.2";
-        public static string formula2_ar1 = "(x + 2200) * 6.3";
-        public static string formula3_ar1 = "(x + 2200) * 2.6";
-
-
-        public static string formula1_ar1_dop = "(x + 3500) * 4.2";
-        public static string formula2_ar1_dop = "(x + 3500) * 6.3";
-        public static string formula3_ar1_dop = "(x + 3500) * 2.6";
-
-        public static string formula1_ar = "(x + 2200) * 1.17";
-        public static string formula2_ar = "(x + 2200) * 1.8";
-        public static string formula3_ar = "(x + 2200) * 1.14";
-
-        public static string formula1_ar_dop = "(x + 3500) * 1.25";
-        public static string formula2_ar_dop = "(x + 3500) * 1.8";
-        public static string formula3_ar_dop = "(x + 3500) * 1.2";
-
-        public static string formula1_ar_ali = "(x + 2200) * 1.15";
-        public static string formula2_ar_ali = "(x + 2200) * 1.1";
-        public static string formula5_ar_ali = "(x + 2200) * 1.15";
-        public static string formula6_ar_ali = "(x + 2200) * 1.1";
-        public static string formula3_ar_ali = "(x + 3500) * 1.15";
-        public static string formula4_ar_ali = "(x + 3500) * 1.1";
+        public static string formula1_ar1 = "";
+        public static string formula2_ar1 = "";
+        public static string formula3_ar1 = "";
 
 
-        public static string formula1_dp_ali = "(x + 1500) * 1.25";
-        public static string formula2_dp_ali = "(x + 1500) * 1.15";
-        public static string formula3_dp_ali = "(x + 500) * 1.25";
-        public static string formula4_dp_ali = "(x + 500) * 1.15";
+        public static string formula1_ar1_dop = "";
+        public static string formula2_ar1_dop = "";
+        public static string formula3_ar1_dop = "";
+
+        public static string formula1_ar = "";
+        public static string formula2_ar = "";
+        public static string formula3_ar = "";
+
+        public static string formula1_ar_dop = "";
+        public static string formula2_ar_dop = "";
+        public static string formula3_ar_dop = "";
+
+        public static string formula1_ar_ali = "";
+        public static string formula2_ar_ali = "";
+        public static string formula5_ar_ali = "";
+        public static string formula6_ar_ali = "";
+        public static string formula3_ar_ali = "";
+        public static string formula4_ar_ali = "";
+
+
+        public static string formula1_dp_ali = "";
+        public static string formula2_dp_ali = "";
+        public static string formula3_dp_ali = "";
+        public static string formula4_dp_ali = "";
         
 
 
@@ -90,6 +90,82 @@ namespace BartMarket
         {
             IronXL.License.LicenseKey = "IRONXL.TONI70020.25513-B58A105DFA-E5J5E2-KN5QIEVOS6QV-25KF2LLZS664-ZUPCPC43GEYK-LNIVESSFL4KX-CPN2OAJ5HCAT-YQA6BE-THDZ3GN3FCOJEA-DEPLOYMENT.TRIAL-T6FH55.TRIAL.EXPIRES.02.MAR.2023"; 
             ozonTemplates.Add(new NapolnyTorsher());
+            using (var db = new UserContext())
+            {
+                var formuls = db.Formulas.ToList();
+                if(formuls.Count == 0)
+                {
+                    db.Formulas.Add(new Formulas() { Name = "formula1", Value = "(x + 1500) * 1.2"});
+                    db.Formulas.Add(new Formulas() { Name = "formula2", Value = "(x + 1500) * 1.5" });
+                    db.Formulas.Add(new Formulas() { Name = "formula3", Value = "(x + 1500) * 1.15" });
+
+                    db.Formulas.Add(new Formulas() { Name = "formula1_ar1", Value = "(x + 2200) * 4.2" });
+                    db.Formulas.Add(new Formulas() { Name = "formula2_ar1", Value = "(x + 2200) * 6.3" });
+                    db.Formulas.Add(new Formulas() { Name = "formula3_ar1", Value = "(x + 2200) * 2.6" });
+
+                    db.Formulas.Add(new Formulas() { Name = "formula1_ar1_dop", Value = "(x + 3500) * 4.2" });
+                    db.Formulas.Add(new Formulas() { Name = "formula2_ar1_dop", Value = "(x + 3500) * 6.3" });
+                    db.Formulas.Add(new Formulas() { Name = "formula3_ar1_dop", Value = "(x + 3500) * 2.6" });
+
+                    db.Formulas.Add(new Formulas() { Name = "formula1_ar", Value = "(x + 2200) * 1.17" });
+                    db.Formulas.Add(new Formulas() { Name = "formula2_ar", Value = "(x + 2200) * 1.8" });
+                    db.Formulas.Add(new Formulas() { Name = "formula3_ar", Value = "(x + 2200) * 1.14" });
+
+                    db.Formulas.Add(new Formulas() { Name = "formula1_ar_dop", Value = "(x + 3500) * 1.25" });
+                    db.Formulas.Add(new Formulas() { Name = "formula2_ar_dop", Value = "(x + 3500) * 1.8" });
+                    db.Formulas.Add(new Formulas() { Name = "formula3_ar_dop", Value = "(x + 3500) * 1.2" });
+
+                    db.Formulas.Add(new Formulas() { Name = "formula1_ar_ali", Value = "(x + 2200) * 1.15" });
+                    db.Formulas.Add(new Formulas() { Name = "formula2_ar_ali", Value = "(x + 2200) * 1.1" });
+                    db.Formulas.Add(new Formulas() { Name = "formula5_ar_ali", Value = "(x + 2200) * 1.15" });
+                    db.Formulas.Add(new Formulas() { Name = "formula6_ar_ali", Value = "(x + 2200) * 1.1" });
+                    db.Formulas.Add(new Formulas() { Name = "formula3_ar_ali", Value = "(x + 3500) * 1.15" });
+                    db.Formulas.Add(new Formulas() { Name = "formula4_ar_ali", Value = "(x + 3500) * 1.1" });
+
+                    db.Formulas.Add(new Formulas() { Name = "formula1_dp_ali", Value = "(x + 1500) * 1.25" });
+                    db.Formulas.Add(new Formulas() { Name = "formula2_dp_ali", Value = "(x + 1500) * 1.15" });
+                    db.Formulas.Add(new Formulas() { Name = "formula3_dp_ali", Value = "(x + 500) * 1.25" });
+                    db.Formulas.Add(new Formulas() { Name = "formula4_dp_ali", Value = "(x + 500) * 1.15" });
+                    db.SaveChanges();
+                }
+                var fs = db.Formulas.ToList();
+
+                formula1 = fs.FirstOrDefault(m=>m.Name == "formula1").Value;
+                formula2 = fs.FirstOrDefault(m => m.Name == "formula2").Value;
+                formula3 = fs.FirstOrDefault(m => m.Name == "formula3").Value;
+
+                formula1_ar1 = fs.FirstOrDefault(m => m.Name == "formula1_ar1").Value;
+                formula2_ar1 = fs.FirstOrDefault(m => m.Name == "formula2_ar1").Value;
+                formula3_ar1 = fs.FirstOrDefault(m => m.Name == "formula3_ar1").Value;
+
+
+                formula1_ar1_dop = fs.FirstOrDefault(m => m.Name == "formula1_ar1_dop").Value;
+                formula2_ar1_dop = fs.FirstOrDefault(m => m.Name == "formula2_ar1_dop").Value;
+                formula3_ar1_dop = fs.FirstOrDefault(m => m.Name == "formula3_ar1_dop").Value;
+
+                formula1_ar = fs.FirstOrDefault(m => m.Name == "formula1_ar").Value;
+                formula2_ar = fs.FirstOrDefault(m => m.Name == "formula2_ar").Value;
+                formula3_ar = fs.FirstOrDefault(m => m.Name == "formula3_ar").Value;
+
+                formula1_ar_dop = fs.FirstOrDefault(m => m.Name == "formula1_ar_dop").Value;
+                formula2_ar_dop = fs.FirstOrDefault(m => m.Name == "formula2_ar_dop").Value;
+                formula3_ar_dop = fs.FirstOrDefault(m => m.Name == "formula3_ar_dop").Value;
+
+                formula1_ar_ali = fs.FirstOrDefault(m => m.Name == "formula1_ar_ali").Value;
+                formula2_ar_ali = fs.FirstOrDefault(m => m.Name == "formula2_ar_ali").Value;
+                formula5_ar_ali = fs.FirstOrDefault(m => m.Name == "formula5_ar_ali").Value;
+                formula6_ar_ali = fs.FirstOrDefault(m => m.Name == "formula6_ar_ali").Value;
+                formula3_ar_ali = fs.FirstOrDefault(m => m.Name == "formula3_ar_ali").Value;
+                formula4_ar_ali = fs.FirstOrDefault(m => m.Name == "formula4_ar_ali").Value;
+
+
+                formula1_dp_ali = fs.FirstOrDefault(m => m.Name == "formula1_dp_ali").Value;
+                formula2_dp_ali = fs.FirstOrDefault(m => m.Name == "formula2_dp_ali").Value;
+                formula3_dp_ali = fs.FirstOrDefault(m => m.Name == "formula3_dp_ali").Value;
+                formula4_dp_ali = fs.FirstOrDefault(m => m.Name == "formula4_dp_ali").Value;
+       
+
+            }
 
             using (var db = new UserContext())
             {

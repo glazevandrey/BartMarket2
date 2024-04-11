@@ -5,6 +5,7 @@ namespace BartMarket.Data
 {
     public class UserContext : DbContext
     {
+        public DbSet<Formulas> Formulas { get; set; }
         public DbSet<WarehouseModel> Warehouses { get; set; }
         public DbSet<WarehouseSetting> WarehouseSettings { get; set; }
         public DbSet<LinkModel> LinkModels { get; set; }
