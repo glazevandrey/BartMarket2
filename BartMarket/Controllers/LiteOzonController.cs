@@ -26,7 +26,7 @@ namespace BartMarket.Controllers
                 ViewData["TIMELITE"] = Program.Last["donplafon"].ElapsedLite;
                 ViewData["TIMEFULL"] = Program.Last["donplafon"].ElapsedFull;
                 ViewData["AIR"] = Program.inAir;
-
+                ViewData["OFFER"] = Program._DON;
 
                 if (success)
                 {
@@ -71,6 +71,20 @@ namespace BartMarket.Controllers
             Program.formula3 = data[2];
            
             return Redirect("donplafon_ozon?success=true");
+        }
+        
+        [HttpPost("UpdateOffer", Name = "UpdateOffer")]
+        public IActionResult UpdateOffer([FromForm] string offer)
+        {
+
+            if (offer == null)
+            {
+                return Redirect("donplafon_ozon");
+            }
+
+            Program._DON = offer;
+
+            return Redirect("/donplafon_ozon?success=true");
         }
     }
 

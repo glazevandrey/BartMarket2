@@ -31,6 +31,7 @@ namespace BartMarket.Controllers
             ViewData["URL2"] = Program.link_ozon_arnika_full;
 
             ViewData["URL2F"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.link_ozon_arnika_lite;
+            ViewData["OFFER"] = Program._ARN;
 
 
             ViewData["URL4"] = Program.link_ozon_arnika_lite1;
@@ -42,13 +43,26 @@ namespace BartMarket.Controllers
 
 
             ViewData["URL3"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru/content/arnikafid.xml";
-            ViewData["FORMULA"] = $"{Program.formula1_ar};{Program.formula2_ar};{Program.formula3_ar};";
+            ViewData["FORMULA"] = $"{Program.formula1_ar};{Program.formula2_ar};{Program.formula3_ar};";    
             ViewData["FORMULADOP"] = $"{Program.formula1_ar_dop};{Program.formula2_ar_dop};{Program.formula3_ar_dop};";
            
             ViewData["FORMULA1"] = $"{Program.formula1_ar1};{Program.formula2_ar1};{Program.formula3_ar1};";
             ViewData["FORMULADOP1"] = $"{Program.formula1_ar1_dop};{Program.formula2_ar1_dop};{Program.formula3_ar1_dop};";
 
             return View();
+        }
+        [HttpPost("UpdateOfferArn", Name = "UpdateOfferArn")]
+        public IActionResult UpdateOffer([FromForm] string offer)
+        {
+
+            if (offer == null)
+            {
+                return Redirect("arnika_ozon");
+            }
+
+            Program._ARN = offer;
+
+            return Redirect("/arnika_ozon?success=true");
         }
         [HttpPost]
         public IActionResult UpdateFormula([FromForm] string formula, [FromForm] string type, [FromForm] string type1)

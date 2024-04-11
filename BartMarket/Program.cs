@@ -15,6 +15,8 @@ namespace BartMarket
 {
     public class Program
     {
+        public static string  _ARN = "_ARN";
+        public static string _DON = "_DONP";
 
         public static List<string> ZeroVendors = new List<string>();
         public static bool ExcelAir = false;

@@ -452,7 +452,7 @@ namespace BartMarket
                 var offer = docNew.CreateElement("offer");
                 XmlAttribute idAttr = docNew.CreateAttribute("id");
                 offer.Attributes.Append(idAttr);
-                offer.Attributes.Item(0).Value = item.Id.ToString() + "_DONP";
+                offer.Attributes.Item(0).Value = item.Id.ToString() + Program._DON;
                 if (!Program.lastIds.ToString().Contains(item.Id.ToString()))
                 {
                     Program.lastIds.Append(item.Id.ToString() + ";");
@@ -822,7 +822,7 @@ namespace BartMarket
                 var offer = docNew.CreateElement("offer");
                 XmlAttribute idAttr = docNew.CreateAttribute("id");
                 offer.Attributes.Append(idAttr);
-                offer.Attributes.Item(0).Value = item.Id.ToString() + "_ARN";
+                offer.Attributes.Item(0).Value = item.Id.ToString() + Program._ARN;
                 if (!Program.lastIds.ToString().Contains(item.Id.ToString()))
                 {
                     Program.lastIds.Append(item.Id.ToString() + ";");
