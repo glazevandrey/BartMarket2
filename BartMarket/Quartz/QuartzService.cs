@@ -138,7 +138,6 @@ namespace BartMarket.Quartz
                 Program.Last["donplafon"].Success = true;
                 if(Program.list != null)
                 {
-                   // Program.list.Clear();
                     Program.list = null;
                 }
 
@@ -163,6 +162,15 @@ namespace BartMarket.Quartz
                 if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml"))
                 {
                     File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/exmp3.xml");
+                }
+
+                if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/csv1.csv"))
+                {
+                    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/csv1.csv");
+                }
+                if (File.Exists($"{Environment.CurrentDirectory}/wwwroot/content/csv2.csv"))
+                {
+                    File.Delete($"{Environment.CurrentDirectory}/wwwroot/content/csv2.csv");
                 }
                 logger.Info("start don 165");
 
@@ -192,6 +200,7 @@ namespace BartMarket.Quartz
                                 logger.Info("success");
 
                             }
+
                         }
                         catch (Exception ex)
                         {
@@ -204,7 +213,33 @@ namespace BartMarket.Quartz
                         }
 
                     }
-                } 
+                }
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_CSV_PRICES/"))
+                    {
+                        try
+                        {
+                            using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/csv2.csv", FileMode.OpenOrCreate))
+                            {
+                                s.Result.CopyTo(fs);
+                                logger.Info("success");
+
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error("from download inside " + ex.Message);
+                            Program.Last["donplafon"].Success = false;
+                            Program.Last["donplafon"].Error = ex.Message;
+                            Program.inAir = false;
+
+                            return;
+                        }
+
+                    }
+                }
 
                 logger.Info("start don 206");
 
@@ -220,6 +255,8 @@ namespace BartMarket.Quartz
                                 logger.Info("success");
 
                             }
+
+                         
                         }
                         catch (Exception ex)
                         {
@@ -233,6 +270,35 @@ namespace BartMarket.Quartz
 
                     }
                 }
+
+                using (var client = new HttpClient())
+                {
+                    using (var s = client.GetStreamAsync("https://partners.donplafon.ru/local/partners/BARTMARKET_CSV_CONTENT/"))
+                    {
+                        try
+                        {
+                            using (var fs = new FileStream($"{Environment.CurrentDirectory}/wwwroot/content/csv1.csv", FileMode.OpenOrCreate))
+                            {
+                                s.Result.CopyTo(fs);
+                                logger.Info("success");
+
+                            }
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error("from download inside " + ex.Message);
+                            Program.Last["donplafon"].Success = false;
+                            Program.Last["donplafon"].Error = ex.Message;
+                            Program.inAir = false;
+
+                            return;
+                        }
+
+                    }
+                }
+
 
             }
             catch (Exception ex)

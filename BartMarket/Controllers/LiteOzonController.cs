@@ -34,6 +34,10 @@ namespace BartMarket.Controllers
                 }
                 ViewData["URL1"] = Program.link_ozon_lite;
                 ViewData["URL2"] = Program.link_ozon_full;
+
+                ViewData["URL00"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.prices;
+                ViewData["URL11"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.content;
+
                 ViewData["URL1F"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.link_ozon_lite;
 
                 ViewData["URL2F"] = "http://ovz1.j34469996.pxlzp.vps.myjino.ru" + Program.link_ozon_lite;

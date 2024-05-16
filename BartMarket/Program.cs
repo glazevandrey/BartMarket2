@@ -59,6 +59,10 @@ namespace BartMarket
         public static List<Warehouse> warehouses = new List<Warehouse>();
         public static string link_ozon_lite = "/content/liteozon.xml";
         public static string link_ozon_full = "/content/fullozon.xml";
+
+        public static string content = "/content/csv1.csv";
+        public static string prices = "/content/csv2.csv";
+
         public static string link_ozon_arnika_lite = "/content/liteozon_arnika.xml";
         public static string link_ozon_arnika_lite1 = "/content/liteozon1_arnika.xml";
 
