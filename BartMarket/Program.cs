@@ -206,9 +206,11 @@ namespace BartMarket
                     var _2 = new WarehouseModel();
                     var _3 = new WarehouseModel();
                     _1.Name = "DPN";
+                    _1.Id = 1;
                     _2.Name = "DPN2";
+                    _2.Id = 2;
                     _3.Name = "DPN3";
-
+                    _3.Id = 3;
                     db.Warehouses.Add(_1);
                     db.Warehouses.Add(_2);
                     db.Warehouses.Add(_3);
