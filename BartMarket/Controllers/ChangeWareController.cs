@@ -27,14 +27,13 @@ namespace BartMarket.Controllers
                     {
                         db.WarehouseSettings.RemoveRange(filters);
                     }
-                    else
+                    
+                    db.WarehouseSettings.Add(new WarehouseSetting()
                     {
-                        db.WarehouseSettings.Add(new WarehouseSetting()
-                        {
-                            WarehouseId = c.Id,
-                            Filter = "DELETED"
-                        });
-                    }
+                        WarehouseId = c.Id,
+                        Filter = "DELETED"
+                    });
+                    
                     db.SaveChanges();
                 }
                 return Redirect("warehouses");
@@ -56,7 +55,7 @@ namespace BartMarket.Controllers
             using (var db = new UserContext())
             {
                 model = db.Warehouses.FirstOrDefault(m => m.Name == oldware);
-                var sett = db.WarehouseSettings.Where(m => m.WarehouseId == model.Id);
+                var sett = db.WarehouseSettings.Where(m => m.WarehouseId == model.Id).ToList();
                 db.WarehouseSettings.RemoveRange(sett);
                 db.SaveChanges();
             }
@@ -67,28 +66,32 @@ namespace BartMarket.Controllers
                 return Redirect("Donplafon_Ozon");
             }
 
-            var split = cond.Split(";");
-
-            split = split.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            for (int i = 0; i < split.Length; i++)
+            if (!string.IsNullOrEmpty(cond))
             {
+                var split = cond.Split(";");
 
-                if (h.Condition.Count != i)
+                split = split.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+                for (int i = 0; i < split.Length; i++)
                 {
-                    if (h.Condition[i] == split[i])
-                    {
 
+                    if (h.Condition.Count != i)
+                    {
+                        if (h.Condition[i] == split[i])
+                        {
+
+                        }
+                        else
+                        {
+                            h.Condition[i] = split[i];
+                        }
                     }
                     else
                     {
-                        h.Condition[i] = split[i];
+                        h.Condition.Add(split[i]);
                     }
                 }
-                else
-                {
-                    h.Condition.Add(split[i]);
-                }
             }
+           
             model.Name = ware;
 
             var setts = new List<WarehouseSetting>();
@@ -102,7 +105,7 @@ namespace BartMarket.Controllers
             }
             using (var db = new UserContext())
             {
-                model = db.Warehouses.FirstOrDefault(m => m.Name == oldware);
+                //model = db.Warehouses.FirstOrDefault(m => m.Name == oldware);
 
                 db.Warehouses.Update(model);
                 db.WarehouseSettings.AddRange(setts);

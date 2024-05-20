@@ -23,6 +23,11 @@ namespace BartMarket.Controllers
             var id = 0;
             using (var db = new UserContext())
             {
+                var ff = db.Warehouses.FirstOrDefault(m => m.Name == ware);
+                if (ff != null)
+                {
+                    return Redirect("Donplafon_Ozon");
+                }
                 db.Warehouses.Add(model);
                 db.SaveChanges();
 
