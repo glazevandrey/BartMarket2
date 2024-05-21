@@ -66,6 +66,7 @@ namespace BartMarket.Controllers
                 return Redirect("Donplafon_Ozon");
             }
 
+            h.Condition = new List<string>();
             if (!string.IsNullOrEmpty(cond))
             {
                 var split = cond.Split(";");
