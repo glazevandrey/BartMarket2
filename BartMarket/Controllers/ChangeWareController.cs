@@ -106,7 +106,6 @@ namespace BartMarket.Controllers
             }
             using (var db = new UserContext())
             {
-                //model = db.Warehouses.FirstOrDefault(m => m.Name == oldware);
 
                 db.Warehouses.Update(model);
                 db.WarehouseSettings.AddRange(setts);

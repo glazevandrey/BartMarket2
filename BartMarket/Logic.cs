@@ -986,7 +986,26 @@ namespace BartMarket
                     outlet.Attributes.Append(instock);
 
 
-                    w_name = CreateAndSetAttr(docNew, "warehouse_name", "АРН_ТВЕРЬ");
+
+                    var ost_ram = item.Param.FirstOrDefault(m => m.Name.ToUpper() == "ОСТАТОК РАМЕНСКОЕ");
+
+                    outlet = docNew.CreateElement("outlet");
+
+                    instInt = item.Count.ToString();
+
+                    if (ost_ram != null)
+                    {
+                        instock = CreateAndSetAttr(docNew, "instock", ost_ram.Text);
+
+                    }
+                    else
+                    {
+                        instock = CreateAndSetAttr(docNew, "instock", "0");
+
+                    }
+                    outlet.Attributes.Append(instock);
+
+                    w_name = CreateAndSetAttr(docNew, "warehouse_name", "АРН_РАМ");
                     outlet.Attributes.Append(w_name);
                     outlets.AppendChild(outlet);
 
