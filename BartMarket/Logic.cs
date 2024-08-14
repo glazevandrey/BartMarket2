@@ -1380,17 +1380,25 @@ namespace BartMarket
                     {
                         try
                         {
+                            logger.Error("TRY  ");
+
                             var d = (Convert.ToDouble(l.Text.Replace('.', ',')));
                             if (d > 0 && d < 1)
                             {
                                 d = 1;
                             }
                             l_text = ((int)d).ToString();
+                            logger.Error("TRY  2");
 
                         }
                         catch (Exception ee)
                         {
+                            logger.Error("WAT 22 " + l);
+
                             l_text = l.Text;
+                            logger.Error("WAT "  + l);
+                            logger.Error("WAT " + l.Text);
+
                         }
 
                     }
