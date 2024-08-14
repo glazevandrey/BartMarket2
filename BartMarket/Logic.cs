@@ -1269,9 +1269,17 @@ namespace BartMarket
                     Program.lastIds.Append(item.Id.ToString() + ";");
                 }
 
-                var name = CreateAndSetElement(docNew, "name", item.Name);
-
+                XmlElement name;
+                if (string.IsNullOrEmpty(item.Name))
+                {
+                    name = CreateAndSetElement(docNew, "name", "");
+                }
+                else
+                {
+                    name = CreateAndSetElement(docNew, "name", item.Name);
+                }
                 var sku_code = CreateAndSetElement(docNew, "sku_code", item.Id.ToString() + "_ARN");
+
 
                 var deskr = item.Description + ", ";
 
@@ -1686,9 +1694,23 @@ namespace BartMarket
                     Program.lastIds.Append(item.Id.ToString() + ";");
                 }
 
-                var name = CreateAndSetElement(docNew, "name_original", item.Name);
+                XmlElement name;
+                XmlElement nameback;
 
-                var nameback = CreateAndSetElement(docNew, "name", Reverse(item.Name));
+                if (string.IsNullOrEmpty(item.Name))
+                {
+                    name = CreateAndSetElement(docNew, "name_original", "");
+
+                    nameback = CreateAndSetElement(docNew, "name", "");
+                }
+                else
+                {
+                    name = CreateAndSetElement(docNew, "name_original", item.Name);
+
+                    nameback = CreateAndSetElement(docNew, "name", Reverse(item.Name));
+                }
+
+               
 
                 var sku_code = CreateAndSetElement(docNew, "sku_code", item.Id.ToString() + "_DPN");
 
