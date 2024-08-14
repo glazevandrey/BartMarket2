@@ -828,9 +828,21 @@ namespace BartMarket
                     Program.lastIds.Append(item.Id.ToString() + ";");
                 }
 
-                var name = CreateAndSetElement(docNew, "name", item.Name);
+                XmlElement name;
+                XmlElement nameback;
+                if (string.IsNullOrEmpty(item.Name))
+                {
+                    name = CreateAndSetElement(docNew, "name", "");
 
-                var nameback = CreateAndSetElement(docNew, "name_back", Reverse(item.Name));
+                    nameback = CreateAndSetElement(docNew, "name_back", "");
+                }
+                else
+                {
+                    name = CreateAndSetElement(docNew, "name", item.Name);
+
+                    nameback = CreateAndSetElement(docNew, "name_back", Reverse(item.Name));
+
+                }
 
                 var desk = CreateAndSetElement(docNew, "description", item.Description);
                 var url = CreateAndSetElement(docNew, "url", item.Url);
