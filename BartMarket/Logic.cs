@@ -1361,7 +1361,7 @@ namespace BartMarket
 
                 var l = item.Param.FirstOrDefault(m => m.Name.ToLower() == "глубина");
                 var l_text = "";
-                if(l == null || l.Text == "0")
+                if(l == null || l.Text == null || l.Text == "0" ||  l.Text == "")
                 {
                     l_text = "100" ;
                 }
