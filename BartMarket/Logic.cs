@@ -1282,12 +1282,14 @@ namespace BartMarket
                 }
 
                 XmlElement name;
+                string _name = "";
                 if (string.IsNullOrEmpty(item.Name))
                 {
                     name = CreateAndSetElement(docNew, "name", "");
                 }
                 else
                 {
+                    _name = item.Name;
                     name = CreateAndSetElement(docNew, "name", item.Name);
                 }
                 var sku_code = CreateAndSetElement(docNew, "sku_code", item.Id.ToString() + "_ARN");
@@ -1514,7 +1516,7 @@ namespace BartMarket
                     formula = CreateAndSetElement(docNew, "formula", $"{Program.formula5_ar_ali.Replace("x", mainPrice.ToString())};{Program.formula6_ar_ali.Replace("x", mainPrice.ToString())}");
 
                 }
-                else if (weight > 20 && (item.Name.ToLower().Contains("диван") || item.Name.ToLower().Contains("кресло")))
+                else if (weight > 20 && (_name.ToLower().Contains("диван") || _name.ToLower().Contains("кресло")))
                 {
                     price = CreateAndSetElement(docNew, "price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnikaAli(Convert.ToInt32(mainPrice), 2)).ToString()).ToString());
                     discount_price = CreateAndSetElement(docNew, "discount_price", QuartzService.MakePrice(Convert.ToInt32(CalculatePriceArnikaAli(Convert.ToInt32(mainPrice), 3)).ToString()).ToString());
@@ -1708,7 +1710,8 @@ namespace BartMarket
 
                 XmlElement name;
                 XmlElement nameback;
-
+                string _name = "";
+                string _nameback = "";
                 if (string.IsNullOrEmpty(item.Name))
                 {
                     name = CreateAndSetElement(docNew, "name_original", "");
@@ -1717,9 +1720,12 @@ namespace BartMarket
                 }
                 else
                 {
+                    _name = item.Name;
+                    _nameback = Reverse(item.Name);
+
                     name = CreateAndSetElement(docNew, "name_original", item.Name);
 
-                    nameback = CreateAndSetElement(docNew, "name", Reverse(item.Name));
+                    nameback = CreateAndSetElement(docNew, "name", _nameback);
                 }
 
                
