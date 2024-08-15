@@ -1403,9 +1403,18 @@ namespace BartMarket
 
                     }
                 }
+                int ii = 1;
+                try
+                {
+                     ii = Convert.ToInt32(l_text);
 
-                var ii = Convert.ToInt32(l_text);
-                if(ii > 700)
+                }
+                catch (Exception ex)
+                {
+                     ii = 1;
+                }
+
+                if (ii > 700)
                 {
                     l_text = "500";
                 }
@@ -1447,8 +1456,15 @@ namespace BartMarket
                         }
                     }
                 }
+                try
+                {
+                    ii = Convert.ToInt32(w_text);
 
-                ii = Convert.ToInt32(w_text);
+                }
+                catch (Exception ex)
+                {
+                    ii = 1;
+                }
                 if (ii > 700)
                 {
                     w_text = "500";
@@ -1492,8 +1508,16 @@ namespace BartMarket
                     }
                 }
 
+                try
+                {
+                    ii = Convert.ToInt32(h_text);
 
-                ii = Convert.ToInt32(h_text);
+                }
+                catch (Exception ex)
+                {
+                    ii = 1;
+                }
+
                 if (ii > 700)
                 {
                     h_text = "500";
