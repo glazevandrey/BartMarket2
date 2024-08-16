@@ -998,6 +998,11 @@ namespace BartMarket
                     outlet.Attributes.Append(instock);
 
 
+                    w_name = CreateAndSetAttr(docNew, "warehouse_name", "АРН_ТВЕРЬ");
+                    outlet.Attributes.Append(w_name);
+                    outlets.AppendChild(outlet);
+
+
 
                     var ost_ram = item.Param.FirstOrDefault(m => m.Name.ToUpper() == "ОСТАТОК РАМЕНСКОЕ");
 
