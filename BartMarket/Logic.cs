@@ -942,62 +942,35 @@ namespace BartMarket
                 {
                     var outlet = docNew.CreateElement("outlet");
 
-                    var instInt = item.Count.ToString();
+                    var instInt = item.Stock.ToString();
 
+                    var instock = CreateAndSetAttr(docNew, "instock", "2");
 
-                    var instock = CreateAndSetAttr(docNew, "instock", instInt);
+                    if (instInt != "0")
+                    {
+                        instock = CreateAndSetAttr(docNew, "instock", instInt);
+                    }
+
                     outlet.Attributes.Append(instock);
 
-
-
-                    var w_name = CreateAndSetAttr(docNew, "warehouse_name", "APH");
+                    var w_name = CreateAndSetAttr(docNew, "warehouse_name", "APH_ЗКЗН");
                     outlet.Attributes.Append(w_name);
                     outlets.AppendChild(outlet);
-
-
-                    var status = item.Param.FirstOrDefault(m => m.Name == "Статус");
-                    outlet = docNew.CreateElement("outlet");
-
-                    instInt = item.Count.ToString();
-
-                    if (instInt == "0")
-                    {
-                        instock = CreateAndSetAttr(docNew, "instock", "2");
-                    }
-                    else
-                    {
-                        instock = CreateAndSetAttr(docNew, "instock", "0");
-                    }
-                    outlet.Attributes.Append(instock);
-
-
-                    w_name = CreateAndSetAttr(docNew, "warehouse_name", "APH_ЗКЗН");
-                    outlet.Attributes.Append(w_name);
-                    outlets.AppendChild(outlet);
-
-
-
 
                     var ost_tver = item.Param.FirstOrDefault(m => m.Name.ToUpper() == "ОСТАТОК ТВЕРЬ");
-
-
                     outlet = docNew.CreateElement("outlet");
-
-                    instInt = item.Count.ToString();
 
                     if(ost_tver != null)
                     {
                         instock = CreateAndSetAttr(docNew, "instock", ost_tver.Text);
-
                     }
                     else
                     {
                         instock = CreateAndSetAttr(docNew, "instock", "0");
 
                     }
+
                     outlet.Attributes.Append(instock);
-
-
                     w_name = CreateAndSetAttr(docNew, "warehouse_name", "АРН_ТВЕРЬ");
                     outlet.Attributes.Append(w_name);
                     outlets.AppendChild(outlet);
@@ -1005,10 +978,7 @@ namespace BartMarket
 
 
                     var ost_ram = item.Param.FirstOrDefault(m => m.Name.ToUpper() == "ОСТАТОК РАМЕНСКОЕ");
-
                     outlet = docNew.CreateElement("outlet");
-
-                    instInt = item.Count.ToString();
 
                     if (ost_ram != null)
                     {
@@ -1022,23 +992,26 @@ namespace BartMarket
                     }
                     outlet.Attributes.Append(instock);
 
-                    w_name = CreateAndSetAttr(docNew, "warehouse_name", "АРН_РАМ");
+                    w_name = CreateAndSetAttr(docNew, "warehouse_name", "АРН");
                     outlet.Attributes.Append(w_name);
                     outlets.AppendChild(outlet);
 
 
 
-
+                    var ost_yar = item.Param.FirstOrDefault(m => m.Name.ToUpper() == "ОСТАТОК ЯРОСЛАВЛЬ");
                     outlet = docNew.CreateElement("outlet");
 
-                    instInt = item.Count.ToString();
-
-
-                    instock = CreateAndSetAttr(docNew, "instock", instInt);
+                    if (ost_yar != null)
+                    {
+                        instock = CreateAndSetAttr(docNew, "instock", ost_yar.Text);
+                    }
+                    else
+                    {
+                        instock = CreateAndSetAttr(docNew, "instock", "0");
+                    }
                     outlet.Attributes.Append(instock);
 
-
-                    w_name = CreateAndSetAttr(docNew, "warehouse_name", "АРН_ТВЕРЬ_МСК");
+                    w_name = CreateAndSetAttr(docNew, "warehouse_name", "АРН_ЯРОСЛАВЛЬ");
                     outlet.Attributes.Append(w_name);
                     outlets.AppendChild(outlet);
                 }
