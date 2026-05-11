@@ -20,7 +20,7 @@ namespace BartMarket.Data
         {
             
              //optionsBuilder.UseSqlite("Filename=Data.db");
-            optionsBuilder.UseMySql("server=localhost;port=3306;user=root;password=pass;database=bartmarket;", builder =>
+            optionsBuilder.UseMySql("server=bart-db;port=3306;user=root;password=pass;database=bartmarket;", builder =>
             {
                 builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
 
