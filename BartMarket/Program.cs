@@ -214,7 +214,6 @@ namespace BartMarket
                     db.Warehouses.Add(_1);
                     db.Warehouses.Add(_2);
                     db.Warehouses.Add(_3);
-                    db.Warehouses.Add(_4);
 
                     db.SaveChanges();
                 }
