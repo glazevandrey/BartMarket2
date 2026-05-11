@@ -14,7 +14,7 @@ namespace BartMarket.Data
         public UserContext()
         {
             Database.SetCommandTimeout(300);
-           // Database.Migrate();
+            Database.Migrate();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
