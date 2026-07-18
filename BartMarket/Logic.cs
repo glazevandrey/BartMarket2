@@ -348,6 +348,7 @@ namespace BartMarket
 
             return weight;
         }
+
         public static int GetInst(IList<Offer> item, int id)
         {
             var inst = item.FirstOrDefault(m => m.Id == id);
@@ -493,8 +494,8 @@ namespace BartMarket
 
                 var outlets = docNew.CreateElement("outlets");
 
-
-                var weight = CheckWeight(item, null) ;
+                var weight = CheckWeight(item, null);
+               
                 try
                 {
 
@@ -854,7 +855,15 @@ namespace BartMarket
                 var currency = CreateAndSetElement(docNew, "currencyId", item.CurrencyId);
                 var country = CreateAndSetElement(docNew, "country_of_origin", item.CountryOfOrigin);
 
-                var weight = CheckWeight(null, item);
+                var weight = 0.0;
+                try
+                {
+                    weight = CheckWeight(null, item);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"weigth was: {item.Param.FirstOrDefault(m => m.Name == "Вес")?.Text} ", ex);
+                }
 
                 var main_cat = item.MainCategory;
 
