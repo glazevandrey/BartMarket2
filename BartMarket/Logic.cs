@@ -862,7 +862,7 @@ namespace BartMarket
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"weigth was: {item.Param.FirstOrDefault(m => m.Name == "Вес")?.Text} ", ex);
+                    logger.Error($"weight was: {item.Param.FirstOrDefault(m => m.Name == "Вес")?.Text} {ex.Message}");
                 }
 
                 var main_cat = item.MainCategory;
