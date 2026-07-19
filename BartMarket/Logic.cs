@@ -494,8 +494,16 @@ namespace BartMarket
 
                 var outlets = docNew.CreateElement("outlets");
 
-                var weight = CheckWeight(item, null);
-               
+                var weight = 0.0;
+                try
+                {
+                    weight = CheckWeight(item, null);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error($"weight was: {item.Param.FirstOrDefault(m => m.Name == "Вес")?.Text} {ex.Message}");
+                }
+
                 try
                 {
 
@@ -1313,13 +1321,19 @@ namespace BartMarket
                 }
                 var catId= CreateAndSetElement(docNew, "categoryId", cat);
                 var desk = CreateAndSetElement(docNew, "description", deskr);
-                var vendor = CreateAndSetElement(docNew, "vendor_B", item.Vendor);
-                if(item.Id == 34279)
+                var vendor = CreateAndSetElement(docNew, "vendor_B", item.Vendor);    
+
+                var weight = 0.0;
+                try
                 {
-                    int xdfdf = 2;
+                    weight = CheckWeight(null, item);
                 }
-                var weight = CheckWeight(null, item);
-                if(weight == 0 || weight == 0.0)
+                catch (Exception ex)
+                {
+                    logger.Error($"weight was: {item.Param.FirstOrDefault(m => m.Name == "Вес")?.Text} {ex.Message}");
+                }
+
+                if (weight == 0 || weight == 0.0)
                 {
                     weight = 50;
                 }
@@ -1787,8 +1801,17 @@ namespace BartMarket
                 var desk = CreateAndSetElement(docNew, "description", deskr);
                 var vend = item.Param.FirstOrDefault(m => m.Name == "Производитель").Text;
                 var vendor = CreateAndSetElement(docNew, "vendor_B",vend);
-             
-                var weight = CheckWeight(item, null);
+
+                var weight = 0.0;
+                try
+                {
+                    weight = CheckWeight(item, null);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error($"weight was: {item.Param.FirstOrDefault(m => m.Name == "Вес")?.Text} {ex.Message}");
+                }
+
                 if (weight == 0 || weight == 0.0)
                 {
                     weight = 5;
@@ -1804,7 +1827,6 @@ namespace BartMarket
                     catch (Exception ex)
                     {
                         logger.Error("id " + item.Id + " w: " + weight + " " + ex.Message);
-                        int xd = 2;
                     }
                 }
 
